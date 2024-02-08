@@ -3,6 +3,8 @@ import cmdm from '../assets/img/cmdm.svg'
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive'
 import { IoMenu } from "react-icons/io5";
+import { MdAccountCircle } from "react-icons/md";
+
 
 export default function Header(){
     const [responsive, setResponsive] = useState(true)
@@ -29,7 +31,7 @@ export default function Header(){
                 </ul>
             </nav>
             <div className="login" style={{display: isResponsive && (responsive ? "none" : "block")}}>
-                <a href='#'>Entrar</a>
+                <a href='#'>                <MdAccountCircle className='icon' /> Entrar</a>
             </div>
             {isResponsive && <IoMenu className='menuIcon' onClick={handleResponsive} style={{top: responsive ? "35%" : "15%"}}/>}
         </header>

@@ -1,8 +1,9 @@
 .carousel{
     text-align: center;
-    background: linear-gradient(-45deg, var(--green), var(--second-orange), var(--second-green), var(--second-orange));
+    /*background: linear-gradient(-45deg, var(--green), var(--second-orange), var(--second-green), var(--second-orange));
     background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
+    animation: gradient 10s ease infinite;*/
+    /*background-color: #000;*/
 }
 .carrousel-img{
     max-width: 100%;
