@@ -1,3 +1,9 @@
+:root{
+  --green: #09954b;
+  --orange: #ef7f20;
+  --second-green: #09954b50;
+  --second-orange: #ef7f2090;
+}
 *{
   box-sizing: border-box;
   margin: 0;

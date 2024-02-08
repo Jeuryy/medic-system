@@ -1,0 +1,32 @@
+.carousel{
+    text-align: center;
+    background: linear-gradient(-45deg, var(--green), var(--second-orange), var(--second-green), var(--second-orange));
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+.carrousel-img{
+    max-width: 100%;
+    max-height: 86vh;
+}
+.carousel-control-prev-icon, 
+.carousel-control-next-icon{
+    border-radius: 50%;
+    background-color: var(--second-green);
+}
+.carousel-indicators [data-bs-target] {
+    background-color: var(--orange);
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

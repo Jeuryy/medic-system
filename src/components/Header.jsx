@@ -29,7 +29,7 @@ export default function Header(){
                 </ul>
             </nav>
             <div className="login" style={{display: isResponsive && (responsive ? "none" : "block")}}>
-                <a href='#'>Registrarse</a>
+                <a href='#'>Entrar</a>
             </div>
             {isResponsive && <IoMenu className='menuIcon' onClick={handleResponsive} style={{top: responsive ? "35%" : "15%"}}/>}
         </header>
