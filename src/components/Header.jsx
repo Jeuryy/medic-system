@@ -1,5 +1,5 @@
 import './Header.css'
-import cmdm from '../assets/img/cmdm.svg'
+import cmdm from '../assets/img/cmdm.png'
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive'
 import { IoMenu } from "react-icons/io5";
@@ -33,7 +33,7 @@ export default function Header(){
             <div className="login" style={{display: isResponsive && (responsive ? "none" : "block")}}>
                 <a href='#'>                <MdAccountCircle className='icon' /> Entrar</a>
             </div>
-            {isResponsive && <IoMenu className='menuIcon' onClick={handleResponsive} style={{top: responsive ? "35%" : "15%"}}/>}
+            {isResponsive && <IoMenu className='menuIcon' onClick={handleResponsive} style={{top: "1.7%"}}/>}
         </header>
     )
 }
