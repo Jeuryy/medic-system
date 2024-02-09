@@ -10,13 +10,13 @@ export default function Carrousel() {
     return (
             <Carousel>
             <Carousel.Item>
-                <img className='carrousel-img' src={carrusel1} alt="..." />
+                <img className='carrousel-img w-100' src={carrusel1} alt="..." />
             </Carousel.Item>
             <Carousel.Item>
-                <img className='carrousel-img' src={carrusel2} alt="..." />
+                <img className='carrousel-img w-100' src={carrusel2} alt="..." />
             </Carousel.Item>
             <Carousel.Item>
-                <img className='carrousel-img' src={carrusel3} alt="..." />
+                <img className='carrousel-img w-100' src={carrusel3} alt="..." />
             </Carousel.Item>
         </Carousel>
     );

@@ -24,7 +24,7 @@ export default function Header(){
             </div>
             <nav className='nav-container'>
                 <ul style={{display: isResponsive && (responsive ? "none" : "block")}}>
-                    <li><a href='#'>Quienes somos</a></li>
+                    <li><a href='#about'>Quienes somos</a></li>
                     <li><a href='#'>Servicios</a></li>
                     <li><a href='#'>Noticias</a></li>
                     <li><a href='#'>Contacto</a></li>

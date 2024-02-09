@@ -1,0 +1,54 @@
+#about{
+    background: linear-gradient(-45deg, var(--green), var(--second-green), var(--green), var(--second-green));
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+.about-1{
+    display: flex;
+    justify-content: center;
+}
+.about-1 div{
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+.about-1 h2{
+    font-size: 42px;
+    font-family: 'Kanit', sans-serif;
+    color: #FFF;
+    text-shadow: 2px 7px 5px rgba(0,0,0,0.3), 
+    0px -4px 10px rgba(255,255,255,0.3);
+}
+.about-1 p{
+    font-family: 'Kanit', sans-serif;
+    font-size: 28px;
+    color: var(--orange);
+    text-shadow: 2px 7px 5px rgba(0,0,0,0.3), 
+    0px -4px 10px rgba(255,255,255,0.3);
+}
+.about-1 img{
+max-width: 450px;
+}
+@media screen and (max-width: 800px) {
+    .about-1 div{
+        margin-left: 25px;
+        text-align: center;
+    }
+    .about-1 img {
+        max-width: 50%;
+    }
+    .about-1 h2{
+        font-size: 30px;
+    }
+    .about-1 p{
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 370px) {
+    .about-1 h2{
+        font-size: 20px;
+    }
+    .about-1 p{
+        font-size: 15px;
+    }
+}
