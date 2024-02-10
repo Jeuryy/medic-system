@@ -33,7 +33,7 @@ export default function Header(){
             <div className="login" style={{display: isResponsive && (responsive ? "none" : "block")}}>
                 <a href='#'>                <MdAccountCircle className='icon' /> Entrar</a>
             </div>
-            {isResponsive && <IoMenu className='menuIcon' onClick={handleResponsive} style={{top: "1.7%"}}/>}
+            {isResponsive && <IoMenu className='menuIcon' onClick={handleResponsive} style={{top: "3%"}}/>}
         </header>
     )
 }

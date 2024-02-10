@@ -21,6 +21,15 @@ export default function About(){
                     <img src={years} alt='Years of service'/>
                 </div>
                 <div className='right-about'>
+                    <p>Con la experiencia de nuestro equipo de médicos al cuidado de
+                    la salud, nuestra dedicación y compromiso han sido elementos clave
+                    para nuestro éxito y constante crecimiento.</p>
+                    <div className='quote'>
+                        <q>Donde el arte de la medicina es amada, también existe 
+                            amor por la humanidad
+                        </q>
+                        <h5>Hipócrates de Cos</h5>
+                    </div>
                     {/*<img src={dr} alt='Doctor crossed hands smiling'/>*/}    
                 </div>           
             </div>

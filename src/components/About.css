@@ -48,12 +48,12 @@ align-items: center;
     text-align: justify;
     color: #000;
     padding: 5px 20px;
-    background-color: #FFF;
-    text-shadow: 3px 0px 7px rgb(255, 255, 255);
+    background-color: #FFFFFF90;
+    /*text-shadow: 3px 0px 7px rgb(255, 255, 255);*/
     letter-spacing: 0.5px;
     backdrop-filter: blur(5px);
     font-size: 22px;
-    box-shadow: #09954b80 0px 5px 15px;
+    box-shadow: var(--second-orange) 0px 5px 15px;
 }
 .left-about img{
     max-width: 200px;
@@ -63,10 +63,26 @@ align-items: center;
     width: 50%;
     background: #fff url('../assets//img//dr.png') no-repeat right bottom;
     background-size: 50%;
+    padding: 100px 100px 40px 40px;
 }
-.right-about img{
+.right-about p{
+    margin: 10px 20px 75px 20px;
+    text-align: justify;
+    color: #484848;
+    padding: 5px 20px;
+    font-size: 16px;
     max-width: 400px;
-    }
+}
+.quote{
+    backdrop-filter: blur(5px);
+    background-color: #FFFFFF90;
+    box-shadow: #09954b80 0px 5px 15px;
+    padding: 10px 25px 5px 5px;
+}
+h5{
+    text-align: end;
+    font-size: 18px;
+}
 @media screen and (max-width: 1000px) {
     .right-about{
         background-size: 70%;
@@ -76,6 +92,14 @@ align-items: center;
         font-size: 14px;
         letter-spacing: 0;
     }
+    .right-about p{
+        max-width: 245px;
+        margin: 0;
+        padding: 0;
+        padding-right: 40px;
+        margin-bottom: 75px;
+    }
+
 }
 @media screen and (max-width: 800px) {
     .about-1 div{
@@ -98,6 +122,15 @@ align-items: center;
     .left-about img{
         max-width: 100%;
     }
+}
+@media screen and (max-width: 700px) {
+    .right-about {
+        padding-right: 50px;
+    }
+    .right-about p{
+        padding-right: 0;
+    }
+    
 }
 @media screen and (max-width: 370px) {
     .about-1 h2{
