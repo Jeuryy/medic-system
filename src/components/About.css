@@ -1,16 +1,18 @@
 #about{
-    background: linear-gradient(-45deg, var(--green), var(--second-green), var(--green), var(--second-green));
-    background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
 }
 .about-1{
+    background: linear-gradient(-45deg, var(--second-green), var(--third-green), var(--second-green), var(--third-green));
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
     display: flex;
     justify-content: center;
+    height: 50vh;
 }
 .about-1 div{
 display: flex;
 flex-direction: column;
 justify-content: center;
+align-items: center;
 }
 .about-1 h2{
     font-size: 42px;
@@ -26,22 +28,75 @@ justify-content: center;
     text-shadow: 2px 7px 5px rgba(0,0,0,0.3), 
     0px -4px 10px rgba(255,255,255,0.3);
 }
-.about-1 img{
-max-width: 450px;
+.about-2{
+    display: flex;
+    width: 100%;
+}
+.left-about{
+    /*backdrop-filter: brightness(1%);*/
+    width: 50%;
+    padding: 100px 40px;
+    background-image: url('../assets/img/about-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'IBM Plex Sans', sans-serif;
+    text-align: end;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.left-about p{
+    margin: 10px 20px 50px 20px;
+    text-align: justify;
+    color: #000;
+    padding: 5px 20px;
+    background-color: #FFF;
+    text-shadow: 3px 0px 7px rgb(255, 255, 255);
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(5px);
+    font-size: 22px;
+    box-shadow: #09954b80 0px 5px 15px;
+}
+.left-about img{
+    max-width: 200px;
+    backdrop-filter: contrast(70%);
+}
+.right-about{
+    width: 50%;
+    background: #fff url('../assets//img//dr.png') no-repeat right bottom;
+    background-size: 50%;
+}
+.right-about img{
+    max-width: 400px;
+    }
+@media screen and (max-width: 1000px) {
+    .right-about{
+        background-size: 70%;
+    }
+    .left-about p{
+        margin: 10px 10px 50px 10px;
+        font-size: 14px;
+        letter-spacing: 0;
+    }
 }
 @media screen and (max-width: 800px) {
     .about-1 div{
         margin-left: 25px;
         text-align: center;
     }
-    .about-1 img {
-        max-width: 50%;
-    }
     .about-1 h2{
         font-size: 30px;
     }
     .about-1 p{
         font-size: 20px;
+    }
+    .left-about{
+        padding: 100px 20px;
+    }
+    .left-about p{
+        margin: 10px 0 50px 0;
+        padding: 5px 10px;
+    }
+    .left-about img{
+        max-width: 100%;
     }
 }
 @media screen and (max-width: 370px) {

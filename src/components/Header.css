@@ -4,13 +4,14 @@ header{
     justify-content: space-around;
     box-shadow: #0f2c1c15 0px 8px 24px;
     margin-bottom: 10px;
-    background-color: var(--second-green);
+    background-color: #09954ae2;
 }
 
 .img-container img {
     height: 70px;
     width: 170px;
     margin-left: 30px;
+    filter: contrast(100%);
 }
 .nav-container ul{
     display: flex;
@@ -26,7 +27,7 @@ header{
     transition: all .3s ease;
     font-size: 14px;
     font-weight: bold;
-    color: #525252;
+    color: #FFF;
 }
 .login a{
     margin-left: 5px;
@@ -83,10 +84,10 @@ header{
         border-bottom: 1px solid var(--second-green);
     }*/
     .nav-container ul li:hover{
-        background-color: #FFF;
+        background-color: #8bfecaa2;
     }
     .login:hover{
-        background-color: var(--green);
+        background-color:var(--second-orange);
     }
     .nav-container a, .login a{
         margin: 0;

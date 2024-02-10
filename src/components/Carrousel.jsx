@@ -11,9 +11,6 @@ export default function Carrousel() {
             <Carousel>
             <Carousel.Item>
                 <img className='carrousel-img w-100' src={carrusel1} alt="..." />
-                <Carousel.Caption>
-                    <h3 className='carrusel-h3'>Centro Médico Divina Misericordia</h3>
-                </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
                 <img className='carrousel-img w-100' src={carrusel2} alt="..." />
