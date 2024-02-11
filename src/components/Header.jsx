@@ -28,11 +28,9 @@ export default function Header(){
                     <li><a href='#services'>Servicios</a></li>
                     <li><a href='#'>Noticias</a></li>
                     <li><a href='#'>Contacto</a></li>
+                    <li className='login'> <a href='#'><MdAccountCircle className='icon' /> Entrar</a></li>
                 </ul>
             </nav>
-            <div className="login" style={{display: isResponsive && (responsive ? "none" : "block")}}>
-                <a href='#'>                <MdAccountCircle className='icon' /> Entrar</a>
-            </div>
             {isResponsive && <IoMenu className='menuIcon' onClick={handleResponsive} style={{top: "20px"}}/>}
         </header>
     )

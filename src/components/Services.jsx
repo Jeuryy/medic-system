@@ -1,4 +1,5 @@
 import './Services.css'
+import '../button.css'
 
 export default function Services(){
     return (
@@ -29,6 +30,9 @@ export default function Services(){
                         <li>Cirugía oral y maxilofacial</li>
                         <li>Psicología</li>
                     </ul>
+                </div>
+                <div className='button'>
+                <button class="button-48" role="button"><span class="text">Agendar cita</span></button>
                 </div>
             </div>
         </section>

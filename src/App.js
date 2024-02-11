@@ -9,7 +9,7 @@ import ScrollToTop from "react-scroll-to-top";
 function App() {
   const scrollStyle = {
     backgroundColor: "#09954b",
-    borderRadius: "50px"
+    borderRadius: "50px",
   }
 
   return (

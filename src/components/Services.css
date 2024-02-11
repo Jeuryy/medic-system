@@ -1,5 +1,5 @@
 #services{
-    
+    margin-bottom: 50px;
 }
 .services-container h3{
     /*text-align: center;*/
@@ -14,12 +14,13 @@
     font-family: 'IBM Plex Sans', sans-serif;
     letter-spacing: 0.5px;
     font-size: 18px;
+    color: #949494;
     /*text-align: justify;*/
     margin: 0 100px 50px 100px;
 }
 .services-list{
-    margin: 50px 100px;
-    max-height: 50vh;
+    margin: 50px 100px 75px 100px;
+    /*max-height: 50vh;*/
 }
 .services-list ul{
     display: grid;
@@ -28,14 +29,35 @@
     gap: 10px 50px;
 }
 .services-list ul li{
+    text-transform: uppercase;
+    background-color: var(--third-green);
     list-style: none;
-    color: #626262;
+    color: #000;
+    
+    padding: 5px 15px;
 }
 .services-list ul li:before{
     color: var(--orange);
     font-weight: bold;
     content: "+ ";
 }
+.button{
+    display: flex;
+    justify-content: center;
+}
+/*.services-container button{
+    background-color: var(--green);
+    color: #FFF;
+    border: none;
+    font-weight: bold;
+    transition: all .3s ease;
+    padding: 5px 10px;
+    letter-spacing: 1.5px;
+}
+.services-container button:hover{
+    color: var(--orange);
+    transition: all .3s ease;
+}*/
 @media screen and (max-width: 776px) {
     .services-list ul li{
         font-size: 12px;
@@ -45,20 +67,34 @@
         gap: 10px 20px;
     }
 }
-/*@media screen and (max-width: 550px) {
-    .services-list ul{
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px 20px;
+@media screen and (max-width: 480px) {
+    .services-list {
+        margin: 50px 50px 100px 50px;
     }
-}*/
-@media screen and (max-width: 380px) {
     .services-container h3{
-        margin: 100px 10px 20px 30px;
+        margin: 150px 10px 20px 30px;
     }
     .services-container p{
         margin: 0 30px 50px 30px;
     }
     .services-list{
-        margin: 50px 30px;
+        margin: 20px;
+        margin-bottom: 75px;
+    }
+}
+@media screen and (max-width: 380px) {
+    .services-list{
+        margin: 50px;
+        margin-bottom: 75px;
+    }
+    .services-list ul{
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px 20px;
+    }
+}
+@media screen and (max-width: 320px) {
+    .services-container h3{
+        font-size: 36px;
+        margin: 150px 10px 20px 10px;
     }
 }

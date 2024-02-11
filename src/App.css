@@ -3,15 +3,34 @@
   --orange: #ef7f20;
   --second-green: #09954b50;
   --second-orange: #ef7f2090;
-  --third-green: #09954b90;
+  --third-green: #09954b10;
 }
 *{
   box-sizing: border-box;
   margin: 0;
   font-family: 'Kanit', sans-serif;
 }
-.scroll-to-top{
-  color: red;
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+::-webkit-scrollbar-button{
+  background: var(--second-green);
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--third-green);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--second-green);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--green);
 }
 
 @keyframes gradient {
