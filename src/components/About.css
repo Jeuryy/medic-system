@@ -1,12 +1,12 @@
 #about{
 }
 .about-1{
-    background: linear-gradient(-45deg, var(--second-green), var(--third-green), var(--second-green), var(--third-green));
+    background: linear-gradient(-45deg, #09954b90, var(--green), #09954b90, var(--green));
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
     display: flex;
     justify-content: center;
-    height: 50vh;
+    height: 80vh;
 }
 .about-1 div{
 display: flex;
@@ -15,7 +15,7 @@ justify-content: center;
 align-items: center;
 }
 .about-1 h2{
-    font-size: 42px;
+    font-size: 56px;
     font-family: 'Kanit', sans-serif;
     color: #FFF;
     text-shadow: 2px 7px 5px rgba(0,0,0,0.3), 
@@ -23,7 +23,7 @@ align-items: center;
 }
 .about-1 p{
     font-family: 'Kanit', sans-serif;
-    font-size: 28px;
+    font-size: 36px;
     color: var(--orange);
     text-shadow: 2px 7px 5px rgba(0,0,0,0.3), 
     0px -4px 10px rgba(255,255,255,0.3);
@@ -107,10 +107,10 @@ h5{
         text-align: center;
     }
     .about-1 h2{
-        font-size: 30px;
+        font-size: 46px;
     }
     .about-1 p{
-        font-size: 20px;
+        font-size: 28px;
     }
     .left-about{
         padding: 100px 20px;
@@ -132,11 +132,16 @@ h5{
     }
     
 }
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 500px) {
     .about-1 h2{
-        font-size: 20px;
+        font-size: 36px;
     }
     .about-1 p{
-        font-size: 15px;
+        font-size: 22px;
+    }
+}
+@media screen and (max-width: 300px) {
+    .right-about { 
+        padding: 100px 10px 40px 10px;
     }
 }

@@ -25,7 +25,7 @@ export default function Header(){
             <nav className='nav-container'>
                 <ul style={{display: isResponsive && (responsive ? "none" : "block")}}>
                     <li><a href='#about'>Quienes somos</a></li>
-                    <li><a href='#'>Servicios</a></li>
+                    <li><a href='#services'>Servicios</a></li>
                     <li><a href='#'>Noticias</a></li>
                     <li><a href='#'>Contacto</a></li>
                 </ul>
@@ -33,7 +33,7 @@ export default function Header(){
             <div className="login" style={{display: isResponsive && (responsive ? "none" : "block")}}>
                 <a href='#'>                <MdAccountCircle className='icon' /> Entrar</a>
             </div>
-            {isResponsive && <IoMenu className='menuIcon' onClick={handleResponsive} style={{top: "3%"}}/>}
+            {isResponsive && <IoMenu className='menuIcon' onClick={handleResponsive} style={{top: "20px"}}/>}
         </header>
     )
 }

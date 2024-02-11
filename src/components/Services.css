@@ -1,0 +1,64 @@
+#services{
+    
+}
+.services-container h3{
+    /*text-align: center;*/
+    font-family: 'Kanit', sans-serif;
+    font-size: 42px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin: 150px 100px 20px 100px;
+}
+.services-container p{
+    font-family: 'IBM Plex Sans', sans-serif;
+    letter-spacing: 0.5px;
+    font-size: 18px;
+    /*text-align: justify;*/
+    margin: 0 100px 50px 100px;
+}
+.services-list{
+    margin: 50px 100px;
+    max-height: 50vh;
+}
+.services-list ul{
+    display: grid;
+    padding-left: 0;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 50px;
+}
+.services-list ul li{
+    list-style: none;
+    color: #626262;
+}
+.services-list ul li:before{
+    color: var(--orange);
+    font-weight: bold;
+    content: "+ ";
+}
+@media screen and (max-width: 776px) {
+    .services-list ul li{
+        font-size: 12px;
+    }
+    .services-list ul{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px 20px;
+    }
+}
+/*@media screen and (max-width: 550px) {
+    .services-list ul{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px 20px;
+    }
+}*/
+@media screen and (max-width: 380px) {
+    .services-container h3{
+        margin: 100px 10px 20px 30px;
+    }
+    .services-container p{
+        margin: 0 30px 50px 30px;
+    }
+    .services-list{
+        margin: 50px 30px;
+    }
+}

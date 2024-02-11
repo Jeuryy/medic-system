@@ -10,6 +10,9 @@
   margin: 0;
   font-family: 'Kanit', sans-serif;
 }
+.scroll-to-top{
+  color: red;
+}
 
 @keyframes gradient {
   0% {

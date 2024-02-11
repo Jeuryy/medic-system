@@ -3,7 +3,6 @@ header{
     align-items: center;
     justify-content: space-around;
     box-shadow: #0f2c1c15 0px 8px 24px;
-    margin-bottom: 10px;
     background-color: #09954ae2;
 }
 
@@ -27,17 +26,18 @@ header{
     transition: all .3s ease;
     font-size: 14px;
     font-weight: bold;
-    color: #FFF;
+    color: var(--orange);
 }
 .login a{
     margin-left: 5px;
     margin-right: 30px;
     font-size: 16px;
-    /*color: var(--green);*/
+    color: #FFF;
+    font-weight: lighter;
     transition: all .3s ease;
 }
 .nav-container a:hover{
-    color: var(--orange);
+    color: #FFF;
     text-decoration: underline;
     transition: all .3s ease;
 }
