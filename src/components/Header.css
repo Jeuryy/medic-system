@@ -3,7 +3,10 @@ header{
     align-items: center;
     justify-content: space-between;
     box-shadow: #0f2c1c15 0px 8px 24px;
-    background-color: #09954ae2;
+    background-color: var(--green);
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
 .img-container img {

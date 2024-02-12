@@ -26,8 +26,7 @@ export default function Header(){
                 <ul style={{display: isResponsive && (responsive ? "none" : "block")}}>
                     <li><a href='#about'>Quienes somos</a></li>
                     <li><a href='#services'>Servicios</a></li>
-                    <li><a href='#'>Noticias</a></li>
-                    <li><a href='#'>Contacto</a></li>
+                    <li><a href='#contact'>Contacto</a></li>
                     <li className='login'> <a href='#'><MdAccountCircle className='icon' /> Entrar</a></li>
                 </ul>
             </nav>

@@ -1,0 +1,94 @@
+#contact{
+padding-top: 120px;
+
+}
+.contact-h3{
+    font-family: 'Kanit', sans-serif;
+    font-size: 36px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin: 0 100px 20px 100px;
+}
+.contact-p{
+    font-family: 'IBM Plex Sans', sans-serif;
+    letter-spacing: 0.5px;
+    color: #636363;
+    /*text-align: justify;*/
+    margin: 0 100px 50px 100px;
+}
+b{
+    color: #000;
+}
+.infos{
+    justify-content: center;
+    display: flex;
+    margin: 10px 100px 20px 100px;
+    flex-wrap: wrap;
+    text-align: center;
+    gap: 10px 50px;
+}
+.contact-1{
+    max-width: 300px;
+}
+.contact-icon{
+    font-size: 22px;
+    color: var(--green);
+}
+.networks p, .networks div{
+    text-align: center;
+}
+
+.networks div a{
+    margin: 10px;
+    font-size: 24px;
+}
+
+.facebook{
+    color: #316FF6;
+}
+.twitter{
+    color: #00acee;
+}
+.instagram{
+    color: #bc2a8d;
+}
+.map{
+    padding: 20px 50px;
+    width: 100%; 
+    height: 450px
+}
+
+@media screen and (max-width: 640px) {
+    .infos{
+        margin: 10px 30px 50px 30px;
+    }
+    .contact-h3{
+        text-align: center;
+        margin: 150px 30px 30px 30px;
+    }
+    .contact-p{
+        text-align: center;
+        margin: 0 30px 50px 30px;
+    }
+}
+@media screen and (max-width: 600px) {
+.infos{
+    margin: 10px 0 50px 0;
+}
+.contact-1{
+max-width: 100%;
+margin: auto 40px;
+}
+}
+@media screen and (max-width: 350px) {
+    .contact-1{
+        margin: auto 20px;
+        font-size: 12px;
+    }
+    .contact-h3{
+        font-size: 32px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}

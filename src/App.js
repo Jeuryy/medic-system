@@ -4,6 +4,7 @@ import Header from './components/Header';
 import About from './components/About'
 import Services from './components/Services';
 import ScrollToTop from "react-scroll-to-top";
+import Contact from './components/Contact';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Carrousel/>
       <About/>
       <Services/>
+      <Contact/>
       <ScrollToTop smooth color='#FFFFFF' style={scrollStyle} />
     </div>
   );
