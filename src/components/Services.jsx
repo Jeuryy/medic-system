@@ -1,5 +1,6 @@
 import './Services.css'
 import '../button.css'
+import { Link } from 'react-router-dom'
 
 export default function Services(){
     return (
@@ -32,7 +33,7 @@ export default function Services(){
                     </ul>
                 </div>
                 <div className='button'>
-                <button class="button-48" role="button"><span class="text">Agendar cita</span></button>
+                <Link to="/agendar" className="button-48" role="button"><span className="text">Agendar cita</span></Link>
                 </div>
             </div>
         </section>

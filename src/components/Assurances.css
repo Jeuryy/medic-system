@@ -1,11 +1,11 @@
-#services{
+#assurances{
     padding-top: 120px;
     padding-bottom: 50px;
-    background-image: url('../assets/img/bg.jpg');
+    background-image: url('../assets/img/network.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
-.services-container h3{
+.assurances-container h3{
     /*text-align: center;*/
     font-family: 'Kanit', sans-serif;
     font-size: 36px;
@@ -14,89 +14,83 @@
     color: var(--green);
     margin: 0 100px 20px 100px;
 }
-.services-container p{
+.assurance-p{
     font-family: 'IBM Plex Sans', sans-serif;
     letter-spacing: 0.5px;
     color: #636363;
     /*text-align: justify;*/
     margin: 0 100px 50px 100px;
 }
-.services-list{
+.assurances-list{
     margin: 50px 100px 75px 100px;
     /*max-height: 50vh;*/
 }
-.services-list ul{
+.assurances-list ul{
     display: grid;
     padding-left: 0;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px 50px;
 }
-.services-list ul li{
+.assurances-list ul li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     text-transform: uppercase;
-    background-color: var(--third-green);
+    background-color: #ffffff;
     list-style: none;
     color: #000;
     
     padding: 5px 15px;
 }
-.services-list ul li:before{
-    color: var(--orange);
+.assurances-list ul li:before{
+    color: var(--green);
     font-weight: bold;
     content: "+ ";
 }
-.button{
-    display: flex;
-    justify-content: center;
+.assurances-list p{
+    color: #383838;
 }
-/*.services-container button{
-    background-color: var(--green);
-    color: #FFF;
-    border: none;
-    font-weight: bold;
-    transition: all .3s ease;
-    padding: 5px 10px;
-    letter-spacing: 1.5px;
+
+.assurance-logo{
+    max-width: 50px;
 }
-.services-container button:hover{
-    color: var(--orange);
-    transition: all .3s ease;
-}*/
+
 @media screen and (max-width: 776px) {
-    .services-list ul li{
+    .assurances-list ul li{
         font-size: 12px;
     }
-    .services-list ul{
+    .assurances-list ul{
         grid-template-columns: repeat(2, 1fr);
         gap: 10px 20px;
     }
 }
 @media screen and (max-width: 480px) {
-    .services-list {
+    .assurances-list {
         margin: 50px 50px 100px 50px;
     }
-    .services-container h3{
+    .assurances-container h3{
         margin: 0 10px 20px 30px;
     }
-    .services-container p{
+    .assurance-p p{
         margin: 0 30px 50px 30px;
     }
-    .services-list{
+    .assurances-list{
         margin: 20px;
         margin-bottom: 75px;
     }
 }
 @media screen and (max-width: 380px) {
-    .services-list{
+    .assurances-list{
         margin: 50px;
         margin-bottom: 75px;
     }
-    .services-list ul{
+    .assurances-list ul{
         grid-template-columns: repeat(1, 1fr);
         gap: 10px 20px;
     }
 }
 @media screen and (max-width: 320px) {
-    .services-container h3{
+    .assurances-container h3{
         font-size: 36px;
         margin: 0 10px 20px 10px;
     }

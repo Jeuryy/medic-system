@@ -1,0 +1,58 @@
+.appointment-container{
+    text-align: center;
+    background-image: url('../assets/img/about-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.appointment-header{
+    background: var(--green);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.goback{
+    margin-left: 50px;
+    font-size: 52px;
+    display: flex;
+    align-items: center;
+    color: var(--orange);
+}
+
+.appointment-container .img-container img{
+    margin-right: 50px;
+}
+.cmdm-logo{
+    max-width: 200px;
+}
+.form-container{
+    margin-top: 40px;
+    justify-content: center;
+    /* width: 500px; */
+    display: flex;
+}
+.form-container form{
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--green);
+    padding: 50px;
+    text-align: start;
+}
+.form-container form div{
+    margin: 10px;
+}
+.form-container form input:active{
+    margin: 10px;
+}
+.MuiOutlinedInput-input{
+    padding: 0;
+}
+
+@media screen and (max-width: 500px) {
+    .goback{
+        margin-left: 10px;
+    }
+    .appointment-container .img-container img{
+        margin-right: 10px;
+    }
+}

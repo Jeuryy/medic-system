@@ -1,27 +1,24 @@
 import './App.css';
-import Carrousel from './components/Carrousel';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Appointment from './components/Appointment';
+import MainPage from './components/MainPage';
 import Header from './components/Header';
-import About from './components/About'
-import Services from './components/Services';
-import ScrollToTop from "react-scroll-to-top";
-import Contact from './components/Contact';
-
 
 function App() {
-  const scrollStyle = {
-    backgroundColor: "#09954b",
-    borderRadius: "50px",
-  }
 
   return (
-    <div className="App">
-      <Header/>
-      <Carrousel/>
-      <About/>
-      <Services/>
-      <Contact/>
-      <ScrollToTop smooth color='#FFFFFF' style={scrollStyle} />
-    </div>
+    <BrowserRouter>
+
+      <div className="App">
+        <Routes>
+          <Route index element={<MainPage/>}
+            path="/"/>
+          <Route element={<Appointment/>}
+            path="agendar"/>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

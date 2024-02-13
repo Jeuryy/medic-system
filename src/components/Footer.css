@@ -1,0 +1,30 @@
+.footer{
+    padding-top: 150px;
+    padding-bottom: 50px;
+    background-color: var(--second-green);
+}
+.footer-container{
+    text-align: center;
+}
+/*.footer-container img{
+    margin: 30px 50px;
+    max-width: 150px;
+}*/
+.footer-links-container{
+}
+.developer{
+    margin-bottom: 30px;
+    color: #000;
+    font-size: 14px;
+}
+.footer-container p{
+    font-size: 18px;
+}
+.email{
+    color:#c71610;
+}
+
+.footer-link, .footer-links  .facebook, .footer-links .instagram,.footer-links .twitter{
+    margin: 15px;
+    font-size: 20px;
+}

@@ -5,7 +5,6 @@ import { useMediaQuery } from 'react-responsive'
 import { IoMenu } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
 
-
 export default function Header(){
     const [responsive, setResponsive] = useState(true)
     
@@ -27,6 +26,7 @@ export default function Header(){
                     <li><a href='#about'>Quienes somos</a></li>
                     <li><a href='#services'>Servicios</a></li>
                     <li><a href='#contact'>Contacto</a></li>
+                    <li><a href='#assurances'>Seguros</a></li>
                     <li className='login'> <a href='#'><MdAccountCircle className='icon' /> Entrar</a></li>
                 </ul>
             </nav>

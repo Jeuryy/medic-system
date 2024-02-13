@@ -11,8 +11,7 @@
 }
 .carousel-control-prev-icon, 
 .carousel-control-next-icon{
-    border-radius: 50%;
-    background-color: var(--green);
+    background-color: var(--second-green);
 }
 .carousel-indicators [data-bs-target] {
     background-color: var(--orange);
