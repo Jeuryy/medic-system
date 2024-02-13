@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive'
 import { IoMenu } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 export default function Header(){
     const [responsive, setResponsive] = useState(true)
@@ -27,7 +28,7 @@ export default function Header(){
                     <li><a href='#services'>Servicios</a></li>
                     <li><a href='#contact'>Contacto</a></li>
                     <li><a href='#assurances'>Seguros</a></li>
-                    <li className='login'> <a href='#'><MdAccountCircle className='icon' /> Entrar</a></li>
+                    <li className='login'> <Link to='/login'><MdAccountCircle className='icon' /> Entrar</Link></li>
                 </ul>
             </nav>
             {isResponsive && <IoMenu className='menuIcon' onClick={handleResponsive} style={{top: "20px"}}/>}

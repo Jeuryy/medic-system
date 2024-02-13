@@ -3,12 +3,13 @@
     background-image: url('../assets/img/about-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    padding-top: 50px;
 }
 .appointment-header{
     background: var(--green);
-    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+    height: 70px;
 }
 .goback{
     margin-left: 50px;
@@ -18,11 +19,17 @@
     color: var(--orange);
 }
 
-.appointment-container .img-container img{
+.appointment .img-container {
+    align-items: center;
+    display: flex;
     margin-right: 50px;
 }
+.appointment .login{
+    color: #fff;
+    text-decoration: none;
+}
 .cmdm-logo{
-    max-width: 200px;
+    max-width: 300px;
 }
 .form-container{
     margin-top: 40px;
@@ -31,28 +38,67 @@
     display: flex;
 }
 .form-container form{
-    width: 600px;
     display: flex;
     flex-direction: column;
     background-color: var(--green);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 50px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.form-container form h3{
+    color: #FFF;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+.fullname{
+    display: flex;
+}
+.fullname div {
+    display: flex;
+    flex-direction: column;
+}
+.form-container form label{
     text-align: start;
+    margin-left: 10px;
+    color: #000;
 }
-.form-container form div{
-    margin: 10px;
+.form-container form input,.form-container form select{
+    margin: 0px 10px 30px 10px;
+    padding: 0 10px 5px 0;
+    border: none;
+    color: #dcdcdc;
+    border-bottom: 1px solid #000;
+    outline: none;
+    background-color: transparent
 }
-.form-container form input:active{
-    margin: 10px;
+.form-container form ::placeholder{
+    color: #dcdcdc;
 }
-.MuiOutlinedInput-input{
-    padding: 0;
+.form-container form .button button{
+    padding: 8px 30px;
+    margin-top: 10px;
+    border: none;
+    background-color: var(--orange);
+    color: #FFF;
 }
-
+@media screen and (max-width: 600px) {
+    .fullname{
+        flex-direction: column;
+    }
+    .form-container form{
+        width: 90%;
+    }
+}
 @media screen and (max-width: 500px) {
     .goback{
         margin-left: 10px;
     }
     .appointment-container .img-container img{
         margin-right: 10px;
+    }
+    .cmdm-logo{
+        max-width: 80%;
     }
 }

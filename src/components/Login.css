@@ -1,0 +1,101 @@
+.login-form-container{
+    text-align: center;
+    /*background-image: url('../assets/img/about-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;*/
+    padding-bottom: 50px;
+}
+.login-form-header{
+    background: var(--green);
+}
+.goback{
+    margin-left: 50px;
+    font-size: 52px;
+    color: var(--orange);
+}
+
+.login-form .img-container {
+    align-items: center;
+    display: flex;
+    margin-right: 50px;
+}
+.login-form .login{
+    color: #fff;
+    text-decoration: none;
+}
+.cmdm-logo{
+    max-width: 300px;
+}
+.login-form-form-container{
+    background-color: var(--second-orange);
+    margin-top: 100px;
+    padding: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.login-form-form-container form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.login-form-form-container h3{
+    color: var(--green);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+.login-form-container form label{
+    color: var(--green);
+    font-weight: bold;
+}
+.login-form-container form input{
+    margin-top: 10px;
+    margin-bottom: 50px;
+    padding: 0 10px 5px 0;
+    border: none;
+    color: #000;
+    border-bottom: 1px solid #000;
+    outline: none;
+    background-color: transparent;
+    width: 500px;
+}
+.login-password{
+    text-align: justify;
+}
+.login-password input {
+    width: 95%;
+}
+.login-form-container form ::placeholder{
+    color: #000;
+}
+.login-form-container form .button button{
+    padding: 8px 30px;
+    margin-top: 10px;
+    border: none;
+    background-color: var(--green);
+    color: #FFF;
+}
+@media screen and (max-width: 630px) {
+    .login-form-container form input{
+        width: 100%;
+    }
+    .login-password {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .goback{
+        margin-left: 10px;
+    }
+    .login-form-container .img-container img{
+        margin-right: 10px;
+    }
+    .cmdm-logo{
+        max-width: 80%;
+    }
+}
