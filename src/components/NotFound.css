@@ -1,0 +1,14 @@
+.notfound{
+    background: url('../assets//img/network.jpg');
+    min-height: 100vh;
+}
+.notfound-container{
+    text-align: center;
+    padding-top: 50vh;
+}
+.notfound-container P {
+    font-size: 32PX;
+}
+.volver{
+    font-size: 28px;
+}

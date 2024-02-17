@@ -1,0 +1,26 @@
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+}
+.text-dark{
+    margin: 20px;
+    background: var(--third-green);
+}
+
+.welcome{
+    font-size: 48px;
+    margin: 10px;
+    margin-left: 30px;
+    margin-bottom: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--green);
+}
+.cards a{
+    color: var(--green);
+}
+@media screen and (max-width: 930px) {
+    .cards{
+        justify-content: center;
+    }
+}

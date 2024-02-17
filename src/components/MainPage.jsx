@@ -7,14 +7,15 @@ import Footer from './Footer';
 import Assurances from './Assurances';
 import Header from './Header';
 
-export default function MainPage(){
+export default function MainPage(props){
+    const {isLogged, setIsLogged} = props;
     const scrollStyle = {
         backgroundColor: "#09954b",
         borderRadius: "50px",
     }
     return (
         <div>
-            <Header/>
+            <Header isLogged={isLogged} setIsLogged={setIsLogged}/>
             <Carrousel/>
             <About/>
             <Services/>

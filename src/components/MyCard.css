@@ -1,0 +1,11 @@
+.mb-2{
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.card-link{
+    position: relative;
+    left: 70%;
+    text-decoration: none;
+    color: var(--green);
+    font-weight: bold;
+}

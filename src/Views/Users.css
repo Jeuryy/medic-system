@@ -1,0 +1,29 @@
+.users-container{
+    display: flex;
+    justify-content: space-between;
+}
+.users-content{
+    flex: 1;
+}
+.users-content p{
+    font-size: 48px;
+    margin: 50px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--green);
+}
+.users-content th{
+    background-color: var(--third-green);
+}
+.users-content .options{
+    text-align: center;
+}
+.users-content td button{
+    border: none;
+    background: transparent;
+    color: var(--green);
+}
+.create-user{
+    text-align: center;
+    margin-bottom: 50px;
+}
