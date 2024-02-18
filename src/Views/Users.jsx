@@ -4,12 +4,20 @@ import UserMenu from '../Pages/UserMenu';
 import UserHeader from '../components/UserHeader';
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-
 import './Users.css'
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export default function Users(props) {
+    const [users, setUsers] = useState([])
     const {isLogged, setIsLogged} = props
+
+    useEffect(()=> {
+        fetch("http://localhost:5000/users")
+        .then(res => res.json())
+        .then(data => setUsers(data))
+        .catch(err => console.log(err))
+    }, [])
     return (
     <div >
         {isLogged ? (
@@ -30,97 +38,25 @@ export default function Users(props) {
                         <th>Dirección</th>
                         <th>Teléfono</th>
                         <th>Opciones</th>
+                        {/*                        <td className='options'><button><FaUserEdit/></button>
+                            <button><MdDelete/></button>
+                        </td>*/}
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Jeury</td>
-                        <td>Pierre Dide</td>
-                        <td>elyruek.102004@gmail.com</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jeury</td>
-                        <td>Pierre Dide</td>
-                        <td>elyruek.102004@gmail.com</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Jeury</td>
-                        <td>Pierre Dide</td>
-                        <td>elyruek.102004@gmail.com</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Jeury</td>
-                        <td>Pierre Dide</td>
-                        <td>elyruek.102004@gmail.com</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Jeury</td>
-                        <td>Pierre Dide</td>
-                        <td>elyruek.102004@gmail.com</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Jeury</td>
-                        <td>Pierre Dide</td>
-                        <td>elyruek.102004@gmail.com</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Jeury</td>
-                        <td>Pierre Dide</td>
-                        <td>elyruek.102004@gmail.com</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Jeury</td>
-                        <td>Pierre Dide</td>
-                        <td>elyruek.102004@gmail.com</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
+                        {users.map(user => {
+                            return <tr key={user.id}>
+                                <td> {user.id}</td>
+                                <td> {user.name}</td>
+                                <td> {user.lastname}</td>
+                                <td> {user.email}</td>
+                                <td> {user.address}</td>
+                                <td> {user.phone}</td>
+                                <td className='options'><button><FaUserEdit/></button>
+                                    <button><MdDelete/></button>
+                                </td>
+                            </tr>})
+                        }
                     </tbody>
                 </Table>
                 <div className='create-user'>

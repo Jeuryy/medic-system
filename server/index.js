@@ -17,6 +17,7 @@ const corsOption = {
 }
 
 app.use(cors(corsOption));
+app.use(express.json())
 app.use('/', router);
 
 const dbOptions = {useUnifiedTopology: true}
