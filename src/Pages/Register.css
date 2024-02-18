@@ -63,10 +63,17 @@
 }
 .register-form-container form .button button{
     padding: 8px 30px;
+    margin: 15px;
     margin-top: 10px;
     border: none;
     background-color: var(--orange);
     color: #FFF;
+}
+.success{
+    color: var(--green);
+}
+.error{
+    color: red;
 }
 @media screen and (max-width: 500px) {
     .goback{

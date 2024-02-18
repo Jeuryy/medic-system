@@ -1,20 +1,19 @@
 import './Register.css'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
-import { Await, Link } from 'react-router-dom';
-import { FaHome } from "react-icons/fa";
-import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import ScrollToTop from "react-scroll-to-top";
 import { nanoid } from 'nanoid';
-import { Input } from '@mui/material';
 import NotFound from '../components/NotFound';
 import UserMenu from './UserMenu';
 import UserHeader from '../components/UserHeader';
 
 export default function Register(props) {
-    const [dbData, setdbData] = useState([])
     const {isLogged, setIsLogged} = props;
     const [showPassword, setShowPassword] = useState(false); 
+    const [passwordMatches, setPasswordMatches] = useState(true)
+    const [userAdded, setUserAdded] = useState(false)
     const [formData, setFormData] = useState({
         id: "",
         name: "",
@@ -30,14 +29,6 @@ export default function Register(props) {
         roll: 3,
         username: ""
     })
-    useEffect( () => {
-        const getData = async () => {
-            const res = await fetch("http://localhost:5000/users")
-            const data = await res.json();
-            setdbData(data.users)
-        }
-        getData();
-    },[])
     const addUsers = async (data) => {
         const settings = {
             method: "POST",
@@ -48,10 +39,21 @@ export default function Register(props) {
             },
             body: JSON.stringify(data) 
         };
-            await fetch("http://localhost:5000/users", settings)
+            await fetch("http://localhost:5000/users/", settings)
             .then(res => res.json())
-            .then(resData => console.log(resData))
-            .catch(e => console.log(`Error catched: ${e}`))    
+            .then(resData => {
+                if (formData.password1 !== formData.password2) {
+                    setPasswordMatches(false);
+                } else {
+                    setPasswordMatches(true);
+                    setUserAdded(true);
+                    console.log(resData);
+                }
+            })
+            .catch(e => {
+                console.log(`Error catched: ${e}`);
+                setUserAdded(false)
+            })
     }
     const handlePassword = () => {
         setShowPassword(prevState => !prevState)
@@ -69,8 +71,29 @@ export default function Register(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setUserAdded(false);
         addUsers(formData);
     }
+
+    const clearValues = () => {
+        setFormData({
+            id: "",
+            name: "",
+            lastname: "",
+            address: "",
+            email: "",
+            password1: "",
+            password2: "",
+            phone: "",
+            sex: "",
+            documenttype: "",
+            document: "",
+            roll: 3,
+            username: ""
+        });
+        setUserAdded(false);
+    }
+
     return (
         <div>
             {isLogged ? (
@@ -85,11 +108,11 @@ export default function Register(props) {
                         <h3>CREAR USUARIO</h3>
                         <form onSubmit={handleSubmit}>
                             <label htmlFor='name'>Nombre</label>
-                            <input placeholder='Escriba su nombre' name='name'value={formData.name}  onChange={handleChange} required/>
+                            <input placeholder='Escriba su nombre' name='name'value={formData.name}  onChange={handleChange} required maxLength="32" pattern="[A-Za-z]{1,32}"/>
                             <label htmlFor='lastname'>Apellido</label>
-                            <input placeholder='Escriba su apellido(s)' name='lastname' value={formData.lastname}  onChange={handleChange} required/>
+                            <input placeholder='Escriba su apellido(s)' name='lastname' value={formData.lastname}  onChange={handleChange} maxLength="50" required/>
                             <label htmlFor='address'>Dirección</label>
-                            <input placeholder='Escriba dirección aqui' name='address' value={formData.address}  onChange={handleChange} required/>
+                            <input placeholder='Escriba dirección aqui' name='address' value={formData.address}  onChange={handleChange} maxLength="150" required/>
                             <label htmlFor='email'>Correo electrónico</label>
                             <input type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange} required/>
                             <label htmlFor='password1'>Escriba su contraseña</label>
@@ -105,19 +128,23 @@ export default function Register(props) {
                             <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'value={formData.phone}  onChange={handleChange} required/>
                             <label htmlFor='sex'>Seleccione su sexo</label>
                             <select name='sex' value={formData.sex}  onChange={handleChange} required>
+                                <option defaultValue="...">...</option>
                                 <option >Hombre</option>
                                 <option >Mujer</option>
                             </select>
                             <label htmlFor='documenttype'>Tipo de documento</label>
                             <select name='documenttype' value={formData.documenttype}  onChange={handleChange} required>
+                                <option defaultValue="...">...</option>
                                 <option >Cedula</option>
                                 <option >Pasaporte</option>
                             </select>
                             <label htmlFor='document'>Número de documento</label>
                             <input name='document' placeholder='Ingrese su número de documento' value={formData.document}  onChange={handleChange} required/>
-                            {/*<p>Ya estás registrado? <Link to="/login">Inicia sesión</Link></p>*/}
+                            {!passwordMatches && <p className='error'>Las contraseñas no coinciden</p>}
+                            {<p className={userAdded? 'success' : 'error'}>{userAdded ? "Usuario agregado exitosamente!" : ""}</p>}
                             <div className='button'>
                                 <button type='submit'>Crear</button>
+                                <button onClick={clearValues}>Borrar todo</button>
                             </div>
                         </form>
                     </div>        
