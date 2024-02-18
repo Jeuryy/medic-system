@@ -32,7 +32,7 @@ export default function Register(props) {
     })
     useEffect( () => {
         const getData = async () => {
-            const res = await fetch("http://localhost:8080/users")
+            const res = await fetch("http://localhost:5000/users")
             const data = await res.json();
             setdbData(data.users)
         }
@@ -48,7 +48,7 @@ export default function Register(props) {
             },
             body: JSON.stringify(data) 
         };
-            await fetch("http://localhost:8080/users", settings)
+            await fetch("http://localhost:5000/users", settings)
             .then(res => res.json())
             .then(resData => console.log(resData))
             .catch(e => console.log(`Error catched: ${e}`))    

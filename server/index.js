@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const router = require("./routes/router")
+const router = require("./routes/router");
+const mongoose = require("mongoose");
+require('dotenv/config');
 
 const app = express();
 
@@ -17,8 +19,12 @@ const corsOption = {
 app.use(cors(corsOption));
 app.use('/', router);
 
+const dbOptions = {useUnifiedTopology: true}
+mongoose.connect(process.env.DB_URI)
+.then(() => console.log("DB Connected"))
+.catch(err => console.log(err))
 
-const port = 8080;
+const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
     console.log("Server is runninng on port " + port);
 })

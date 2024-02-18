@@ -19,6 +19,7 @@ export default function Appointment(props) {
         sex: "",
         service: "",
         doctor: "",
+        assurance: "",
         appttime: ""
 
     })
@@ -92,6 +93,8 @@ export default function Appointment(props) {
                             <option key={nanoid()}>{el.document}</option>
                         )}
                         </select>
+                        <label htmlFor='assurance'>Seguro</label>
+                        <input placeholder='Seguro medico' name='assurance'  value={formData.assurance}  onChange={handleChange} required/>
                         <label htmlFor='apptime'>Seleccione hora para la cita</label>
                         <select name='appttime' value={formData.appttime}  onChange={handleChange} required>
                         {dbData.map(el => 
