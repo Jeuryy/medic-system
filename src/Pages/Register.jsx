@@ -117,12 +117,12 @@ export default function Register(props) {
                             <input type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange} required/>
                             <label htmlFor='password1'>Escriba su contraseña</label>
                             <div className='register-password'>
-                                <input type={showPassword? "text" : "password"} name='password1' placeholder='Clave' value={formData.password1}  onChange={handleChange} required/>
+                                <input type={showPassword? "text" : "password"} name='password1' placeholder='Clave' value={formData.password1}  onChange={handleChange} minLength="8" required/>
                                 {showPassword ? <FaEye onClick={() => handlePassword()}/> : <FaEyeSlash onClick={handlePassword}/>}
                             </div>
                             <label htmlFor='password2'>Repita la contraseña</label>
                             <div className='register-password'>
-                                <input type={showPassword? "text" : "password"} name='password2' placeholder='Confirme clave' value={formData.password2}  onChange={handleChange} required/>
+                                <input type={showPassword? "text" : "password"} name='password2' placeholder='Confirme clave' value={formData.password2}  onChange={handleChange} minLength="8" required/>
                             </div>
                             <label htmlFor='phone'>Número celular</label>
                             <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'value={formData.phone}  onChange={handleChange} required/>

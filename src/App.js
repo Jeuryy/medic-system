@@ -14,9 +14,12 @@ import UserServices from './Views/UserServices';
 import AddDoctor from './Views/AddDoctor';
 import AddServices from './Views/AddServices';
 import Diagnostics from './Views/Diagnostics';
+import Profile from './Views/Profile';
 
 function App() {
-  const[isLogged, setIsLogged] = useState(true)
+  const[isLogged, setIsLogged] = useState(localStorage.getItem("isLogged") || false);
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || "");
+  
 
   return (
     <BrowserRouter>
@@ -27,8 +30,10 @@ function App() {
             path="/"/>
           <Route element={<Appointment isLogged={isLogged} setIsLogged={setIsLogged}/>}
             path="agendar"/>
-          <Route element={<Login isLogged={isLogged} setIsLogged={setIsLogged}/>}
-              path= {`${isLogged ? "Profile": "Login"}`}/>
+          <Route element={<Login isLogged={isLogged} setIsLogged={setIsLogged} currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
+              path="Login"/>
+              <Route element={<Profile isLogged={isLogged} setIsLogged={setIsLogged} currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
+              path="Profile"/>
           <Route element={<Register isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path="registrar"/>
               <Route element={<Dashboard isLogged={isLogged} setIsLogged={setIsLogged}/>}

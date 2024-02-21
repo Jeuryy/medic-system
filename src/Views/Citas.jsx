@@ -6,9 +6,17 @@ import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import './Citas.css'
 import { Link } from 'react-router-dom';
-
+import { useEffect, useState } from 'react';
 export default function Citas(props) {
-    const {isLogged, setIsLogged} = props
+    const [citas, setCitas] = useState([])
+    const {isLogged, setIsLogged} = props;
+
+    useEffect(()=> {
+        fetch("http://localhost:5000/citas")
+        .then(res => res.json())
+        .then(data => setCitas(data))
+        .catch(err => console.log(err))
+    }, [])
     return (
     <div >
         {isLogged ? (
@@ -34,110 +42,21 @@ export default function Citas(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Lunes 05/03/2024 11:00AM</td>
-                        <td>Ginecologia</td>
-                        <td>Dr Jeury Pierre</td>
-                        <td>Maria Perez</td>
-                        <td>SeNaSa</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200 | maria123@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Lunes 05/03/2024 11:00AM</td>
-                        <td>Ginecologia</td>
-                        <td>Dr Jeury Pierre</td>
-                        <td>Maria Perez</td>
-                        <td>SeNaSa</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200 | maria123@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Lunes 05/03/2024 11:00AM</td>
-                        <td>Ginecologia</td>
-                        <td>Dr Jeury Pierre</td>
-                        <td>Maria Perez</td>
-                        <td>SeNaSa</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200 | maria123@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Lunes 05/03/2024 11:00AM</td>
-                        <td>Ginecologia</td>
-                        <td>Dr Jeury Pierre</td>
-                        <td>Maria Perez</td>
-                        <td>SeNaSa</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200 | maria123@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Lunes 05/03/2024 11:00AM</td>
-                        <td>Ginecologia</td>
-                        <td>Dr Jeury Pierre</td>
-                        <td>Maria Perez</td>
-                        <td>SeNaSa</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200 | maria123@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Lunes 05/03/2024 11:00AM</td>
-                        <td>Ginecologia</td>
-                        <td>Dr Jeury Pierre</td>
-                        <td>Maria Perez</td>
-                        <td>SeNaSa</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200 | maria123@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Lunes 05/03/2024 11:00AM</td>
-                        <td>Ginecologia</td>
-                        <td>Dr Jeury Pierre</td>
-                        <td>Maria Perez</td>
-                        <td>SeNaSa</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200 | maria123@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Lunes 05/03/2024 11:00AM</td>
-                        <td>Ginecologia</td>
-                        <td>Dr Jeury Pierre</td>
-                        <td>Maria Perez</td>
-                        <td>SeNaSa</td>
-                        <td>C/ Felix Abreu #17 Bienvenido Manoguayabo</td>
-                        <td>8299851200 | maria123@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
+                    {citas.map(cita => {
+                        return <tr key={cita.id}>
+                            <td> {cita.id}</td>
+                            <td> {cita.date}</td>
+                            <td> {cita.service}</td>
+                            <td> {cita.doctor}</td>
+                            <td> {cita.name + " " + cita.lastname}</td>
+                            <td> {cita.assurance}</td>
+                            <td> {cita.address}</td>
+                            <td> {cita.phone + " " + cita.email}</td>
+                            <td className='options'><button><FaUserEdit/></button>
+                                <button><MdDelete/></button>
+                            </td>
+                        </tr>})
+                    }
                     </tbody>
                 </Table>
                 <div className='create-user'>

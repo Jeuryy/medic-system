@@ -40,7 +40,7 @@
 .form-container form{
     display: flex;
     flex-direction: column;
-    background-color: var(--green);
+    background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 50px;
     text-align: center;
@@ -68,16 +68,17 @@
     margin: 0px 10px 30px 10px;
     padding: 0 10px 5px 0;
     border: none;
-    color: #dcdcdc;
+    color: var(--green);
     border-bottom: 1px solid #000;
     outline: none;
     background-color: transparent
 }
 .form-container form ::placeholder{
-    color: #dcdcdc;
+    color: var(--green);
 }
 .form-container form .button button{
     padding: 8px 30px;
+    margin: 20px;
     margin-top: 10px;
     border: none;
     background-color: var(--orange);

@@ -8,9 +8,11 @@ import ScrollToTop from "react-scroll-to-top";
 import { nanoid } from 'nanoid';
 
 export default function Appointment(props) {
-    const [dbData, setdbData] = useState([])
+    const [citaAdded, setCitaAdded] = useState(false)
+    const [users, setUsers] = useState([])
     const {isLogged, setIsLogged} = props
     const [formData, setFormData] = useState({
+        id: nanoid(),
         name: "",
         lastname: "",
         address: "",
@@ -20,18 +22,40 @@ export default function Appointment(props) {
         service: "",
         doctor: "",
         assurance: "",
-        appttime: ""
+        date: ""
 
     })
+    useEffect(()=> {
+        fetch("http://localhost:5000/users")
+        .then(res => res.json())
+        .then(data => setUsers(data))
+        .catch(err => console.log(err))
+    }, [])
 
-    useEffect( () => {
-        const getData = async () => {
-            const res = await fetch("http://localhost:8080/users")
-            const data = await res.json();
-            setdbData(data.users)
-        }
-        getData();
-    },[])
+    const addCitas = async (data) => {
+        const settings = {
+            method: "POST",
+            //mode: "no-cors",
+            headers: {
+                "Content-type": "application/json",
+                'Access-Control-Allow-Origin':'*'
+            },
+            body: JSON.stringify(data) 
+        };
+            await fetch("http://localhost:5000/citas/", settings)
+            .then(res => res.json())
+            .then(resData => {
+                if (formData.password1 !== formData.password2) {
+                } else {
+                    setCitaAdded(true);
+                    console.log(resData);
+                }
+            })
+            .catch(e => {
+                console.log(`Error catched: ${e}`);
+                setCitaAdded(false)
+            })
+    }
 
     const handleChange = (e) => {
         setFormData(prevState => {
@@ -44,7 +68,26 @@ export default function Appointment(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData)
+        setCitaAdded(false);
+        addCitas(formData);
+    }
+    const clearValues = () => {
+        setFormData({
+            id: "",
+            name: "",
+            lastname: "",
+            address: "",
+            email: "",
+            password1: "",
+            password2: "",
+            phone: "",
+            sex: "",
+            documenttype: "",
+            document: "",
+            roll: 3,
+            username: ""
+        });
+        setCitaAdded(false);
     }
 
     return (
@@ -78,31 +121,34 @@ export default function Appointment(props) {
                         <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'  value={formData.phone}  onChange={handleChange} required/>
                         <label htmlFor='sex'>Seleccione su sexo</label>
                         <select name='sex' value={formData.sex} onChange={handleChange} >
+                            <option >...</option>
                             <option >Hombre</option>
                             <option >Mujer</option>
                         </select>
                         <label htmlFor='service'>Tipo de consulta</label>
                         <select name='service'  value={formData.service}  onChange={handleChange} required>
-                        {dbData.map(el => 
-                            <option key={nanoid()}>{el.lastname}</option>
+                        {users.map(el => 
+                            <option key={nanoid()}>{el.service}</option>
                         )}
                         </select>
                         <label htmlFor='doctor'>Doctor</label>
                         <select name='doctor' value={formData.doctor}  onChange={handleChange} required>
-                        {dbData.map(el => 
-                            <option key={nanoid()}>{el.document}</option>
+                        {users.map(el => 
+                            <option key={nanoid()}>{el.lastname}</option>
                         )}
                         </select>
                         <label htmlFor='assurance'>Seguro</label>
                         <input placeholder='Seguro medico' name='assurance'  value={formData.assurance}  onChange={handleChange} required/>
-                        <label htmlFor='apptime'>Seleccione hora para la cita</label>
-                        <select name='appttime' value={formData.appttime}  onChange={handleChange} required>
-                        {dbData.map(el => 
-                            <option key={nanoid()}>{el.email}</option>
+                        <label htmlFor='date'>Seleccione hora para la cita</label>
+                        <select name='date' value={formData.date}  onChange={handleChange} required>
+                        {users.map(el => 
+                            <option key={nanoid()}>{el.date}</option>
                         )}
                         </select>
+                        {<p className={citaAdded? 'success' : 'error'}>{citaAdded ? "Cita agendada exitosamente!" : ""}</p>}
                         <div className='button'>
                             <button type='submit'>Confirmar</button>
+                            <button onClick={clearValues}>Borrar todo</button>
                         </div>
                     </form>
                     <ScrollToTop smooth />
