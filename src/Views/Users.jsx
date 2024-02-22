@@ -31,7 +31,6 @@ export default function Users(props) {
                 <Table striped bordered hover responsive="sm">
                     <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Correo electrónico</th>
@@ -46,7 +45,6 @@ export default function Users(props) {
                     <tbody>
                         {users.map(user => {
                             return <tr key={user.id}>
-                                <td> {user.id}</td>
                                 <td> {user.name}</td>
                                 <td> {user.lastname}</td>
                                 <td> {user.email}</td>

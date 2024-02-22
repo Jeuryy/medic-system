@@ -1,39 +1,26 @@
 import './AddDoctor.css'
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa6";
-import { Await, Link } from 'react-router-dom';
-import { FaHome } from "react-icons/fa";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ScrollToTop from "react-scroll-to-top";
 import { nanoid } from 'nanoid';
-import { Input } from '@mui/material';
 import NotFound from '../components/NotFound';
 import UserMenu from '../Pages/UserMenu';
 import UserHeader from '../components/UserHeader';
 
 export default function AddDoctor(props) {
-    const [dbData, setdbData] = useState([])
+    const [doctorAdded, setDoctorAdded] = useState(false)
     const {isLogged, setIsLogged} = props;
-    const [showPassword, setShowPassword] = useState(false); 
     const [formData, setFormData] = useState({
         id: "",
         name: "",
-        service: "",
         lastname: "",
+        service: "",
         email: "",
         phone: "",
-        sex: "",
+        gender: "",
         schedule: "",
     })
-    useEffect( () => {
-        const getData = async () => {
-            const res = await fetch("http://localhost:8080/users")
-            const data = await res.json();
-            setdbData(data.users)
-        }
-        getData();
-    },[])
-    const addUsers = async (data) => {
+
+    const addDoctor = async (data) => {
         const settings = {
             method: "POST",
             //mode: "no-cors",
@@ -43,20 +30,19 @@ export default function AddDoctor(props) {
             },
             body: JSON.stringify(data) 
         };
-            await fetch("http://localhost:8080/users", settings)
+            await fetch("http://localhost:5000/doctors", settings)
             .then(res => res.json())
-            .then(resData => console.log(resData))
+            .then(resData => {console.log(resData)
+                setDoctorAdded(true)
+            })
             .catch(e => console.log(`Error catched: ${e}`))    
     }
-    const handlePassword = () => {
-        setShowPassword(prevState => !prevState)
-    }
+
     const handleChange = (e) => {
         setFormData(prevState => {
             return {
                 ...prevState,
                 id: nanoid(),
-                username: `${(formData.name).toLowerCase()}${(formData.lastname).toLowerCase().substring(0, formData.lastname.indexOf(" "))}`,
                 [e.target.name]: e.target.value
             }
         })
@@ -64,7 +50,26 @@ export default function AddDoctor(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addUsers(formData);
+        setDoctorAdded(false);
+        addDoctor(formData);
+    }
+    const clearValues = () => {
+        setFormData({
+            id: "",
+            name: "",
+            lastname: "",
+            address: "",
+            email: "",
+            password1: "",
+            password2: "",
+            phone: "",
+            sex: "",
+            documenttype: "",
+            document: "",
+            roll: 3,
+            username: ""
+        });
+        setDoctorAdded(false);
     }
     return (
         <div>
@@ -86,19 +91,21 @@ export default function AddDoctor(props) {
                             <label htmlFor='service'>Especialidad</label>
                             <input placeholder='Escriba especialidad aqui' name='service' value={formData.service}  onChange={handleChange} required/>
                             <label htmlFor='email'>Correo electrónico</label>
-                            <input type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange} required/>
+                            <input type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange}/>
                             <label htmlFor='phone'>Número celular</label>
-                            <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'value={formData.phone}  onChange={handleChange} required/>
+                            <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'value={formData.phone}  onChange={handleChange}/>
                             <label htmlFor='sex'>Seleccione su sexo</label>
-                            <select name='sex' value={formData.sex}  onChange={handleChange} required>
+                            <select name='sex' value={formData.gender}  onChange={handleChange} required>
+                                <option >...</option>    
                                 <option >Hombre</option>
                                 <option >Mujer</option>
                             </select>
                             <label htmlFor='schedule'>Horario</label>
                             <input placeholder='Horarios de servicios' name='schedule' value={formData.schedule}  onChange={handleChange} required/>
-                            
+                            {<p className={doctorAdded? 'success' : 'error'}>{doctorAdded ? "Doctor agregado exitosamente!" : ""}</p>}
                             <div className='button'>
                                 <button type='submit'>Crear</button>
+                                <button onClick={clearValues}>Borrar todo</button>
                             </div>
                         </form>
                     </div>        

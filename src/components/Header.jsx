@@ -29,7 +29,7 @@ export default function Header(props){
                     <li><a href='#services'>Servicios</a></li>
                     <li><a href='#contact'>Contacto</a></li>
                     <li><a href='#assurances'>Seguros</a></li>
-                    <li className='login'> <Link to={`${isLogged? "Dashboard" : "Login"}`}><MdAccountCircle className='icon' /> {isLogged ? "Name" : "Entrar"}</Link></li>
+                    <li className='login'> <Link to={`${isLogged? "Dashboard" : "Login"}`}><MdAccountCircle className='icon' /> {isLogged ? JSON.parse(localStorage.getItem("currentUser")).name : "Entrar"}</Link></li>
                 </ul>
             </nav>
             {isResponsive && <IoMenu className='menuIcon' onClick={handleResponsive} style={{top: "20px"}}/>}

@@ -6,9 +6,19 @@ import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import './Users.css'
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 
 export default function Doctors(props) {
+    const [doctors, setDoctors] = useState([])
     const {isLogged, setIsLogged} = props
+
+    useEffect(()=> {
+        fetch("http://localhost:5000/doctors")
+        .then(res => res.json())
+        .then(data => setDoctors(data))
+        .catch(err => console.log(err))
+    }, [])
     return (
     <div >
         {isLogged ? (
@@ -22,7 +32,6 @@ export default function Doctors(props) {
                 <Table striped bordered hover responsive="sm">
                     <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nombre</th>
                         <th>Especialidad</th>
                         <th>Horarios</th>
@@ -31,86 +40,17 @@ export default function Doctors(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Jeury Pierre</td>
-                        <td>Ginecologia</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td>8299851200 | elyruej.102004@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Jeury Pierre</td>
-                        <td>Ginecologia</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td>8299851200 | elyruej.102004@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Jeury Pierre</td>
-                        <td>Ginecologia</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td>8299851200 | elyruej.102004@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Jeury Pierre</td>
-                        <td>Ginecologia</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td>8299851200 | elyruej.102004@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                    <td>1</td>
-                        <td>Jeury Pierre</td>
-                        <td>Ginecologia</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td>8299851200 | elyruej.102004@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Jeury Pierre</td>
-                        <td>Ginecologia</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td>8299851200 | elyruej.102004@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Jeury Pierre</td>
-                        <td>Ginecologia</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td>8299851200 | elyruej.102004@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Jeury Pierre</td>
-                        <td>Ginecologia</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td>8299851200 | elyruej.102004@gmail.com</td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
+                    {doctors.map(doctor => {
+                        return <tr key={doctor.id}>
+                            <td>{`${doctor.gender === "Hombre" ? "Dra " : "Dr "} ${doctor.name} ${doctor.lastname}`}</td>
+                            <td> {doctor.service}</td>
+                            <td> {doctor.schedule}</td>
+                            <td> {doctor.phone + " " + doctor.email}</td>
+                            <td className='options'><button><FaUserEdit/></button>
+                                <button><MdDelete/></button>
+                            </td>
+                        </tr>})
+                    }
                     </tbody>
                 </Table>
                 <div className='create-user'>

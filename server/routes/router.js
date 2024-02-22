@@ -75,4 +75,35 @@ router.post('/citas', async (req, res) => {
         res.end();
 })
 
+//DOCTORES
+router.get('/doctors', (req, res) => {
+    schemas.Doctors.find()
+    .then(doctors => res.json(doctors))
+    .catch(err => console.log(err))
+});
+
+router.post('/doctors', async (req, res) => {
+    const {
+        id,
+        name,
+        lastname,
+        service,
+        schedule,
+        phone,
+        email,
+        gender,
+        } = req.body;
+
+        const doctorData = {id, name, lastname, service, schedule,
+        gender, email, phone}
+
+        const newDoctor = new schemas.Doctors(doctorData);
+        const saveDoctor = await newDoctor.save();
+
+        if (saveDoctor) {
+            res.send({message: "Doctor added, thank you"})
+        }
+        res.end();
+})
+
 module.exports = router;

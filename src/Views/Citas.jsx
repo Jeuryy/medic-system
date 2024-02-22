@@ -30,7 +30,6 @@ export default function Citas(props) {
                 <Table striped bordered hover responsive="sm">
                     <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Fecha</th>
                         <th>Tipo de consulta</th>
                         <th>Doctor</th>
@@ -44,7 +43,6 @@ export default function Citas(props) {
                     <tbody>
                     {citas.map(cita => {
                         return <tr key={cita.id}>
-                            <td> {cita.id}</td>
                             <td> {cita.date}</td>
                             <td> {cita.service}</td>
                             <td> {cita.doctor}</td>

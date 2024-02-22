@@ -95,7 +95,7 @@ export default function Appointment(props) {
             <div className='appointment-header'>
                 <Link to="/" className='goback'><IoMdArrowBack /></Link>
                 <div className='img-container'>
-                    <Link to={`${isLogged ? "/Dashboard": "/Login"}`} className='login'><MdAccountCircle className='icon' />{isLogged ? "Name" : "Entrar"}</Link>
+                    <Link to={`${isLogged ? "/Dashboard": "/Login"}`} className='login'><MdAccountCircle className='icon' />{isLogged ? JSON.parse(localStorage.getItem("currentUser")).name : "Entrar"}</Link>
                 </div>
             </div>
             <div className='appointment-container'>
