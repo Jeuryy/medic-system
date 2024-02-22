@@ -33,21 +33,21 @@ export default function UserServices(props) {
                     <tr>
                         <th>Servicio</th>
                         <th>Descripcion</th>
-                        <th>Doctores</th>
+                        <th>Doctor</th>
                         <th>Horarios</th>
-                        <th>Opciones</th>
+                        {/*<th>Opciones</th>*/}
                     </tr>
                     </thead>
                     <tbody>
                     {doctors.map(doctor => {
                         return <tr key={doctor.id}>
                             <td> {doctor.service}</td>
-                            <td> {doctor.description}</td>
-                            <td>{`${doctor.gender === "Hombre" ? "Dra " : "Dr "} ${doctor.name} ${doctor.lastname}`}</td>
-                            <td> {doctor.schedule}</td>
-                            <td className='options'><button><FaUserEdit/></button>
+                            <td className='service-description'> {doctor.description}</td>
+                            <td>{`${doctor.gender === "Hombre" ? "Dr " : "Dra "} ${doctor.name} ${doctor.lastname}`}</td>
+                            <td style={{whiteSpace: "pre-line"}}> {doctor.schedule}</td>
+                            {/*<td className='options'><button><FaUserEdit/></button>
                                 <button><MdDelete/></button>
-                            </td>
+                            </td>*/}
                         </tr>})
                     }
                     </tbody>

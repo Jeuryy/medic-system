@@ -84,6 +84,10 @@
     background-color: var(--orange);
     color: #FFF;
 }
+.select-anidado{
+    display: flex;
+    flex-direction: column;
+}
 @media screen and (max-width: 600px) {
     .fullname{
         flex-direction: column;

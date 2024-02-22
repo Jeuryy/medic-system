@@ -93,8 +93,8 @@ export default function AddDoctor(props) {
                             <input type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange}/>
                             <label htmlFor='phone'>Número celular</label>
                             <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'value={formData.phone}  onChange={handleChange}/>
-                            <label htmlFor='sex'>Seleccione su sexo</label>
-                            <select name='sex' value={formData.gender}  onChange={handleChange} required>
+                            <label htmlFor='gender'>Seleccione su sexo</label>
+                            <select name='gender' value={formData.gender}  onChange={handleChange} required>
                                 <option >...</option>    
                                 <option >Hombre</option>
                                 <option >Mujer</option>

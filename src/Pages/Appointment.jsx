@@ -9,7 +9,11 @@ import { nanoid } from 'nanoid';
 
 export default function Appointment(props) {
     const [citaAdded, setCitaAdded] = useState(false)
-    const [doctors, setDoctors] = useState([])
+    const [doctors, setDoctors] = useState([]);
+    const [service, setService] = useState("");
+    const [doctor, setDoctor] = useState([]);
+    const [schedule, setSchedule] = useState("");
+    const [doctorSchedule, setDoctorSchedule] = useState([])
     const {isLogged, setIsLogged} = props
     const [formData, setFormData] = useState({
         id: nanoid(),
@@ -25,13 +29,18 @@ export default function Appointment(props) {
         date: ""
 
     })
+
+
     useEffect(()=> {
         fetch("http://localhost:5000/doctors")
         .then(res => res.json())
-        .then(data => setDoctors(data))
+        .then(data => {
+            setDoctors(data)
+        })
         .catch(err => console.log(err))
     }, [])
 
+    //Function to POST Appointment DATA to the db
     const addCitas = async (data) => {
         const settings = {
             method: "POST",
@@ -58,18 +67,28 @@ export default function Appointment(props) {
     }
 
     const handleChange = (e) => {
+        setService(formData.service)
+        setDoctor(doctors.filter(doctor => doctor.service === service))
+        setSchedule(doctor.filter(doctor => doctor.service === service))
+        let [arrayObject] = schedule
         setFormData(prevState => {
             return {
                 ...prevState,
                 [e.target.name]: e.target.value
             }
         })
+        if (arrayObject !== undefined) {
+            let {schedule} = arrayObject;
+            let scheduleArray = schedule.split("\n");
+            setDoctorSchedule(scheduleArray)
+        }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setCitaAdded(false);
-        addCitas(formData);
+        console.log(formData)
+        //setCitaAdded(false);
+        //addCitas(formData);
     }
     const clearValues = () => {
         setFormData({
@@ -78,14 +97,12 @@ export default function Appointment(props) {
             lastname: "",
             address: "",
             email: "",
-            password1: "",
-            password2: "",
             phone: "",
             sex: "",
-            documenttype: "",
-            document: "",
-            roll: 3,
-            username: ""
+            service: "",
+            doctor: "",
+            assurane: "",
+            date: ""
         });
         setCitaAdded(false);
     }
@@ -101,7 +118,7 @@ export default function Appointment(props) {
             <div className='appointment-container'>
                 <img className="cmdm-logo" src={cmdm} alt='Logo de Centro Medico Divina Misericordia' />
                 <div className='form-container'>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} autoComplete='off'>
                         <h3>Agendar cita</h3>
                         <div className='fullname'>
                             <div>
@@ -127,24 +144,31 @@ export default function Appointment(props) {
                         </select>
                         <label htmlFor='service'>Tipo de consulta</label>
                         <select name='service'  value={formData.service}  onChange={handleChange} required>
-                        {doctors.map(el => 
+                            <option>Seleccione servicio o especialidad</option>
+                            {doctors.map(el => 
                             <option key={nanoid()}>{el.service}</option>
-                        )}
-                        </select>
-                        <label htmlFor='doctor'>Doctor</label>
-                        <select name='doctor' value={formData.doctor}  onChange={handleChange} required>
-                        {doctors.map(el => 
-                            <option key={nanoid()}>{`${el.gender === "Hombre" ? "Dra " : "Dr"} ${el.name} ${el.lastname}`}</option>
-                        )}
+                            )}
                         </select>
                         <label htmlFor='assurance'>Seguro</label>
-                        <input placeholder='Seguro medico' name='assurance'  value={formData.assurance}  onChange={handleChange} required/>
-                        <label htmlFor='date'>Seleccione hora para la cita</label>
-                        <select name='date' value={formData.date}  onChange={handleChange} required>
-                        {doctors.map(el => 
-                            <option key={nanoid()}>{el.schedule}</option>
-                        )}
-                        </select>
+                        <input placeholder='Seguro medico (escribir NA en caso de no poseer)' name='assurance'  value={formData.assurance}  onChange={handleChange} required/>
+                        <div className='select-anidado'>
+                            <label htmlFor='doctor'>Doctor</label>
+                            <select name='doctor' value={formData.doctor}  onChange={handleChange} required>
+                                <option>Escoja un doctor</option>
+                            {doctor.map(el =>
+                                <option key={nanoid()}>{`${el.gender === "Hombre" ? "Dr " : "Dra"} ${el.name} ${el.lastname}`}</option>
+                            )}
+                            </select>
+                        </div>
+                        <div className='select-anidado'>
+                            <label htmlFor='date'>Seleccione hora para la cita</label>
+                            <select name='date' value={formData.date}  onChange={handleChange} required>
+                                <option>Selecciona fecha</option>
+                            {doctorSchedule && doctorSchedule.map(el => 
+                                <option key={nanoid()}>{el}</option>
+                            )}
+                            </select>
+                        </div>
                         {<p className={citaAdded? 'success' : 'error'}>{citaAdded ? "Cita agendada exitosamente!" : ""}</p>}
                         <div className='button'>
                             <button type='submit'>Confirmar</button>

@@ -13,12 +13,16 @@ export default function Doctors(props) {
     const [doctors, setDoctors] = useState([])
     const {isLogged, setIsLogged} = props
 
+
     useEffect(()=> {
         fetch("http://localhost:5000/doctors")
         .then(res => res.json())
-        .then(data => setDoctors(data))
+        .then(data => {
+            setDoctors(data)
+        })
         .catch(err => console.log(err))
     }, [])
+
     return (
     <div >
         {isLogged ? (
@@ -42,9 +46,9 @@ export default function Doctors(props) {
                     <tbody>
                     {doctors.map(doctor => {
                         return <tr key={doctor.id}>
-                            <td>{`${doctor.gender === "Hombre" ? "Dra " : "Dr "} ${doctor.name} ${doctor.lastname}`}</td>
+                            <td>{`${doctor.gender === "Hombre" ? "Dr " : "Dra "} ${doctor.name} ${doctor.lastname}`}</td>
                             <td> {doctor.service}</td>
-                            <td> {doctor.schedule}</td>
+                            <td style={{whiteSpace: "pre-line"}}> {(doctor.schedule)}</td>
                             <td> {doctor.phone + " " + doctor.email}</td>
                             <td className='options'><button><FaUserEdit/></button>
                                 <button><MdDelete/></button>
