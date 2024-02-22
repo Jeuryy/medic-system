@@ -18,6 +18,7 @@ export default function AddDoctor(props) {
         phone: "",
         gender: "",
         schedule: "",
+        description: ""
     })
 
     const addDoctor = async (data) => {
@@ -58,16 +59,12 @@ export default function AddDoctor(props) {
             id: "",
             name: "",
             lastname: "",
-            address: "",
+            service: "",
             email: "",
-            password1: "",
-            password2: "",
             phone: "",
-            sex: "",
-            documenttype: "",
-            document: "",
-            roll: 3,
-            username: ""
+            gender: "",
+            schedule: "",
+            description: ""
         });
         setDoctorAdded(false);
     }
@@ -90,6 +87,8 @@ export default function AddDoctor(props) {
                             <input placeholder='Escriba su apellido(s)' name='lastname' value={formData.lastname}  onChange={handleChange} required/>
                             <label htmlFor='service'>Especialidad</label>
                             <input placeholder='Escriba especialidad aqui' name='service' value={formData.service}  onChange={handleChange} required/>
+                            <label htmlFor='service'>Descripcion</label>
+                            <textarea placeholder='Descripcion de la especialidad' name='description' value={formData.description}  onChange={handleChange} required/>
                             <label htmlFor='email'>Correo electrónico</label>
                             <input type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange}/>
                             <label htmlFor='phone'>Número celular</label>

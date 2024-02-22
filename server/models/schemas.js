@@ -41,6 +41,7 @@ const doctorSchema = new Schema ({
     phone: {type: String},
     email: {type: String},
     gender: {type: String},
+    description: {type: String},
     createdTime: {type: Date, default: Date.now}
 });
 const serviceSchema = new Schema ({

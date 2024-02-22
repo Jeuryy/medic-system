@@ -92,16 +92,45 @@ router.post('/doctors', async (req, res) => {
         phone,
         email,
         gender,
+        description
         } = req.body;
 
         const doctorData = {id, name, lastname, service, schedule,
-        gender, email, phone}
+        gender, email, phone, description}
 
         const newDoctor = new schemas.Doctors(doctorData);
         const saveDoctor = await newDoctor.save();
 
         if (saveDoctor) {
             res.send({message: "Doctor added, thank you"})
+        }
+        res.end();
+})
+
+//SERVICIOS
+router.get('/services', (req, res) => {
+    schemas.Services.find()
+    .then(services => res.json(services))
+    .catch(err => console.log(err))
+});
+
+router.post('/services', async (req, res) => {
+    const {
+        id,
+        service,
+        description,
+        doctors,
+        schedules
+        } = req.body;
+
+        const serviceData = {id, service, schedules,
+        doctors, description}
+
+        const newService = new schemas.Services(serviceData);
+        const saveService = await newService.save();
+
+        if (saveService) {
+            res.send({message: "Service added, thank you"})
         }
         res.end();
 })

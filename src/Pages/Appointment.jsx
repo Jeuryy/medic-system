@@ -9,7 +9,7 @@ import { nanoid } from 'nanoid';
 
 export default function Appointment(props) {
     const [citaAdded, setCitaAdded] = useState(false)
-    const [users, setUsers] = useState([])
+    const [doctors, setDoctors] = useState([])
     const {isLogged, setIsLogged} = props
     const [formData, setFormData] = useState({
         id: nanoid(),
@@ -26,9 +26,9 @@ export default function Appointment(props) {
 
     })
     useEffect(()=> {
-        fetch("http://localhost:5000/users")
+        fetch("http://localhost:5000/doctors")
         .then(res => res.json())
-        .then(data => setUsers(data))
+        .then(data => setDoctors(data))
         .catch(err => console.log(err))
     }, [])
 
@@ -121,28 +121,28 @@ export default function Appointment(props) {
                         <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'  value={formData.phone}  onChange={handleChange} required/>
                         <label htmlFor='sex'>Seleccione su sexo</label>
                         <select name='sex' value={formData.sex} onChange={handleChange} >
-                            <option >...</option>
+                            <option >Seleccione su sexo</option>
                             <option >Hombre</option>
                             <option >Mujer</option>
                         </select>
                         <label htmlFor='service'>Tipo de consulta</label>
                         <select name='service'  value={formData.service}  onChange={handleChange} required>
-                        {users.map(el => 
+                        {doctors.map(el => 
                             <option key={nanoid()}>{el.service}</option>
                         )}
                         </select>
                         <label htmlFor='doctor'>Doctor</label>
                         <select name='doctor' value={formData.doctor}  onChange={handleChange} required>
-                        {users.map(el => 
-                            <option key={nanoid()}>{el.lastname}</option>
+                        {doctors.map(el => 
+                            <option key={nanoid()}>{`${el.gender === "Hombre" ? "Dra " : "Dr"} ${el.name} ${el.lastname}`}</option>
                         )}
                         </select>
                         <label htmlFor='assurance'>Seguro</label>
                         <input placeholder='Seguro medico' name='assurance'  value={formData.assurance}  onChange={handleChange} required/>
                         <label htmlFor='date'>Seleccione hora para la cita</label>
                         <select name='date' value={formData.date}  onChange={handleChange} required>
-                        {users.map(el => 
-                            <option key={nanoid()}>{el.date}</option>
+                        {doctors.map(el => 
+                            <option key={nanoid()}>{el.schedule}</option>
                         )}
                         </select>
                         {<p className={citaAdded? 'success' : 'error'}>{citaAdded ? "Cita agendada exitosamente!" : ""}</p>}

@@ -43,7 +43,9 @@
     margin-left: 10px;
     color: var(--green);
 }
-.register-form-container form input,.register-form-container form select{
+.register-form-container form input,
+.register-form-container form select,
+.register-form-container textarea {
     margin: 0px 10px 30px 10px;
     padding: 0 10px 5px 0;
     border: none;

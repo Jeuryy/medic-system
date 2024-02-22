@@ -5,10 +5,19 @@ import UserHeader from '../components/UserHeader';
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import './UserServices.css'
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 
 export default function UserServices(props) {
+    const [doctors, setDoctors] = useState([])
     const {isLogged, setIsLogged} = props
+
+    useEffect(()=> {
+        fetch("http://localhost:5000/doctors")
+        .then(res => res.json())
+        .then(data => setDoctors(data))
+        .catch(err => console.log(err))
+    }, [])
     return (
     <div >
         {isLogged ? (
@@ -22,7 +31,6 @@ export default function UserServices(props) {
                 <Table striped bordered hover responsive="sm">
                     <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Servicio</th>
                         <th>Descripcion</th>
                         <th>Doctores</th>
@@ -31,91 +39,22 @@ export default function UserServices(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Ginecologia</td>
-                        <td>Servicios de Ginecologia para mujeres</td>
-                        <td>Jeury Pierre</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Ginecologia</td>
-                        <td>Servicios de Ginecologia para mujeres</td>
-                        <td>Jeury Pierre</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Ginecologia</td>
-                        <td>Servicios de Ginecologia para mujeres</td>
-                        <td>Jeury Pierre</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Ginecologia</td>
-                        <td>Servicios de Ginecologia para mujeres</td>
-                        <td>Jeury Pierre</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Ginecologia</td>
-                        <td>Servicios de Ginecologia para mujeres</td>
-                        <td>Jeury Pierre</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Ginecologia</td>
-                        <td>Servicios de Ginecologia para mujeres</td>
-                        <td>Jeury Pierre</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Ginecologia</td>
-                        <td>Servicios de Ginecologia para mujeres</td>
-                        <td>Jeury Pierre</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Ginecologia</td>
-                        <td>Servicios de Ginecologia para mujeres</td>
-                        <td>Jeury Pierre</td>
-                        <td>Lunes-Viernes 8:00AM-12:00PM </td>
-                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>
-                    </tr>
+                    {doctors.map(doctor => {
+                        return <tr key={doctor.id}>
+                            <td> {doctor.service}</td>
+                            <td> {doctor.description}</td>
+                            <td>{`${doctor.gender === "Hombre" ? "Dra " : "Dr "} ${doctor.name} ${doctor.lastname}`}</td>
+                            <td> {doctor.schedule}</td>
+                            <td className='options'><button><FaUserEdit/></button>
+                                <button><MdDelete/></button>
+                            </td>
+                        </tr>})
+                    }
                     </tbody>
                 </Table>
-                <div className='create-user'>
+                {/*<div className='create-user'>
                     <Link to="/addServices">Agregar servicio</Link>
-                </div>
+                </div>*/}
                 </div>
             </div>): (
         <NotFound/>
