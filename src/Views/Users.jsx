@@ -27,7 +27,10 @@ export default function Users(props) {
                 </div>
                 <div className='users-content'>
                 <UserHeader/>
-                <p>Usuarios</p>
+                <div className='create-user'>
+                    <p>Usuarios</p>
+                    <Link to="/registrar">Crear usuario</Link>
+                </div>
                 <Table striped bordered hover responsive="sm">
                     <thead>
                     <tr>
@@ -57,9 +60,6 @@ export default function Users(props) {
                         }
                     </tbody>
                 </Table>
-                <div className='create-user'>
-                    <Link to="/registrar">Crear usuario</Link>
-                </div>
                 </div>
             </div>): (
         <NotFound/>

@@ -2,7 +2,7 @@ import './Register.css'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ScrollToTop from "react-scroll-to-top";
 import { nanoid } from 'nanoid';
 import NotFound from '../components/NotFound';
@@ -13,6 +13,8 @@ export default function Register(props) {
     const {isLogged, setIsLogged} = props;
     const [showPassword, setShowPassword] = useState(false); 
     const [passwordMatches, setPasswordMatches] = useState(true)
+    const [users, setUsers] = useState([]);
+    const [userExists, setUserExists] = useState(false);
     const [userAdded, setUserAdded] = useState(false)
     const [formData, setFormData] = useState({
         id: "",
@@ -29,6 +31,25 @@ export default function Register(props) {
         roll: 3,
         username: ""
     })
+
+    const verifyUser = () => {
+        users.map(user => {
+            if (user.email === formData.email) {
+                setUserExists(true)
+            } else {
+                setUserExists(false)
+            }
+            console.log(userExists)
+        })
+    }
+
+    useEffect(()=> {
+        fetch("http://localhost:5000/users")
+        .then(res => res.json())
+        .then(data => setUsers(data))
+        .catch(err => console.log(err))
+    }, [])
+
     const addUsers = async (data) => {
         const settings = {
             method: "POST",
@@ -44,9 +65,11 @@ export default function Register(props) {
             .then(resData => {
                 if (formData.password1 !== formData.password2) {
                     setPasswordMatches(false);
-                } else {
+                }
+                else {
                     setPasswordMatches(true);
-                    setUserAdded(true);
+                    //verifyUser()
+                    setUserAdded(true)
                     console.log(resData);
                 }
             })
@@ -71,6 +94,7 @@ export default function Register(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        //console.log(userExists)
         setUserAdded(false);
         addUsers(formData);
     }
@@ -140,6 +164,7 @@ export default function Register(props) {
                             </select>
                             <label htmlFor='document'>Número de documento</label>
                             <input name='document' placeholder='Ingrese su número de documento' value={formData.document}  onChange={handleChange} required/>
+                            {userExists && <p className='error'>Usuario ya registrado, intente con otro correo</p>}
                             {!passwordMatches && <p className='error'>Las contraseñas no coinciden</p>}
                             {<p className={userAdded? 'success' : 'error'}>{userAdded ? "Usuario agregado exitosamente!" : ""}</p>}
                             <div className='button'>

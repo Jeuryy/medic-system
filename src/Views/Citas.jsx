@@ -26,7 +26,10 @@ export default function Citas(props) {
                 </div>
                 <div className='users-content'>
                 <UserHeader/>
-                <p>Citas</p>
+                <div className='create-user'>
+                    <p>Citas</p>
+                    <Link to="/agendar">Agendar cita</Link>
+                </div>
                 <Table striped bordered hover responsive="sm">
                     <thead>
                     <tr>
@@ -57,9 +60,6 @@ export default function Citas(props) {
                     }
                     </tbody>
                 </Table>
-                <div className='create-user'>
-                    <Link to="/agendar">Agendar cita</Link>
-                </div>
                 </div>
             </div>): (
         <NotFound/>
