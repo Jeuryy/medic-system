@@ -9,7 +9,8 @@ import { useState, useEffect } from 'react';
 
 
 export default function UserServices(props) {
-    const [doctors, setDoctors] = useState([])
+    const [doctors, setDoctors] = useState([]);
+    const [activeItemId, setActiveItemId] = useState(null);
     const {isLogged, setIsLogged} = props
 
     useEffect(()=> {
@@ -18,6 +19,14 @@ export default function UserServices(props) {
         .then(data => setDoctors(data))
         .catch(err => console.log(err))
     }, [])
+
+    const handleShowMore = (id) => {
+            if (activeItemId === id) {
+                setActiveItemId(null)
+            }else{
+                setActiveItemId(id)
+            }
+    }
     return (
     <div >
         {isLogged ? (
@@ -41,14 +50,17 @@ export default function UserServices(props) {
                     <tbody>
                     {doctors.map(doctor => {
                         return <tr key={doctor.id}>
-                            <td> {doctor.service}</td>
-                            <td className='service-description'> {doctor.description}</td>
-                            <td>{`${doctor.gender === "Hombre" ? "Dr " : "Dra "} ${doctor.name} ${doctor.lastname}`}</td>
-                            <td style={{whiteSpace: "pre-line"}}> {doctor.schedule}</td>
-                            {/*<td className='options'><button><FaUserEdit/></button>
-                                <button><MdDelete/></button>
-                            </td>*/}
-                        </tr>})
+                                    <td> {doctor.service}</td>
+                                    <td className='service-description' id={doctor.id}> 
+                                        {(activeItemId === doctor.id) ? doctor.description : `${(doctor.description).substring(0, 75)}`}
+                                        <button onClick={() => {handleShowMore(doctor.id)}} id={doctor.id}>{(activeItemId === doctor.id) ? "Show less" : "Show more"}</button>
+                                    </td>
+                                    <td>{`${doctor.gender === "Hombre" ? "Dr " : "Dra "} ${doctor.name} ${doctor.lastname}`}</td>
+                                    <td style={{whiteSpace: "pre-line"}}> {doctor.schedule}</td>
+                                    {/*<td className='options'><button><FaUserEdit/></button>
+                                        <button><MdDelete/></button>
+                                    </td>*/}
+                                </tr>})
                     }
                     </tbody>
                 </Table>

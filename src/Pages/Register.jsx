@@ -39,8 +39,8 @@ export default function Register(props) {
             } else {
                 setUserExists(false)
             }
-            console.log(userExists)
         })
+        return userExists
     }
 
     useEffect(()=> {
@@ -67,10 +67,14 @@ export default function Register(props) {
                     setPasswordMatches(false);
                 }
                 else {
-                    setPasswordMatches(true);
-                    //verifyUser()
-                    setUserAdded(true)
-                    console.log(resData);
+                    verifyUser()
+                    if (userExists) {
+                            return userExists
+                    } else {
+                        setPasswordMatches(true);
+                        setUserAdded(true)
+                        console.log(resData);
+                    }
                 }
             })
             .catch(e => {
@@ -94,7 +98,7 @@ export default function Register(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //console.log(userExists)
+        setUserExists(false)
         setUserAdded(false);
         addUsers(formData);
     }
@@ -116,6 +120,7 @@ export default function Register(props) {
             username: ""
         });
         setUserAdded(false);
+        setUserExists(false)
     }
 
     return (
@@ -166,7 +171,7 @@ export default function Register(props) {
                             <input name='document' placeholder='Ingrese su número de documento' value={formData.document}  onChange={handleChange} required/>
                             {userExists && <p className='error'>Usuario ya registrado, intente con otro correo</p>}
                             {!passwordMatches && <p className='error'>Las contraseñas no coinciden</p>}
-                            {<p className={userAdded? 'success' : 'error'}>{userAdded ? "Usuario agregado exitosamente!" : ""}</p>}
+                            {<p className={userAdded? 'success' : 'error'}>{(userAdded && !userExists) ? "Usuario agregado exitosamente!" : ""}</p>}
                             <div className='button'>
                                 <button type='submit'>Crear</button>
                                 <button onClick={clearValues}>Borrar todo</button>
