@@ -52,7 +52,11 @@
     color: #000;
     border-bottom: 1px solid #000;
     outline: none;
-    background-color: transparent
+    background-color: transparent;
+}
+.register-form-container form input[name=email],
+.register-form-container form input[name=password2]{
+    margin-bottom: 0;
 }
 .register-password{
     text-align: justify;

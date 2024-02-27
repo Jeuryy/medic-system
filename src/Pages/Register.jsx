@@ -15,6 +15,7 @@ export default function Register(props) {
     const [passwordMatches, setPasswordMatches] = useState(true)
     const [users, setUsers] = useState([]);
     const [userExists, setUserExists] = useState(false);
+    const [disableSend, setDisableSend] = useState(true)
     const [userAdded, setUserAdded] = useState(false)
     const [formData, setFormData] = useState({
         id: "",
@@ -31,17 +32,6 @@ export default function Register(props) {
         roll: 3,
         username: ""
     })
-
-    const verifyUser = () => {
-        users.map(user => {
-            if (user.email === formData.email) {
-                setUserExists(true)
-            } else {
-                setUserExists(false)
-            }
-        })
-        return userExists
-    }
 
     useEffect(()=> {
         fetch("http://localhost:5000/users")
@@ -63,19 +53,9 @@ export default function Register(props) {
             await fetch("http://localhost:5000/users/", settings)
             .then(res => res.json())
             .then(resData => {
-                if (formData.password1 !== formData.password2) {
-                    setPasswordMatches(false);
-                }
-                else {
-                    verifyUser()
-                    if (userExists) {
-                            return userExists
-                    } else {
-                        setPasswordMatches(true);
-                        setUserAdded(true)
-                        console.log(resData);
-                    }
-                }
+                setPasswordMatches(true);
+                setUserAdded(true)
+                console.log(resData);
             })
             .catch(e => {
                 console.log(`Error catched: ${e}`);
@@ -95,10 +75,26 @@ export default function Register(props) {
             }
         })
     }
+    const handleUserExist = () => {
+        if (formData.password1 !== formData.password2) {
+            setPasswordMatches(false);
+            setDisableSend(true)
+        } else {
+            users.map(user => {
+                if (user.email === formData.email) {
+                    setDisableSend(true)
+                    setUserExists(true)
+                } else {
+                    setDisableSend(false)
+                    setUserExists(false)
+                    setPasswordMatches(true)
+                }
+            })
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setUserExists(false)
         setUserAdded(false);
         addUsers(formData);
     }
@@ -123,6 +119,10 @@ export default function Register(props) {
         setUserExists(false)
     }
 
+    const myStyle = {
+        backgroundColor: disableSend && "grey"
+    }
+
     return (
         <div>
             {isLogged ? (
@@ -135,16 +135,17 @@ export default function Register(props) {
                     <div className='register-form-container'>
                     <div className='register-form-form-container'>
                         <h3>CREAR USUARIO</h3>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} onChange={handleUserExist} onMouseDown={handleUserExist} autoComplete='off'>
                             <label htmlFor='name'>Nombre</label>
-                            <input placeholder='Escriba su nombre' name='name'value={formData.name}  onChange={handleChange} required maxLength="32" pattern="[A-Za-z]{1,32}"/>
+                            <input autoComplete='off' placeholder='Escriba su nombre' name='name' value={formData.name}  onChange={handleChange} required maxLength="32" pattern="[A-Za-z]{1,32}"/>
                             <label htmlFor='lastname'>Apellido</label>
-                            <input placeholder='Escriba su apellido(s)' name='lastname' value={formData.lastname}  onChange={handleChange} maxLength="50" required/>
+                            <input autoComplete='off' placeholder='Escriba su apellido(s)' name='lastname' value={formData.lastname}  onChange={handleChange} maxLength="50" required/>
                             <label htmlFor='address'>Dirección</label>
-                            <input placeholder='Escriba dirección aqui' name='address' value={formData.address}  onChange={handleChange} maxLength="150" required/>
+                            <input autoComplete='off' placeholder='Escriba dirección aqui' name='address' value={formData.address}  onChange={handleChange} maxLength="150" required/>
                             <label htmlFor='email'>Correo electrónico</label>
-                            <input type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange} required/>
-                            <label htmlFor='password1'>Escriba su contraseña</label>
+                            <input autoComplete='off' type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange} required/>
+                            {userExists && <p className='error' style={{marginBottom: 0}}>Usuario ya registrado, intente con otro correo</p>}
+                            <label htmlFor='password1' style={{marginTop: "30px"}}>Escriba su contraseña</label>
                             <div className='register-password'>
                                 <input type={showPassword? "text" : "password"} name='password1' placeholder='Clave' value={formData.password1}  onChange={handleChange} minLength="8" required/>
                                 {showPassword ? <FaEye onClick={() => handlePassword()}/> : <FaEyeSlash onClick={handlePassword}/>}
@@ -153,8 +154,9 @@ export default function Register(props) {
                             <div className='register-password'>
                                 <input type={showPassword? "text" : "password"} name='password2' placeholder='Confirme clave' value={formData.password2}  onChange={handleChange} minLength="8" required/>
                             </div>
-                            <label htmlFor='phone'>Número celular</label>
-                            <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'value={formData.phone}  onChange={handleChange} required/>
+                            {!passwordMatches && <p className='error'>Las contraseñas no coinciden</p>}
+                            <label htmlFor='phone' style={{marginTop: "30px"}}>Número celular</label>
+                            <input autoComplete='off' type='tel' placeholder='XXX-XXX-XXXX' name='phone'value={formData.phone}  onChange={handleChange} required/>
                             <label htmlFor='sex'>Seleccione su sexo</label>
                             <select name='sex' value={formData.sex}  onChange={handleChange} required>
                                 <option defaultValue="...">...</option>
@@ -168,12 +170,10 @@ export default function Register(props) {
                                 <option >Pasaporte</option>
                             </select>
                             <label htmlFor='document'>Número de documento</label>
-                            <input name='document' placeholder='Ingrese su número de documento' value={formData.document}  onChange={handleChange} required/>
-                            {userExists && <p className='error'>Usuario ya registrado, intente con otro correo</p>}
-                            {!passwordMatches && <p className='error'>Las contraseñas no coinciden</p>}
+                            <input autoComplete='off' name='document' placeholder='Ingrese su número de documento' value={formData.document}  onChange={handleChange} required/>
                             {<p className={userAdded? 'success' : 'error'}>{(userAdded && !userExists) ? "Usuario agregado exitosamente!" : ""}</p>}
                             <div className='button'>
-                                <button type='submit'>Crear</button>
+                                <button type='submit' disabled={disableSend} style={myStyle}>Crear</button>
                                 <button onClick={clearValues}>Borrar todo</button>
                             </div>
                         </form>

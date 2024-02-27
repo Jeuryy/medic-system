@@ -2,8 +2,6 @@ import Table from 'react-bootstrap/Table';
 import NotFound from '../components/NotFound';
 import UserMenu from '../Pages/UserMenu';
 import UserHeader from '../components/UserHeader';
-import { FaUserEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
 import './UserServices.css'
 import { useState, useEffect } from 'react';
 
