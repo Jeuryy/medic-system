@@ -33,7 +33,7 @@ export default function Doctors(props) {
                 <div className='users-content'>
                 <UserHeader/>
                 <div className='create-user'>
-                    <p>Doctores</p>
+                    <p className='title'>Doctores</p>
                     <Link to="/addDoctor">Agregar doctor</Link>
                 </div>
                 <Table striped bordered hover responsive="sm">

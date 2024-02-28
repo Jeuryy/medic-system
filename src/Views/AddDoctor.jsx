@@ -91,7 +91,7 @@ export default function AddDoctor(props) {
                             <textarea placeholder='Descripcion de la especialidad' name='description' value={formData.description}  onChange={handleChange} required/>
                             <label htmlFor='email'>Correo electrónico</label>
                             <input type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange}/>
-                            <label htmlFor='phone'>Número celular</label>
+                            <label htmlFor='phone' style={{marginTop: "30px"}}>Número celular</label>
                             <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'value={formData.phone}  onChange={handleChange}/>
                             <label htmlFor='gender'>Seleccione su sexo</label>
                             <select name='gender' value={formData.gender}  onChange={handleChange} required>
@@ -99,6 +99,7 @@ export default function AddDoctor(props) {
                                 <option >Hombre</option>
                                 <option >Mujer</option>
                             </select>
+                            <p className='format'>Formato: Lun: 1:00pm-2:00pm, Mar: 2:00pm-3:00pm,Mie: 3:00pm-4:00pm,Jue: 4:00p,-5:00pm (Horario diario dividido por coma)</p>
                             <label htmlFor='schedule'>Horario</label>
                             <input placeholder='Horarios de servicios' name='schedule' value={formData.schedule}  onChange={handleChange} required/>
                             {<p className={doctorAdded? 'success' : 'error'}>{doctorAdded ? "Doctor agregado exitosamente!" : ""}</p>}

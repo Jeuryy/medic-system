@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 import { IoMdArrowBack } from "react-icons/io";
 import ScrollToTop from "react-scroll-to-top";
 import { nanoid } from 'nanoid';
+import { format } from 'date-fns';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
 
 export default function Appointment(props) {
     const [citaAdded, setCitaAdded] = useState(false)
@@ -14,6 +17,7 @@ export default function Appointment(props) {
     const [doctor, setDoctor] = useState([]);
     const [schedule, setSchedule] = useState("");
     const [doctorSchedule, setDoctorSchedule] = useState([])
+    const [selected, setSelected] = useState();
     const {isLogged, setIsLogged} = props
     const [formData, setFormData] = useState({
         id: nanoid(),
@@ -26,10 +30,9 @@ export default function Appointment(props) {
         service: "",
         doctor: "",
         assurance: "",
-        date: ""
-
+        date: "",
+        dia: ""
     })
-
 
     useEffect(()=> {
         fetch("http://localhost:5000/doctors")
@@ -39,6 +42,11 @@ export default function Appointment(props) {
         })
         .catch(err => console.log(err))
     }, [])
+
+    let footer = <p>{`Seleccione el dia para la cita, con relacion al horario seleccionado. (${(formData.date)})`}</p>;
+        if (selected) {
+            footer = <p>Ha seleccionado {format(selected, 'PP')}.</p>;
+        }
 
     //Function to POST Appointment DATA to the db
     const addCitas = async (data) => {
@@ -77,8 +85,16 @@ export default function Appointment(props) {
         })
         if (arrayObject !== undefined) {
             let {schedule} = arrayObject;
-            let scheduleArray = schedule.split("\n");
+            let scheduleArray = schedule.split(",");
             setDoctorSchedule(scheduleArray)
+        }
+        if (selected !== undefined) {
+            setFormData(prevState => {
+                return {
+                    ...prevState,
+                    dia: selected.toDateString()
+                }
+            })
         }
     }
 
@@ -88,7 +104,8 @@ export default function Appointment(props) {
         //setCitaAdded(false);
         //addCitas(formData);
     }
-    const clearValues = () => {
+    const clearValues = (e) => {
+        e.preventDefault();
         setFormData({
             id: "",
             name: "",
@@ -100,7 +117,8 @@ export default function Appointment(props) {
             service: "",
             doctor: "",
             assurane: "",
-            date: ""
+            date: "",
+            dia: ""
         });
         setCitaAdded(false);
     }
@@ -167,6 +185,12 @@ export default function Appointment(props) {
                             )}
                             </select>
                         </div>
+                        {((formData.date !== "") && (formData.date !== "Selecciona fecha")) && <DayPicker
+                            mode="single"
+                            selected={selected}
+                            onSelect={setSelected}
+                            footer={footer}
+                        />}
                         {<p className={citaAdded? 'success' : 'error'}>{citaAdded ? "Cita agendada exitosamente!" : ""}</p>}
                         <div className='button'>
                             <button type='submit'>Confirmar</button>

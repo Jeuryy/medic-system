@@ -27,7 +27,7 @@ export default function Citas(props) {
                 <div className='users-content'>
                 <UserHeader/>
                 <div className='create-user'>
-                    <p>Citas</p>
+                    <p className='title'>Citas</p>
                     <Link to="/agendar">Agendar cita</Link>
                 </div>
                 <Table striped bordered hover responsive="sm">

@@ -20,6 +20,7 @@ const userSchema = new Schema({
 const citaSchema = new Schema ({
     id: {type: String},
     date: {type: String},
+    dia: {type: String},
     service: {type: String},
     doctor: {type: String},
     name: {type: String},

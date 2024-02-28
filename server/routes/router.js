@@ -51,6 +51,7 @@ router.post('/citas', async (req, res) => {
     const {
         id,
         date,
+        dia,
         service,
         doctor,
         name,
@@ -62,7 +63,7 @@ router.post('/citas', async (req, res) => {
         phone
         } = req.body;
 
-        const citaData = {id, date, service, doctor,
+        const citaData = {id, date, dia, service, doctor,
         name, lastname, gender, assurance,
         address, email, phone}
 

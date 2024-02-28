@@ -10,9 +10,8 @@
 
 .welcome{
     font-size: 48px;
-    margin: 10px;
-    margin-left: 30px;
-    margin-bottom: 0;
+    margin: 50px;
+    margin-bottom: 20px;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--green);

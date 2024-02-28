@@ -16,7 +16,14 @@
     display: flex;
     align-items: center;
 }
-
+.user-header-first .first{
+    color: var(--orange);
+    margin-left: 50px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-size: 32px;
+    font-family: "Saira Stencil One", sans-serif;
+}
 
 .user-header-last {
     display: flex;

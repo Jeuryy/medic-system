@@ -51,7 +51,7 @@ function App() {
               <Route element={<AddServices isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path="addServices"/>
               <Route element={<Diagnostics isLogged={isLogged} setIsLogged={setIsLogged}/>}
-              path="Diagnostics"/>
+              path="diagnostics"/>
               <Route element={<NotFound/>}
               path='*'/>
         </Routes>

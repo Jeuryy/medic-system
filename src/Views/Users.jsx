@@ -28,7 +28,7 @@ export default function Users(props) {
                 <div className='users-content'>
                 <UserHeader/>
                 <div className='create-user'>
-                    <p>Usuarios</p>
+                    <p className='title'>Usuarios</p>
                     <Link to="/registrar">Crear usuario</Link>
                 </div>
                 <Table striped bordered hover responsive="sm">
@@ -40,9 +40,6 @@ export default function Users(props) {
                         <th>Dirección</th>
                         <th>Teléfono</th>
                         <th>Opciones</th>
-                        {/*                        <td className='options'><button><FaUserEdit/></button>
-                            <button><MdDelete/></button>
-                        </td>*/}
                     </tr>
                     </thead>
                     <tbody>
@@ -53,8 +50,13 @@ export default function Users(props) {
                                 <td> {user.email}</td>
                                 <td> {user.address}</td>
                                 <td> {user.phone}</td>
-                                <td className='options'><button><FaUserEdit/></button>
-                                    <button><MdDelete/></button>
+                                <td className='options'>
+                                    <button>
+                                        <FaUserEdit/>
+                                    </button>
+                                    <button>
+                                        <MdDelete/>
+                                    </button>
                                 </td>
                             </tr>})
                         }

@@ -34,7 +34,7 @@ export default function UserServices(props) {
                 </div>
                 <div className='users-content'>
                 <UserHeader/>
-                <p>Servicios</p>
+                <p className='title'>Servicios</p>
                 <Table striped bordered hover responsive="sm">
                     <thead>
                     <tr>

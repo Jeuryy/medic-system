@@ -4,9 +4,30 @@ import NotFound from '../components/NotFound';
 import MyCard from '../components/MyCard';
 import { Chart } from "react-google-charts";
 import './Dashboard.css'
+import { useState, useEffect } from 'react';
 
 export default function Dashboard(props) {
     const {isLogged, setIsLogged} = props;
+    const [users, setUsers] = useState([]);
+    const [citas, setCitas] = useState([]);
+
+    useEffect(()=> {
+        fetch("http://localhost:5000/users")
+        .then(res => res.json())
+        .then(data => {
+            setUsers(data)
+        })
+        .catch(err => console.log(err))
+    }, []);
+    useEffect(()=> {
+        fetch("http://localhost:5000/citas")
+        .then(res => res.json())
+        .then(data => {
+            setCitas(data)
+        })
+        .catch(err => console.log(err))
+    }, []);
+
     return (
         <div className='dashboard-container'>
         {isLogged ? (
@@ -28,7 +49,7 @@ export default function Dashboard(props) {
                     </div>
                     <Chart
                         chartType="ScatterChart"
-                        data={[["Usuarios", "Citas"], [15, 5]]}
+                        data={[["Citas", "Usuarios"], [citas.length, users.length]]}
                         width="100%"
                         height="400px"
                         legendToggle

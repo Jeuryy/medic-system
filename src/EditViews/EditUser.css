@@ -1,0 +1,94 @@
+.profile-register-container{
+    display: flex;
+    justify-content: space-between;
+}
+.register-form{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.register-form-container{
+    text-align: center;
+}
+.register-form .img-container {
+    align-items: center;
+    display: flex;
+    margin-right: 50px;
+}
+.register-form .login{
+    color: #fff;
+    text-decoration: none;
+}
+
+.register-form-form-container{
+
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+}
+.register-form-form-container form{
+    display: flex;
+    flex-direction: column;
+}
+.register-form-form-container h3{
+    color: var(--orange);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+.register-form-container form label{
+    text-align: start;
+    margin-left: 10px;
+    color: var(--green);
+}
+.register-form-container form input,
+.register-form-container form select,
+.register-form-container textarea {
+    margin: 0px 10px 30px 10px;
+    padding: 0 10px 5px 0;
+    border: none;
+    color: #000;
+    border-bottom: 1px solid #000;
+    outline: none;
+    background-color: transparent;
+}
+.register-form-container form input[name=email],
+.register-form-container form input[name=password2]{
+    margin-bottom: 0;
+}
+.register-password{
+    text-align: justify;
+}
+.register-password input {
+    width: 90%;
+}
+.register-form-container form ::placeholder{
+    color: #000;
+}
+.register-form-container form .button button{
+    padding: 8px 30px;
+    margin: 15px;
+    margin-top: 10px;
+    border: none;
+    background-color: var(--orange);
+    color: #FFF;
+}
+.success{
+    color: var(--green);
+}
+.error{
+    color: red;
+}
+@media screen and (max-width: 500px) {
+    .goback{
+        margin-left: 10px;
+    }
+    .register-form-container .img-container img{
+        margin-right: 10px;
+    }
+    .cmdm-logo{
+        max-width: 80%;
+    }
+}

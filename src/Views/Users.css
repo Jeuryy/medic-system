@@ -5,7 +5,7 @@
 .users-content{
     flex: 1;
 }
-.users-content p{
+.users-content .title{
     font-size: 48px;
     margin: 50px;
     margin-bottom: 20px;
