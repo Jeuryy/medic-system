@@ -54,7 +54,7 @@ export default function UserServices(props) {
                                         <button onClick={() => {handleShowMore(doctor.id)}} id={doctor.id}>{(activeItemId === doctor.id) ? "Show less" : "Show more"}</button>
                                     </td>
                                     <td>{`${doctor.gender === "Hombre" ? "Dr " : "Dra "} ${doctor.name} ${doctor.lastname}`}</td>
-                                    <td style={{whiteSpace: "pre-line"}}> {doctor.schedule}</td>
+                                    <td style={{whiteSpace: "pre-line"}}> {(doctor.schedule).replaceAll(",", "\n")}</td>
                                     {/*<td className='options'><button><FaUserEdit/></button>
                                         <button><MdDelete/></button>
                                     </td>*/}

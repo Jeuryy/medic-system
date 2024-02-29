@@ -137,6 +137,32 @@ router.post('/doctors', async (req, res) => {
         res.end();
 })
 
+router.put('/doctors', async (req, res) => {
+    const {id, name, lastname, service, 
+        schedule, phone, email, 
+        gender, description
+    } = req.body;
+
+    try {
+        await schemas.Doctors.updateOne({id}, {
+            $set: {
+                name, 
+                lastname, 
+                service, 
+                schedule, 
+                phone, 
+                email, 
+                gender, 
+                description
+            }
+        })
+        return res.json({status: "ok", data: "updated"})
+
+    } catch (err) {
+        return res.json({status: "error", data: err})
+    }
+})
+
 //SERVICIOS
 router.get('/services', (req, res) => {
     schemas.Services.find()

@@ -16,6 +16,7 @@ import AddServices from './Views/AddServices';
 import Diagnostics from './Views/Diagnostics';
 import Profile from './Views/Profile';
 import EditUser from './EditViews/EditUser';
+import EditDoctor from './EditViews/EditDoctor';
 
 function App() {
   const[isLogged, setIsLogged] = useState(localStorage.getItem("isLogged") || false);
@@ -55,6 +56,8 @@ function App() {
               path="diagnostics"/>
               <Route element={<EditUser isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='edit-user'/>
+              <Route element={<EditDoctor isLogged={isLogged} setIsLogged={setIsLogged}/>}
+              path='edit-doctor'/>
               <Route element={<NotFound/>}
               path='*'/>
         </Routes>

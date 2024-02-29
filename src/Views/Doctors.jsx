@@ -5,13 +5,14 @@ import UserHeader from '../components/UserHeader';
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import './Users.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 
 export default function Doctors(props) {
     const [doctors, setDoctors] = useState([])
-    const {isLogged, setIsLogged} = props
+    const {isLogged, setIsLogged} = props;
+    const navigate = useNavigate();
 
 
     useEffect(()=> {
@@ -48,12 +49,16 @@ export default function Doctors(props) {
                     </thead>
                     <tbody>
                     {doctors.map(doctor => {
+                        //console.log((doctor.schedule).split(","))
                         return <tr key={doctor.id}>
                             <td>{`${doctor.gender === "Hombre" ? "Dr " : "Dra "} ${doctor.name} ${doctor.lastname}`}</td>
                             <td> {doctor.service}</td>
-                            <td style={{whiteSpace: "pre-line"}}> {(doctor.schedule)}</td>
+                            <td style={{whiteSpace: "pre-line"}}> {(doctor.schedule).replaceAll(",", "\n")}</td>
                             <td> {doctor.phone + " " + doctor.email}</td>
-                            <td className='options'><button><FaUserEdit/></button>
+                            <td className='options'>
+                                <button onClick={() => navigate("/edit-doctor", {state: doctor})}>
+                                    <FaUserEdit/>
+                                </button>
                                 <button><MdDelete/></button>
                             </td>
                         </tr>})

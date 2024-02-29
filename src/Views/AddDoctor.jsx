@@ -5,10 +5,12 @@ import { nanoid } from 'nanoid';
 import NotFound from '../components/NotFound';
 import UserMenu from '../Pages/UserMenu';
 import UserHeader from '../components/UserHeader';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddDoctor(props) {
     const [doctorAdded, setDoctorAdded] = useState(false)
     const {isLogged, setIsLogged} = props;
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         id: "",
         name: "",
@@ -35,6 +37,9 @@ export default function AddDoctor(props) {
             .then(res => res.json())
             .then(resData => {console.log(resData)
                 setDoctorAdded(true)
+                setTimeout(() => {
+                    navigate("/doctors")
+                }, 1000)
             })
             .catch(e => console.log(`Error catched: ${e}`))    
     }

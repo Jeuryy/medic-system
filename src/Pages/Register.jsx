@@ -57,7 +57,9 @@ export default function Register(props) {
                 setPasswordMatches(true);
                 setUserAdded(true)
                 console.log(resData);
-                navigate("/users")
+                setTimeout(() => {
+                    navigate("/users")
+                }, 1000)
             })
             .catch(e => {
                 console.log(`Error catched: ${e}`);

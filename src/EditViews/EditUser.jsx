@@ -14,6 +14,7 @@ export default function EditUser (props) {
     const [passwordMatches, setPasswordMatches] = useState(true)
     const [disableSend, setDisableSend] = useState(false)
     const [userUpdated, setUserUpdated] = useState(false)
+    const [error, setError] = useState(false)
     const [formData, setFormData] = useState({
         id: "",
         name: "",
@@ -67,18 +68,20 @@ export default function EditUser (props) {
             },
             body: JSON.stringify(data) 
         };
-            await fetch("http://localhost:5000/users/", settings)
+            await fetch("http://localhost:5000/users", settings)
             .then(res => res.json())
             .then(resData => {
                 console.log(resData);
                 setUserUpdated(true)
-                setInterval(() => {
+                setError(false)
+                setTimeout(() => {
                     navigate("/users")
                 }, 1000)
             })
             .catch(e => {
                 console.log(`Error catched: ${e}`);
                 setUserUpdated(false)
+                setError(true)
             })
     }
     
@@ -107,6 +110,7 @@ export default function EditUser (props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setError(false)
         updateUsers(formData);
     }
 
@@ -133,25 +137,68 @@ export default function EditUser (props) {
                     <h3>EDITAR USUARIO</h3>
                     <form onSubmit={handleSubmit} onChange={handleUserChanges} onMouseDown={handleUserChanges} autoComplete='off'>
                         <label htmlFor='name'>Nombre</label>
-                        <input autoComplete='off' placeholder='Escriba su nombre' name='name' defaultValue={formData.name}  onChange={handleChange} required maxLength="32" pattern="[A-Za-z]{1,32}"/>
+                        <input 
+                            autoComplete='off' 
+                            placeholder='Escriba su nombre' 
+                            name='name' 
+                            defaultValue={formData.name}  
+                            onChange={handleChange} 
+                            required maxLength="32" 
+                            pattern="[A-Za-z]{1,32}"/>
                         <label htmlFor='lastname'>Apellido</label>
-                        <input autoComplete='off' placeholder='Escriba su apellido(s)' name='lastname' defaultValue={formData.lastname}  onChange={handleChange} maxLength="50" required/>
+                        <input 
+                            autoComplete='off' 
+                            placeholder='Escriba su apellido(s)' 
+                            name='lastname' 
+                            defaultValue={formData.lastname}  
+                            onChange={handleChange} 
+                            maxLength="50" required/>
                         <label htmlFor='address'>Dirección</label>
-                        <input autoComplete='off' placeholder='Escriba dirección aqui' name='address' defaultValue={formData.address}  onChange={handleChange} maxLength="150" required/>
+                        <input 
+                            autoComplete='off' 
+                            placeholder='Escriba dirección aqui' 
+                            name='address' 
+                            defaultValue={formData.address}  
+                            onChange={handleChange} 
+                            maxLength="150" required/>
                         <label htmlFor='email'>Correo electrónico</label>
-                        <input  disabled autoComplete='off' type='email' placeholder='Escriba su correo electrónico' name='email' defaultValue={formData.email}  onChange={handleChange} required/>
+                        <input  
+                            disabled autoComplete='off' 
+                            type='email' 
+                            placeholder='Escriba su correo electrónico' 
+                            name='email' 
+                            defaultValue={formData.email}  
+                            onChange={handleChange} required/>
                         <label htmlFor='password1' style={{marginTop: "30px"}}>Escriba su contraseña</label>
                         <div className='edit-user-password'>
-                            <input type={showPassword? "text" : "password"} name='password1' placeholder='Clave' defaultValue={formData.password1}  onChange={handleChange} minLength="8" required/>
+                            <input 
+                                type={showPassword? "text" : "password"} 
+                                name='password1' 
+                                placeholder='Clave' 
+                                defaultValue={formData.password1}  
+                                onChange={handleChange} 
+                                minLength="8" required/>
                             {showPassword ? <FaEye onClick={() => handlePassword()}/> : <FaEyeSlash onClick={handlePassword}/>}
                         </div>
                         <label htmlFor='password2'>Repita la contraseña</label>
                         <div className='edit-user-password'>
-                            <input type={showPassword? "text" : "password"} name='password2' placeholder='Confirme clave' defaultValue={formData.password2}  onChange={handleChange} minLength="8" required/>
+                            <input 
+                                type={showPassword? "text" : "password"} 
+                                name='password2' 
+                                placeholder='Confirme clave' 
+                                defaultValue={formData.password2}  
+                                onChange={handleChange} 
+                                minLength="8" required/>
                         </div>
                         {!passwordMatches && <p className='error'>Las contraseñas no coinciden</p>}
                         <label htmlFor='phone' style={{marginTop: "30px"}}>Número celular</label>
-                        <input autoComplete='off' type='tel' placeholder='XXX-XXX-XXXX' name='phone' defaultValue={formData.phone}  onChange={handleChange} required/>
+                        <input 
+                            autoComplete='off' 
+                            type='tel' 
+                            placeholder='XXX-XXX-XXXX' 
+                            name='phone' 
+                            defaultValue={formData.phone}  
+                            onChange={handleChange} required/>
                         <label htmlFor='sex'>Seleccione su sexo</label>
                         <select name='sex' defaultValue={formData.gender} onChange={handleChange} required>
                             <option >Hombre</option>
@@ -163,14 +210,21 @@ export default function EditUser (props) {
                             <option >Pasaporte</option>
                         </select>
                         <label htmlFor='document'>Número de documento</label>
-                        <input  disabled autoComplete='off' name='document' placeholder='Ingrese su número de documento' defaultValue={document}  onChange={handleChange} required/>
+                        <input  
+                            disabled autoComplete='off' 
+                            name='document' 
+                            placeholder='Ingrese su número de documento' 
+                            defaultValue={document}  
+                            onChange={handleChange} required/>
                         <label htmlFor='roll'>Roll</label>
-                        <select name='roll' defaultValue={formData.roll}  onChange={handleChange} required>
+                        <select name='roll' defaultValue={formData.roll} onChange={handleChange} required>
+                            <option >{formData.roll}</option>
                             <option >1</option>
                             <option >2</option>
                             <option >3</option>
                         </select>
-                        {<p className={userUpdated? 'success' : 'error'}>{(userUpdated) ? "Usuario actualizado exitosamente!" : ""}</p>}
+                        {<p className='success'>{(userUpdated) ? "Usuario actualizado exitosamente!" : ""}</p>}
+                        {<p className='error'>{error && "Hubo un error, por favor intente mas tarde!"}</p>}
                         <div className='button'>
                             <button type='submit' disabled={disableSend} style={myStyle}>Actualizar</button>
                             <MyModal     

@@ -1,5 +1,5 @@
 import './Appointment.css'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { MdAccountCircle } from "react-icons/md";
 import cmdm from '../assets/img/cmdm.png'
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import ScrollToTop from "react-scroll-to-top";
 import { nanoid } from 'nanoid';
 import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
@@ -31,7 +32,7 @@ export default function Appointment(props) {
         doctor: "",
         assurance: "",
         date: "",
-        dia: ""
+        dia: "",
     })
 
     useEffect(()=> {
@@ -118,7 +119,7 @@ export default function Appointment(props) {
             doctor: "",
             assurane: "",
             date: "",
-            dia: ""
+            dia: "",
         });
         setCitaAdded(false);
     }
@@ -187,6 +188,7 @@ export default function Appointment(props) {
                         </div>
                         {((formData.date !== "") && (formData.date !== "Selecciona fecha")) && <DayPicker
                             mode="single"
+                            locale={es}
                             selected={selected}
                             onSelect={setSelected}
                             footer={footer}
