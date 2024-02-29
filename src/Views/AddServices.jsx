@@ -79,11 +79,11 @@ export default function AddServices(props) {
                             <label htmlFor='name'>Nombre</label>
                             <input placeholder='Nombre del servicio o especialidad' name='name'value={formData.name}  onChange={handleChange} required/>
                             <label htmlFor='description'>Descripcion</label>
-                            <input placeholder='Descripcion del servicio' name='description' value={formData.lastname}  onChange={handleChange} required/>
+                            <input placeholder='Descripcion del servicio' name='description' defaultValue={formData.lastname}  onChange={handleChange} required/>
                             <label htmlFor='doctors'>Doctores</label>
-                            <input placeholder='Doctores de la especialidad' name='doctors' value={formData.service}  onChange={handleChange} required/>
+                            <input placeholder='Doctores de la especialidad' name='doctors' defaultValue={formData.service}  onChange={handleChange} required/>
                             <label htmlFor='schedule'>Schedule</label>
-                            <input placeholder='Horarios de disponibilidad' name='schedule' value={formData.email}  onChange={handleChange} required/>
+                            <input placeholder='Horarios de disponibilidad' name='schedule' defaultValue={formData.email}  onChange={handleChange} required/>
                             <div className='button'>
                                 <button type='submit'>Crear</button>
                             </div>

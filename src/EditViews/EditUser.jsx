@@ -1,22 +1,19 @@
-import './EditUser.css'
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import ScrollToTop from "react-scroll-to-top";
-import { nanoid } from 'nanoid';
+import UserMenu from '../Pages/UserMenu';
 import NotFound from '../components/NotFound';
-import UserMenu from '../Pages/UserMenu.css';
 import UserHeader from '../components/UserHeader';
+import './EditUser.css'
+import { useState, useEffect } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa6';
+import ScrollToTop from 'react-scroll-to-top';
+import { useLocation, useNavigate } from 'react-router-dom';
+import MyModal from '../components/Modal';
 
-export default function EditUser(props) {
+export default function EditUser (props) {
     const {isLogged, setIsLogged} = props;
     const [showPassword, setShowPassword] = useState(false); 
     const [passwordMatches, setPasswordMatches] = useState(true)
-    const [users, setUsers] = useState([]);
-    const [userExists, setUserExists] = useState(false);
-    const [disableSend, setDisableSend] = useState(true)
-    const [userAdded, setUserAdded] = useState(false)
+    const [disableSend, setDisableSend] = useState(false)
+    const [userUpdated, setUserUpdated] = useState(false)
     const [formData, setFormData] = useState({
         id: "",
         name: "",
@@ -26,23 +23,43 @@ export default function EditUser(props) {
         password1: "",
         password2: "",
         phone: "",
-        sex: "",
+        gender: "",
         documenttype: "",
         document: "",
-        roll: 3,
+        roll: "",
         username: ""
     })
+    const navigate = useNavigate();
+    const location = useLocation();
+    const {id, name, lastname, address, 
+        email, password, phone, 
+        gender, documenttype, document, roll, username
+    } = location.state;
 
-    useEffect(()=> {
-        fetch("http://localhost:5000/users")
-        .then(res => res.json())
-        .then(data => setUsers(data))
-        .catch(err => console.log(err))
-    }, [])
+    useEffect(()=>{
+        setFormData(prevState => {
+            return {
+                ...prevState,
+                id,
+                name,
+                lastname,
+                address,
+                email,
+                password1: password,
+                password2: password,
+                phone,
+                gender,
+                documenttype,
+                document,
+                roll,
+                username
+            }
+        })
+    }, []);
 
-    const addUsers = async (data) => {
+    const updateUsers = async (data) => {
         const settings = {
-            method: "POST",
+            method: "PUT",
             //mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
@@ -53,15 +70,18 @@ export default function EditUser(props) {
             await fetch("http://localhost:5000/users/", settings)
             .then(res => res.json())
             .then(resData => {
-                setPasswordMatches(true);
-                setUserAdded(true)
                 console.log(resData);
+                setUserUpdated(true)
+                setInterval(() => {
+                    navigate("/users")
+                }, 1000)
             })
             .catch(e => {
                 console.log(`Error catched: ${e}`);
-                setUserAdded(false)
+                setUserUpdated(false)
             })
     }
+    
     const handlePassword = () => {
         setShowPassword(prevState => !prevState)
     }
@@ -69,54 +89,30 @@ export default function EditUser(props) {
         setFormData(prevState => {
             return {
                 ...prevState,
-                id: nanoid(),
-                username: `${(formData.name).toLowerCase()}${(formData.lastname).toLowerCase().substring(0, formData.lastname.indexOf(" "))}`,
                 [e.target.name]: e.target.value
             }
         })
     }
-    const handleUserExist = () => {
+
+    const handleUserChanges = (e) => {
         if (formData.password1 !== formData.password2) {
-            setPasswordMatches(false);
             setDisableSend(true)
+            setPasswordMatches(false)
         } else {
-            users.map(user => {
-                if (user.email === formData.email) {
-                    setDisableSend(true)
-                    setUserExists(true)
-                } else {
-                    setDisableSend(false)
-                    setUserExists(false)
-                    setPasswordMatches(true)
-                }
-            })
+            setDisableSend(false)
+            setPasswordMatches(true)
         }
+
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setUserAdded(false);
-        addUsers(formData);
+        updateUsers(formData);
     }
 
-    const clearValues = () => {
-        setFormData({
-            id: "",
-            name: "",
-            lastname: "",
-            address: "",
-            email: "",
-            password1: "",
-            password2: "",
-            phone: "",
-            sex: "",
-            documenttype: "",
-            document: "",
-            roll: 3,
-            username: ""
-        });
-        setUserAdded(false);
-        setUserExists(false)
+    const handleCancel = (e) => {
+        e.preventDefault();
+        navigate("/users")
     }
 
     const myStyle = {
@@ -125,67 +121,76 @@ export default function EditUser(props) {
 
     return (
         <div>
-            {isLogged ? (
-                <div className='profile-register-container'>
-                    <div className='dashboard'>
-                        <UserMenu/>
-                    </div>
-                    <div className='register-form'>
-                    <UserHeader/>
-                    <div className='register-form-container'>
-                    <div className='register-form-form-container'>
-                        <h3>EDITAR USUARIO</h3>
-                        <form onSubmit={handleSubmit} onChange={handleUserExist} onMouseDown={handleUserExist} autoComplete='off'>
-                            <label htmlFor='name'>Nombre</label>
-                            <input autoComplete='off' placeholder='Escriba su nombre' name='name' value={formData.name}  onChange={handleChange} required maxLength="32" pattern="[A-Za-z]{1,32}"/>
-                            <label htmlFor='lastname'>Apellido</label>
-                            <input autoComplete='off' placeholder='Escriba su apellido(s)' name='lastname' value={formData.lastname}  onChange={handleChange} maxLength="50" required/>
-                            <label htmlFor='address'>Dirección</label>
-                            <input autoComplete='off' placeholder='Escriba dirección aqui' name='address' value={formData.address}  onChange={handleChange} maxLength="150" required/>
-                            <label htmlFor='email'>Correo electrónico</label>
-                            <input autoComplete='off' type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange} required/>
-                            {userExists && <p className='error' style={{marginBottom: 0}}>Usuario ya registrado, intente con otro correo</p>}
-                            <label htmlFor='password1' style={{marginTop: "30px"}}>Escriba su contraseña</label>
-                            <div className='register-password'>
-                                <input type={showPassword? "text" : "password"} name='password1' placeholder='Clave' value={formData.password1}  onChange={handleChange} minLength="8" required/>
-                                {showPassword ? <FaEye onClick={() => handlePassword()}/> : <FaEyeSlash onClick={handlePassword}/>}
-                            </div>
-                            <label htmlFor='password2'>Repita la contraseña</label>
-                            <div className='register-password'>
-                                <input type={showPassword? "text" : "password"} name='password2' placeholder='Confirme clave' value={formData.password2}  onChange={handleChange} minLength="8" required/>
-                            </div>
-                            {!passwordMatches && <p className='error'>Las contraseñas no coinciden</p>}
-                            <label htmlFor='phone' style={{marginTop: "30px"}}>Número celular</label>
-                            <input autoComplete='off' type='tel' placeholder='XXX-XXX-XXXX' name='phone'value={formData.phone}  onChange={handleChange} required/>
-                            <label htmlFor='sex'>Seleccione su sexo</label>
-                            <select name='sex' value={formData.sex}  onChange={handleChange} required>
-                                <option defaultValue="...">...</option>
-                                <option >Hombre</option>
-                                <option >Mujer</option>
-                            </select>
-                            <label htmlFor='documenttype'>Tipo de documento</label>
-                            <select name='documenttype' value={formData.documenttype}  onChange={handleChange} required>
-                                <option defaultValue="...">...</option>
-                                <option >Cedula</option>
-                                <option >Pasaporte</option>
-                            </select>
-                            <label htmlFor='document'>Número de documento</label>
-                            <input autoComplete='off' name='document' placeholder='Ingrese su número de documento' value={formData.document}  onChange={handleChange} required/>
-                            {<p className={userAdded? 'success' : 'error'}>{(userAdded && !userExists) ? "Usuario agregado exitosamente!" : ""}</p>}
-                            <div className='button'>
-                                <button type='submit' disabled={disableSend} style={myStyle}>Actualizar</button>
-                                <button onClick={clearValues}>Cancelar</button>
-                            </div>
-                        </form>
-                    </div>        
+        {isLogged ? (
+            <div className='profile-edit-user-container'>
+                <div className='dashboard'>
+                    <UserMenu/>
                 </div>
-                </div>
+                <div className='edit-user-form'>
+                <UserHeader/>
+                <div className='edit-user-form-container'>
+                <div className='edit-user-form-form-container'>
+                    <h3>EDITAR USUARIO</h3>
+                    <form onSubmit={handleSubmit} onChange={handleUserChanges} onMouseDown={handleUserChanges} autoComplete='off'>
+                        <label htmlFor='name'>Nombre</label>
+                        <input autoComplete='off' placeholder='Escriba su nombre' name='name' defaultValue={formData.name}  onChange={handleChange} required maxLength="32" pattern="[A-Za-z]{1,32}"/>
+                        <label htmlFor='lastname'>Apellido</label>
+                        <input autoComplete='off' placeholder='Escriba su apellido(s)' name='lastname' defaultValue={formData.lastname}  onChange={handleChange} maxLength="50" required/>
+                        <label htmlFor='address'>Dirección</label>
+                        <input autoComplete='off' placeholder='Escriba dirección aqui' name='address' defaultValue={formData.address}  onChange={handleChange} maxLength="150" required/>
+                        <label htmlFor='email'>Correo electrónico</label>
+                        <input  disabled autoComplete='off' type='email' placeholder='Escriba su correo electrónico' name='email' defaultValue={formData.email}  onChange={handleChange} required/>
+                        <label htmlFor='password1' style={{marginTop: "30px"}}>Escriba su contraseña</label>
+                        <div className='edit-user-password'>
+                            <input type={showPassword? "text" : "password"} name='password1' placeholder='Clave' defaultValue={formData.password1}  onChange={handleChange} minLength="8" required/>
+                            {showPassword ? <FaEye onClick={() => handlePassword()}/> : <FaEyeSlash onClick={handlePassword}/>}
+                        </div>
+                        <label htmlFor='password2'>Repita la contraseña</label>
+                        <div className='edit-user-password'>
+                            <input type={showPassword? "text" : "password"} name='password2' placeholder='Confirme clave' defaultValue={formData.password2}  onChange={handleChange} minLength="8" required/>
+                        </div>
+                        {!passwordMatches && <p className='error'>Las contraseñas no coinciden</p>}
+                        <label htmlFor='phone' style={{marginTop: "30px"}}>Número celular</label>
+                        <input autoComplete='off' type='tel' placeholder='XXX-XXX-XXXX' name='phone' defaultValue={formData.phone}  onChange={handleChange} required/>
+                        <label htmlFor='sex'>Seleccione su sexo</label>
+                        <select name='sex' defaultValue={formData.gender} onChange={handleChange} required>
+                            <option >Hombre</option>
+                            <option >Mujer</option>
+                        </select>
+                        <label htmlFor='documenttype'>Tipo de documento</label>
+                        <select disabled name='documenttype' defaultValue={formData.documenttype} onChange={handleChange} required>
+                            <option >Cedula</option>
+                            <option >Pasaporte</option>
+                        </select>
+                        <label htmlFor='document'>Número de documento</label>
+                        <input  disabled autoComplete='off' name='document' placeholder='Ingrese su número de documento' defaultValue={document}  onChange={handleChange} required/>
+                        <label htmlFor='roll'>Roll</label>
+                        <select name='roll' defaultValue={formData.roll}  onChange={handleChange} required>
+                            <option >1</option>
+                            <option >2</option>
+                            <option >3</option>
+                        </select>
+                        {<p className={userUpdated? 'success' : 'error'}>{(userUpdated) ? "Usuario actualizado exitosamente!" : ""}</p>}
+                        <div className='button'>
+                            <button type='submit' disabled={disableSend} style={myStyle}>Actualizar</button>
+                            <MyModal     
+                                title="Cancelar"
+                                body="No se guardaran los cambios. Desea cancelar?"
+                                yes="Si"
+                                not="No"
+                                handleYes={handleCancel}>
+                            Cancelar
+                            </MyModal>
+                        </div>
+                    </form>
+                </div>        
             </div>
-            ) : (
-                <NotFound/>
-            )}
-            <ScrollToTop smooth />
-    </div>
+            </div>
+        </div>
+        ) : (
+            <NotFound/>
+        )}
+        <ScrollToTop smooth />
+</div>
     )
-
 }

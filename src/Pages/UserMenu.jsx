@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './UserMenu.css'
 import { FaUser, FaUsers, FaCalendar,FaUserDoctor,   } from "react-icons/fa6";
 import { AiOutlineMedicineBox } from "react-icons/ai";
@@ -7,12 +7,12 @@ import { GiMedicinePills } from "react-icons/gi";
 import { FaHome } from 'react-icons/fa';
 
 export default function UserMenu(){
+    const navigate = useNavigate()
+
     return (
         <div className='user-menu-container'>
             <div className='user-menu'>
-    {/*<p className='first'>Dashboard</p>*/}
-    {<Link to="/" className='home-img'><FaHome/></Link>}
-
+                <button className='home-img' onClick={() => navigate("/")}><FaHome/></button>
                 <Link to="/dashboard"><RxDashboard/> General</Link> 
                 <Link to="/profile"><FaUser/> Perfil</Link>              
                 <Link to="/users"><FaUsers/> Usuarios</Link>

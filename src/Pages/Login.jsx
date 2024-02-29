@@ -76,10 +76,10 @@ export default function Login(props) {
                         <h3>INICIAR SESION</h3>
                         <form onSubmit={handleSubmit}>
                             <label htmlFor='email'>Correo electrónico, usuario o documento</label>
-                            <input type='email' placeholder='Escriba aqui' name='email' value={formData.email}  onChange={handleChange} required/>
+                            <input type='email' placeholder='Escriba aqui' name='email' defaultValue={formData.email}  onChange={handleChange} required/>
                             <label htmlFor='password1'>Escriba su contraseña</label>
                             <div className='login-password'>
-                                <input type={showPassword? "text" : "password"} name='password' placeholder='Clave' value={formData.password}  onChange={handleChange} required/>
+                                <input type={showPassword? "text" : "password"} name='password' placeholder='Clave' defaultValue={formData.password}  onChange={handleChange} required/>
                                 {showPassword ? <FaEye onClick={() => handlePassword()}/> : <FaEyeSlash onClick={handlePassword}/>}
                             </div>
                             <p className='error'>{errorLogging}</p>

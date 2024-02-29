@@ -1,7 +1,7 @@
 import './Register.css'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import ScrollToTop from "react-scroll-to-top";
 import { nanoid } from 'nanoid';
@@ -32,6 +32,7 @@ export default function Register(props) {
         roll: 3,
         username: ""
     })
+    const navigate = useNavigate();
 
     useEffect(()=> {
         fetch("http://localhost:5000/users")
@@ -56,6 +57,7 @@ export default function Register(props) {
                 setPasswordMatches(true);
                 setUserAdded(true)
                 console.log(resData);
+                navigate("/users")
             })
             .catch(e => {
                 console.log(`Error catched: ${e}`);
@@ -137,22 +139,22 @@ export default function Register(props) {
                         <h3>CREAR USUARIO</h3>
                         <form onSubmit={handleSubmit} onChange={handleUserExist} onMouseDown={handleUserExist} autoComplete='off'>
                             <label htmlFor='name'>Nombre</label>
-                            <input autoComplete='off' placeholder='Escriba su nombre' name='name' value={formData.name}  onChange={handleChange} required maxLength="32" pattern="[A-Za-z]{1,32}"/>
+                            <input autoComplete='off' placeholder='Escriba su nombre' name='name' defaultValue={formData.name}  onChange={handleChange} required maxLength="32" pattern="[A-Za-z]{1,32}"/>
                             <label htmlFor='lastname'>Apellido</label>
-                            <input autoComplete='off' placeholder='Escriba su apellido(s)' name='lastname' value={formData.lastname}  onChange={handleChange} maxLength="50" required/>
+                            <input autoComplete='off' placeholder='Escriba su apellido(s)' name='lastname' defaultValue={formData.lastname}  onChange={handleChange} maxLength="50" required/>
                             <label htmlFor='address'>Dirección</label>
-                            <input autoComplete='off' placeholder='Escriba dirección aqui' name='address' value={formData.address}  onChange={handleChange} maxLength="150" required/>
+                            <input autoComplete='off' placeholder='Escriba dirección aqui' name='address' defaultValue={formData.address}  onChange={handleChange} maxLength="150" required/>
                             <label htmlFor='email'>Correo electrónico</label>
-                            <input autoComplete='off' type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange} required/>
+                            <input autoComplete='off' type='email' placeholder='Escriba su correo electrónico' name='email' defaultValue={formData.email}  onChange={handleChange} required/>
                             {userExists && <p className='error' style={{marginBottom: 0}}>Usuario ya registrado, intente con otro correo</p>}
                             <label htmlFor='password1' style={{marginTop: "30px"}}>Escriba su contraseña</label>
                             <div className='register-password'>
-                                <input type={showPassword? "text" : "password"} name='password1' placeholder='Clave' value={formData.password1}  onChange={handleChange} minLength="8" required/>
+                                <input type={showPassword? "text" : "password"} name='password1' placeholder='Clave' defaultValue={formData.password1}  onChange={handleChange} minLength="8" required/>
                                 {showPassword ? <FaEye onClick={() => handlePassword()}/> : <FaEyeSlash onClick={handlePassword}/>}
                             </div>
                             <label htmlFor='password2'>Repita la contraseña</label>
                             <div className='register-password'>
-                                <input type={showPassword? "text" : "password"} name='password2' placeholder='Confirme clave' value={formData.password2}  onChange={handleChange} minLength="8" required/>
+                                <input type={showPassword? "text" : "password"} name='password2' placeholder='Confirme clave' defaultValue={formData.password2}  onChange={handleChange} minLength="8" required/>
                             </div>
                             {!passwordMatches && <p className='error'>Las contraseñas no coinciden</p>}
                             <label htmlFor='phone' style={{marginTop: "30px"}}>Número celular</label>
@@ -170,7 +172,7 @@ export default function Register(props) {
                                 <option >Pasaporte</option>
                             </select>
                             <label htmlFor='document'>Número de documento</label>
-                            <input autoComplete='off' name='document' placeholder='Ingrese su número de documento' value={formData.document}  onChange={handleChange} required/>
+                            <input autoComplete='off' name='document' placeholder='Ingrese su número de documento' defaultValue={formData.document}  onChange={handleChange} required/>
                             {<p className={userAdded? 'success' : 'error'}>{(userAdded && !userExists) ? "Usuario agregado exitosamente!" : ""}</p>}
                             <div className='button'>
                                 <button type='submit' disabled={disableSend} style={myStyle}>Crear</button>

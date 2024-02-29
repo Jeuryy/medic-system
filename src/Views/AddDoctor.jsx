@@ -84,13 +84,13 @@ export default function AddDoctor(props) {
                             <label htmlFor='name'>Nombre</label>
                             <input placeholder='Escriba su nombre' name='name'value={formData.name}  onChange={handleChange} required/>
                             <label htmlFor='lastname'>Apellido</label>
-                            <input placeholder='Escriba su apellido(s)' name='lastname' value={formData.lastname}  onChange={handleChange} required/>
+                            <input placeholder='Escriba su apellido(s)' name='lastname' defaultValue={formData.lastname}  onChange={handleChange} required/>
                             <label htmlFor='service'>Especialidad</label>
-                            <input placeholder='Escriba especialidad aqui' name='service' value={formData.service}  onChange={handleChange} required/>
+                            <input placeholder='Escriba especialidad aqui' name='service' defaultValue={formData.service}  onChange={handleChange} required/>
                             <label htmlFor='service'>Descripcion</label>
                             <textarea placeholder='Descripcion de la especialidad' name='description' value={formData.description}  onChange={handleChange} required/>
                             <label htmlFor='email'>Correo electrónico</label>
-                            <input type='email' placeholder='Escriba su correo electrónico' name='email' value={formData.email}  onChange={handleChange}/>
+                            <input type='email' placeholder='Escriba su correo electrónico' name='email' defaultValue={formData.email}  onChange={handleChange}/>
                             <label htmlFor='phone' style={{marginTop: "30px"}}>Número celular</label>
                             <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'value={formData.phone}  onChange={handleChange}/>
                             <label htmlFor='gender'>Seleccione su sexo</label>
@@ -101,7 +101,7 @@ export default function AddDoctor(props) {
                             </select>
                             <p className='format'>Formato: Lun: 1:00pm-2:00pm, Mar: 2:00pm-3:00pm,Mie: 3:00pm-4:00pm,Jue: 4:00p,-5:00pm (Horario diario dividido por coma)</p>
                             <label htmlFor='schedule'>Horario</label>
-                            <input placeholder='Horarios de servicios' name='schedule' value={formData.schedule}  onChange={handleChange} required/>
+                            <input placeholder='Horarios de servicios' name='schedule' defaultValue={formData.schedule}  onChange={handleChange} required/>
                             {<p className={doctorAdded? 'success' : 'error'}>{doctorAdded ? "Doctor agregado exitosamente!" : ""}</p>}
                             <div className='button'>
                                 <button type='submit'>Crear</button>

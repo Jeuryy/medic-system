@@ -40,6 +40,35 @@ router.post('/users', async (req, res) => {
         res.end();
 })
 
+router.put('/users', async (req, res) => {
+    const {id, name, lastname, address, 
+        email, password, phone, 
+        gender, documenttype, document, roll, username
+    } = req.body;
+
+    try {
+        await schemas.Users.updateOne({id}, {
+            $set: {
+                name, 
+                lastname, 
+                address, 
+                email, 
+                password, 
+                phone, 
+                gender, 
+                documenttype, 
+                document, 
+                roll, 
+                username
+            }
+        })
+        return res.json({status: "ok", data: "updated"})
+
+    } catch (err) {
+        return res.json({status: "error", data: err})
+    }
+})
+
 //CITAS
 router.get('/citas', (req, res) => {
     schemas.Citas.find()

@@ -5,12 +5,13 @@ import UserHeader from '../components/UserHeader';
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import './Users.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 export default function Users(props) {
     const [users, setUsers] = useState([])
     const {isLogged, setIsLogged} = props
+    const navigate = useNavigate();
 
     useEffect(()=> {
         fetch("http://localhost:5000/users")
@@ -51,7 +52,7 @@ export default function Users(props) {
                                 <td> {user.address}</td>
                                 <td> {user.phone}</td>
                                 <td className='options'>
-                                    <button>
+                                    <button onClick={() => navigate("/edit-user", {state: user})}>
                                         <FaUserEdit/>
                                     </button>
                                     <button>
