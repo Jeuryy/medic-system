@@ -1,5 +1,5 @@
 import './Profile.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import ScrollToTop from "react-scroll-to-top";
 import UserMenu from '../Pages/UserMenu';
@@ -10,6 +10,8 @@ export default function Profile(props) {
     const [users, setUsers] = useState([]);
     const {isLogged, setIsLogged} = props;
     const currentUser = props.currentUser;
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(()=> {
         fetch("http://localhost:5000/users")
@@ -58,7 +60,9 @@ export default function Profile(props) {
                                     </div>
                                     <div>
                                         <p className='profile-info-title'>Contraseña</p>
-                                        <Link to="/Users" className='profile-info-data'>Administrar contraseña</Link>
+                                        <button  
+                                            className='profile-info-data button-password'
+                                            onClick={() => navigate("/users")}>Administrar contraseña</button>
                                     </div>
                                 </div>
                             </div>
@@ -79,11 +83,11 @@ export default function Profile(props) {
                                 </div>
                                 <div>
                                     <p className='profile-info-title'>Dirección</p>
-                                    <p to="/Users" className='profile-info-data'>{JSON.parse(localStorage.getItem("currentUser")).address}</p>
+                                    <p className='profile-info-data'>{JSON.parse(localStorage.getItem("currentUser")).address}</p>
                                 </div>
                                 <div>
                                     <p className='profile-info-title'>Teléfono</p>
-                                    <p to="/Users" className='profile-info-data'>{JSON.parse(localStorage.getItem("currentUser")).phone}</p>
+                                    <p className='profile-info-data'>{JSON.parse(localStorage.getItem("currentUser")).phone}</p>
                                 </div>
                             </div>
                         </div>

@@ -49,7 +49,7 @@ export default function Login(props) {
                     setIsLogged(true);
                     localStorage.setItem("isLogged", true)
                     localStorage.setItem("currentUser", JSON.stringify(user))
-                    navigate('/Dashboard');
+                    navigate('/profile', {state:user});
                 }
             } else {
                 setErrorLoging("Credenciales invalidas, intenta de nuevo")

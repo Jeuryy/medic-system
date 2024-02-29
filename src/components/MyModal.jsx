@@ -10,7 +10,7 @@ export default function MyModal(props) {
 
     return (
         <div>
-        <Button variant="warning" onClick={handleShow}>
+        <Button variant={props.variant} onClick={handleShow}>
             {props.title}
         </Button>
 
@@ -20,7 +20,7 @@ export default function MyModal(props) {
             </Modal.Header>
             <Modal.Body>{props.body}</Modal.Body>
             <Modal.Footer>
-            <Button variant="primary" onClick={props.handleYes}>
+            <Button variant="success" onClick={props.handleYes}>
                 {props.yes}
             </Button>
             <Button variant="secondary" onClick={handleClose}>

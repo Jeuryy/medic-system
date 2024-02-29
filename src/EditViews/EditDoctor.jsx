@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import ScrollToTop from 'react-scroll-to-top';
 import { useLocation, useNavigate } from 'react-router-dom';
-import MyModal from '../components/Modal';
+import MyModal from '../components/MyModal';
 
 export default function EditDoctor (props) {
     const {isLogged, setIsLogged} = props;

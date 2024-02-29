@@ -7,6 +7,7 @@ import { MdDelete } from "react-icons/md";
 import './Users.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import MyModal from '../components/MyModal';
 
 
 export default function Doctors(props) {
@@ -59,7 +60,13 @@ export default function Doctors(props) {
                                 <button onClick={() => navigate("/edit-doctor", {state: doctor})}>
                                     <FaUserEdit/>
                                 </button>
-                                <button><MdDelete/></button>
+                                <MyModal
+                                variant="danger"
+                                title={<MdDelete/>}
+                                body="Esta seguro de eliminar doctor?"
+                                yes="Si"
+                                not="No"
+                            />
                             </td>
                         </tr>})) 
                         : (<tr><td colSpan="8">No hay doctores para mostrar</td></tr>)

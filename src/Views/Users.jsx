@@ -3,10 +3,11 @@ import NotFound from '../components/NotFound';
 import UserMenu from '../Pages/UserMenu';
 import UserHeader from '../components/UserHeader';
 import { FaUserEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdMoneyOff } from "react-icons/md";
 import './Users.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import MyModal from '../components/MyModal';
 
 export default function Users(props) {
     const [users, setUsers] = useState([])
@@ -61,9 +62,13 @@ export default function Users(props) {
                                         <button onClick={() => navigate("/edit-user", {state: user})}>
                                             <FaUserEdit/>
                                         </button>
-                                        <button>
-                                            <MdDelete/>
-                                        </button>
+                                        <MyModal
+                                            variant="danger"
+                                            title={<MdDelete/>}
+                                            body="Esta seguro de eliminar usuario?"
+                                            yes="Si"
+                                            not="No"
+                                        />
                                     </td>
                                 </tr>
                             }))
