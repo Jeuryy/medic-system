@@ -46,19 +46,21 @@ export default function UserServices(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    {doctors.map(doctor => {
+                    {doctors ?
+                        ( doctors.map(doctor => {
                         return <tr key={doctor.id}>
-                                    <td> {doctor.service}</td>
-                                    <td className='service-description' id={doctor.id}> 
-                                        {(activeItemId === doctor.id) ? doctor.description : `${(doctor.description).substring(0, 75)}`}
-                                        <button onClick={() => {handleShowMore(doctor.id)}} id={doctor.id}>{(activeItemId === doctor.id) ? "Show less" : "Show more"}</button>
-                                    </td>
-                                    <td>{`${doctor.gender === "Hombre" ? "Dr " : "Dra "} ${doctor.name} ${doctor.lastname}`}</td>
-                                    <td style={{whiteSpace: "pre-line"}}> {(doctor.schedule).replaceAll(",", "\n")}</td>
-                                    {/*<td className='options'><button><FaUserEdit/></button>
-                                        <button><MdDelete/></button>
-                                    </td>*/}
-                                </tr>})
+                            <td> {doctor.service}</td>
+                            <td className='service-description' id={doctor.id}> 
+                                {(activeItemId === doctor.id) ? doctor.description : `${(doctor.description).substring(0, 75)}`}
+                                <button onClick={() => {handleShowMore(doctor.id)}} id={doctor.id}>{(activeItemId === doctor.id) ? "Show less" : "Show more"}</button>
+                            </td>
+                            <td>{`${doctor.gender === "Hombre" ? "Dr " : "Dra "} ${doctor.name} ${doctor.lastname}`}</td>
+                            <td style={{whiteSpace: "pre-line"}}> {(doctor.schedule).replaceAll(",", "\n")}</td>
+                            {/*<td className='options'><button><FaUserEdit/></button>
+                            <button><MdDelete/></button>
+                            </td>*/}
+                        </tr>}))
+                        : <tr><td colSpan="8">No hay servicios para mostrar</td></tr>
                     }
                     </tbody>
                 </Table>

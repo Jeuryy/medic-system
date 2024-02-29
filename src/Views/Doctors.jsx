@@ -48,8 +48,8 @@ export default function Doctors(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    {doctors.map(doctor => {
-                        //console.log((doctor.schedule).split(","))
+                    {doctors ? (
+                        doctors.map(doctor => {
                         return <tr key={doctor.id}>
                             <td>{`${doctor.gender === "Hombre" ? "Dr " : "Dra "} ${doctor.name} ${doctor.lastname}`}</td>
                             <td> {doctor.service}</td>
@@ -61,7 +61,8 @@ export default function Doctors(props) {
                                 </button>
                                 <button><MdDelete/></button>
                             </td>
-                        </tr>})
+                        </tr>})) 
+                        : (<tr><td colSpan="8">No hay doctores para mostrar</td></tr>)
                     }
                     </tbody>
                 </Table>

@@ -44,19 +44,24 @@ export default function Citas(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    {citas.map(cita => {
-                        return <tr key={cita.id}>
-                            <td> {cita.date}</td>
-                            <td> {cita.service}</td>
-                            <td> {cita.doctor}</td>
-                            <td> {cita.name + " " + cita.lastname}</td>
-                            <td> {cita.assurance}</td>
-                            <td> {cita.address}</td>
-                            <td> {cita.phone + " " + cita.email}</td>
-                            <td className='options'><button><FaUserEdit/></button>
-                                <button><MdDelete/></button>
-                            </td>
-                        </tr>})
+                    {citas ? 
+                        <tr><td colSpan="8">No hay citas para mostrar</td></tr>
+                        :
+                        (
+                            citas.map(cita => {
+                            return <tr key={cita.id}>
+                                <td> {cita.date}</td>
+                                <td> {cita.service}</td>
+                                <td> {cita.doctor}</td>
+                                <td> {cita.name + " " + cita.lastname}</td>
+                                <td> {cita.assurance}</td>
+                                <td> {cita.address}</td>
+                                <td> {cita.phone + " " + cita.email}</td>
+                                <td className='options'><button><FaUserEdit/></button>
+                                    <button><MdDelete/></button>
+                                </td>
+                            </tr>})
+                        )
                     }
                     </tbody>
                 </Table>

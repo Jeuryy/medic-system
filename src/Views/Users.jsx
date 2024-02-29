@@ -47,22 +47,26 @@ export default function Users(props) {
                     </tr>
                     </thead>
                     <tbody>
-                        {users.map(user => {
-                            return <tr key={user.id}>
-                                <td> {user.name}</td>
-                                <td> {user.lastname}</td>
-                                <td> {user.email}</td>
-                                <td> {user.address}</td>
-                                <td> {user.phone}</td>
-                                <td className='options'>
-                                    <button onClick={() => navigate("/edit-user", {state: user})}>
-                                        <FaUserEdit/>
-                                    </button>
-                                    <button>
-                                        <MdDelete/>
-                                    </button>
-                                </td>
-                            </tr>})
+                        {!users ? 
+                            <tr><td colSpan="8">No hay usuarios para mostrar</td></tr> 
+                            : (
+                            users.map(user => {
+                                return <tr key={user.id}>
+                                    <td> {user.name}</td>
+                                    <td> {user.lastname}</td>
+                                    <td> {user.email}</td>
+                                    <td> {user.address}</td>
+                                    <td> {user.phone}</td>
+                                    <td className='options'>
+                                        <button onClick={() => navigate("/edit-user", {state: user})}>
+                                            <FaUserEdit/>
+                                        </button>
+                                        <button>
+                                            <MdDelete/>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }))
                         }
                     </tbody>
                 </Table>
