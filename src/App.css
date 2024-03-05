@@ -36,6 +36,11 @@
   background: var(--green);
 }
 
+/*Connection alert borders*/
+.css-camg44-MuiPaper-root-MuiAlert-root{
+  border-radius: 0 !important;
+}
+
 @keyframes gradient {
   0% {
       background-position: 0% 50%;

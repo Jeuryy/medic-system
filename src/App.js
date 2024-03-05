@@ -18,10 +18,15 @@ import Profile from './Views/Profile';
 import EditUser from './EditViews/EditUser';
 import EditDoctor from './EditViews/EditDoctor';
 import { IdleTimerProvider as IdleTimer} from 'react-idle-timer';
+import useNavigatorOnline from "use-navigator-online";
+import { Alert } from '@mui/material';
+
 
 function App() {
   const[isLogged, setIsLogged] = useState(localStorage.getItem("isLogged") || false);
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || "");
+  const { isOnline, isOffline, backOnline, backOffline } = useNavigatorOnline();
+  const [connection, setConnection]= useState('')
 
   const handleIdle = () => {
     setIsLogged(false)
@@ -29,9 +34,30 @@ function App() {
     localStorage.removeItem("currentUser")
   }
 
+
+  useEffect(() => {
+    if (isOnline || backOnline) {
+      setConnection(<Alert variant="filled" severity="success">
+      Conexión reestablecida!
+      </Alert>)
+    }
+    else {
+        setConnection(
+          <Alert variant="filled" severity="error">
+          Se ha perdido la conexión!
+        </Alert>)
+    }
+    setTimeout(() => {
+      setConnection('');
+    }, 5000)
+
+  }, [isOnline]);
+
+
   return (
     <BrowserRouter>
       <div className="App">
+        {connection}
         <Routes>
           <Route index element={<MainPage isLogged={isLogged} setIsLogged={setIsLogged}/>}
             path="/"/>

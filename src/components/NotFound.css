@@ -1,14 +1,29 @@
-.notfound{
-    background: url('../assets//img/network.jpg');
-    min-height: 100vh;
-}
-.notfound-container{
+#notfound{
     text-align: center;
-    padding-top: 50vh;
 }
-.notfound-container P {
-    font-size: 32PX;
+.logged-notfound{
+    display: flex;
 }
-.volver{
-    font-size: 28px;
+.logged-notfound-right{
+    flex-grow: 1;
+}
+.back-login {
+    margin-top: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.back-login h3{
+    margin-left: 25px;
+    margin-right: 25px;
+}
+.back-login a{
+    margin-top: 25px;
+    width: 300px;
+}
+
+@media screen and (max-width: 380px) {
+    .back-login a{
+        width: auto;
+    }
 }
