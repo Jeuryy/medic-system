@@ -33,3 +33,6 @@
 .user-menu a:hover{
     color: var(--green);
 }
+.user-menu .active{
+    color: var(--green);
+}

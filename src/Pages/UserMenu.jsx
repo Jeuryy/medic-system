@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import './UserMenu.css'
 import { FaUser, FaUsers, FaCalendar,FaUserDoctor,   } from "react-icons/fa6";
 import { AiOutlineMedicineBox } from "react-icons/ai";
@@ -13,13 +13,13 @@ export default function UserMenu(){
         <div className='user-menu-container'>
             <div className='user-menu'>
                 <button className='home-img' onClick={() => navigate("/")}><FaHome/></button>
-                <Link to="/dashboard"><RxDashboard/> General</Link> 
-                <Link to="/profile"><FaUser/> Perfil</Link>              
-                <Link to="/users"><FaUsers/> Usuarios</Link>
-                <Link to="/citas"><FaCalendar/> Citas</Link>
-                <Link to="/doctors"><FaUserDoctor/> Doctores</Link>
-                <Link to="/services"><AiOutlineMedicineBox/> Servicios</Link>
-                <Link to="/diagnostics"><GiMedicinePills /> Diagnosticos</Link>
+                <NavLink to="/dashboard"><RxDashboard/> General</NavLink> 
+                <NavLink to="/profile"><FaUser/> Perfil</NavLink>              
+                <NavLink to="/users"><FaUsers/> Usuarios</NavLink>
+                <NavLink to="/citas"><FaCalendar/> Citas</NavLink>
+                <NavLink to="/doctors"><FaUserDoctor/> Doctores</NavLink>
+                <NavLink to="/services"><AiOutlineMedicineBox/> Servicios</NavLink>
+                <NavLink to="/diagnostics"><GiMedicinePills /> Diagnosticos</NavLink>
             </div>
         </div>
     )
