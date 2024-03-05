@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, redirect } from 'react-router-dom';
 import Appointment from './Pages/Appointment';
 import MainPage from './components/MainPage';
 import Login from './Pages/Login';
@@ -17,15 +17,20 @@ import Diagnostics from './Views/Diagnostics';
 import Profile from './Views/Profile';
 import EditUser from './EditViews/EditUser';
 import EditDoctor from './EditViews/EditDoctor';
+import { IdleTimerProvider as IdleTimer} from 'react-idle-timer';
 
 function App() {
   const[isLogged, setIsLogged] = useState(localStorage.getItem("isLogged") || false);
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || "");
-  
+
+  const handleIdle = () => {
+    setIsLogged(false)
+    localStorage.removeItem("isLogged")
+    localStorage.removeItem("currentUser")
+  }
 
   return (
     <BrowserRouter>
-
       <div className="App">
         <Routes>
           <Route index element={<MainPage isLogged={isLogged} setIsLogged={setIsLogged}/>}
@@ -58,9 +63,12 @@ function App() {
               path='edit-user'/>
               <Route element={<EditDoctor isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='edit-doctor'/>
-              <Route element={<NotFound/>}
+              <Route element={<NotFound isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='*'/>
         </Routes>
+        <IdleTimer 
+          timeout={3600000}
+          onIdle={handleIdle}/>
       </div>
     </BrowserRouter>
   );

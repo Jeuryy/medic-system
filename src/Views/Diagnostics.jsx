@@ -6,6 +6,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import './Citas.css'
 import { Link } from 'react-router-dom';
+import Login from '../Pages/Login';
 
 export default function Diagnostics(props) {
     const {isLogged, setIsLogged} = props

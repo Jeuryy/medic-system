@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import ScrollToTop from 'react-scroll-to-top';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MyModal from '../components/MyModal';
+import Login from '../Pages/Login';
 
 export default function EditUser (props) {
     const {isLogged, setIsLogged} = props;

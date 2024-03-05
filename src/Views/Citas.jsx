@@ -7,6 +7,7 @@ import { MdDelete } from "react-icons/md";
 import './Citas.css'
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Login from '../Pages/Login';
 export default function Citas(props) {
     const [citas, setCitas] = useState([])
     const {isLogged, setIsLogged} = props;

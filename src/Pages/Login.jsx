@@ -49,7 +49,7 @@ export default function Login(props) {
                     setIsLogged(true);
                     localStorage.setItem("isLogged", true)
                     localStorage.setItem("currentUser", JSON.stringify(user))
-                    navigate('/profile', {state:user});
+                    navigate('/Dashboard', {state:user});
                 }
             } else {
                 setErrorLoging("Credenciales invalidas, intenta de nuevo")
@@ -63,7 +63,7 @@ export default function Login(props) {
         <div>
             {isLogged ? (
                 <div>
-                    <NotFound/>
+                    {navigate("/Dashboard")}
                 </div>
                 ) : (
                 <div className='login-form'>
@@ -74,9 +74,9 @@ export default function Login(props) {
                     <img className="cmdm-logo" src={cmdm} alt='Logo de Centro Medico Divina Misericordia' />
                     <div className='login-form-form-container'>
                         <h3>INICIAR SESION</h3>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} autoComplete="true">
                             <label htmlFor='email'>Correo electrónico, usuario o documento</label>
-                            <input type='email' placeholder='Escriba aqui' name='email' defaultValue={formData.email}  onChange={handleChange} required/>
+                            <input autoComplete="true" type='email' placeholder='Escriba aqui' name='email' defaultValue={formData.email}  onChange={handleChange} required/>
                             <label htmlFor='password1'>Escriba su contraseña</label>
                             <div className='login-password'>
                                 <input type={showPassword? "text" : "password"} name='password' placeholder='Clave' defaultValue={formData.password}  onChange={handleChange} required/>

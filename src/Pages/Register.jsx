@@ -8,6 +8,7 @@ import { nanoid } from 'nanoid';
 import NotFound from '../components/NotFound';
 import UserMenu from './UserMenu';
 import UserHeader from '../components/UserHeader';
+import Login from './Login';
 
 export default function Register(props) {
     const {isLogged, setIsLogged} = props;
