@@ -11,7 +11,6 @@ export default function Profile(props) {
     const {isLogged, setIsLogged} = props;
     const currentUser = props.currentUser;
     const navigate = useNavigate();
-    const location = useLocation();
 
     useEffect(()=> {
         fetch("http://localhost:5000/users")
@@ -21,6 +20,7 @@ export default function Profile(props) {
         })
         .catch(err => console.log(err))
     }, [])
+
 
     const handleLoggedIn = () => {
         setIsLogged(false)

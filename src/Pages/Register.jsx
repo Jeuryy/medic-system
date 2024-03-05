@@ -85,7 +85,7 @@ export default function Register(props) {
             setDisableSend(true)
         } else {
             users.map(user => {
-                if (user.email === formData.email) {
+                if (user.email === (formData.email).toLowerCase()) {
                     setDisableSend(true)
                     setUserExists(true)
                 } else {

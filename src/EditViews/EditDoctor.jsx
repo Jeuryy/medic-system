@@ -162,6 +162,7 @@ export default function EditDoctor (props) {
                             onChange={handleChange}/>
                         <label htmlFor='sex'>Seleccione su sexo</label>
                         <select name='sex' defaultValue={formData.gender} onChange={handleChange} required>
+                            <option >{formData.gender}</option>
                             <option >Hombre</option>
                             <option >Mujer</option>
                         </select>

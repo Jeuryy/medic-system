@@ -16,7 +16,7 @@ export default function MyModal(props) {
 
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-            <Modal.Title>{props.title}</Modal.Title>
+            <Modal.Title>{props.title} {props.header}</Modal.Title>
             </Modal.Header>
             <Modal.Body>{props.body}</Modal.Body>
             <Modal.Footer>

@@ -11,6 +11,7 @@ import MyModal from '../components/MyModal';
 
 export default function Users(props) {
     const [users, setUsers] = useState([])
+    const [error, setError] = useState(false)
     const {isLogged, setIsLogged} = props
     const navigate = useNavigate();
 
@@ -22,6 +23,31 @@ export default function Users(props) {
         })
         .catch(err => console.log(err))
     }, [])
+
+const handleYes = async (user) => {
+    const settings = {
+        method: "DELETE",
+        //mode: "no-cors",
+        headers: {
+            "Content-type": "application/json",
+            'Access-Control-Allow-Origin':'*'
+        },
+        body: JSON.stringify(user) 
+    };
+    await fetch("http://localhost:5000/users/", settings)
+    .then(res => res.json())
+    .then(resData => {
+        console.log(resData);
+        setError(false)
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000)
+    })
+    .catch(e => {
+        console.log(`Error catched: ${e}`);
+        setError(true)
+    })
+}
     
     return (
     <div >
@@ -65,9 +91,11 @@ export default function Users(props) {
                                         <MyModal
                                             variant="danger"
                                             title={<MdDelete/>}
-                                            body="Esta seguro de eliminar usuario?"
+                                            header="Eliminando usuario"
+                                            body={`Esta seguro que desea eliminar a ${user.name} ${user.lastname}`}
                                             yes="Si"
                                             not="No"
+                                            handleYes={() => handleYes(user)}
                                         />
                                     </td>
                                 </tr>
@@ -75,6 +103,7 @@ export default function Users(props) {
                         }
                     </tbody>
                 </Table>
+                {error && <p className='error'>Hubo un error, por favor intentar mas tarde</p>}
                 </div>
             </div>): (
         <NotFound/>

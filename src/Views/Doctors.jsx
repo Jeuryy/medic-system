@@ -12,6 +12,7 @@ import MyModal from '../components/MyModal';
 
 export default function Doctors(props) {
     const [doctors, setDoctors] = useState([])
+    const [error, setError] = useState(false)
     const {isLogged, setIsLogged} = props;
     const navigate = useNavigate();
 
@@ -24,6 +25,31 @@ export default function Doctors(props) {
         })
         .catch(err => console.log(err))
     }, [])
+
+    const handleYes = async (doctor) => {
+        const settings = {
+            method: "DELETE",
+            //mode: "no-cors",
+            headers: {
+                "Content-type": "application/json",
+                'Access-Control-Allow-Origin':'*'
+            },
+            body: JSON.stringify(doctor) 
+        };
+        await fetch("http://localhost:5000/doctors/", settings)
+        .then(res => res.json())
+        .then(resData => {
+            console.log(resData);
+            setError(false)
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000)
+        })
+        .catch(e => {
+            console.log(`Error catched: ${e}`);
+            setError(true)
+        })
+    }
 
     return (
     <div >
@@ -63,9 +89,11 @@ export default function Doctors(props) {
                                 <MyModal
                                 variant="danger"
                                 title={<MdDelete/>}
-                                body="Esta seguro de eliminar doctor?"
+                                header="Eliminando doctor"
+                                body={`Esta seguro que desea eliminar al ${doctor.gender === "Hombre" ? "Dr " : "Dra "} ${doctor.name} ${doctor.lastname}`}
                                 yes="Si"
                                 not="No"
+                                handleYes={() => handleYes(doctor)}
                             />
                             </td>
                         </tr>})) 
@@ -73,6 +101,7 @@ export default function Doctors(props) {
                     }
                     </tbody>
                 </Table>
+                {error && <p className='error'>Hubo un error, por favor intentar mas tarde</p>}
                 </div>
             </div>): (
         <NotFound/>

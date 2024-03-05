@@ -20,7 +20,7 @@ router.post('/users', async (req, res) => {
             password1,
             password2,
             phone,
-            sex,
+            gender,
             documenttype,
             document,
             username,
@@ -28,7 +28,7 @@ router.post('/users', async (req, res) => {
         } = req.body;
 
         const userData = {id, name, lastname, email,
-        password: password1, address, phone, gender:sex,
+        password: password1, address, phone, gender,
         documenttype, document, username, roll}
 
         const newUser = new schemas.Users(userData);
@@ -66,6 +66,16 @@ router.put('/users', async (req, res) => {
 
     } catch (err) {
         return res.json({status: "error", data: err})
+    }
+})
+
+router.delete('/users', async (req, res) => {
+    const {id} = req.body;
+    try {
+        await schemas.Users.deleteOne({id});
+        res.send({status: "Ok", data: "Deleted"});
+    } catch (error) {
+        console.log(error)
     }
 })
 
@@ -163,8 +173,18 @@ router.put('/doctors', async (req, res) => {
     }
 })
 
+router.delete('/doctors', async (req, res) => {
+    const {id} = req.body;
+    try {
+        await schemas.Doctors.deleteOne({id});
+        res.send({status: "Ok", data: "Deleted"});
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 //SERVICIOS
-router.get('/services', (req, res) => {
+/*router.get('/services', (req, res) => {
     schemas.Services.find()
     .then(services => res.json(services))
     .catch(err => console.log(err))
@@ -189,6 +209,6 @@ router.post('/services', async (req, res) => {
             res.send({message: "Service added, thank you"})
         }
         res.end();
-})
+})*/
 
 module.exports = router;
