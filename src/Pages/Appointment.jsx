@@ -13,9 +13,10 @@ import 'react-day-picker/dist/style.css';
 
 export default function Appointment(props) {
     const [citaAdded, setCitaAdded] = useState(false)
-    const [doctors, setDoctors] = useState([]);
-    const [service, setService] = useState("");
-    const [doctor, setDoctor] = useState([]);
+    const [doctorsList, setDoctorsList] = useState([]);
+    const [servicesList, setServicesList] = useState([]);
+    const [formService, setFormService] = useState("");
+    const [formDoctors, setFormDoctors] = useState([]);
     const [schedule, setSchedule] = useState("");
     const [doctorSchedule, setDoctorSchedule] = useState([])
     const [selected, setSelected] = useState();
@@ -37,14 +38,18 @@ export default function Appointment(props) {
         dia: "",
     })
 
+    //Get Doctors DATA from Database
     useEffect(()=> {
         fetch("http://localhost:5000/doctors")
         .then(res => res.json())
         .then(data => {
-            setDoctors(data)
+            setDoctorsList(data)
+           //Creating an array with de doctors services with no repited option
+            setServicesList([...new Set(data.map(doctor => doctor.service))])
         })
         .catch(err => console.log(err))
     }, [])
+    
 
     let footer = <p>{`Seleccione el dia para la cita, con relacion al horario seleccionado. (${(formData.date)})`}</p>;
         if (selected) {
@@ -74,23 +79,32 @@ export default function Appointment(props) {
             })
     }
 
-
     const handleChange = (e) => {
-        setService(formData.service)
-        setDoctor(doctors.filter(doctor => doctor.service === service))
-        setSchedule(doctor.filter(doctor => doctor.service === service))
-        let [arrayObject] = schedule
+        setFormService(formData.service)
+
+        //Display doctors where services are equal to selected services
+        setFormDoctors(doctorsList.filter(doctor => doctor.service === formService))
+        
+        //Display schedule associated with the selected doctor
+        setSchedule(formDoctors.filter(doctor => `${doctor.gender === "Hombre" ? "Dr" : "Dra"} ${doctor.name} ${doctor.lastname}` === formData.doctor))
+        
+
         setFormData(prevState => {
             return {
                 ...prevState,
                 [e.target.name]: e.target.value
             }
         })
+        
+        //Desestructure schedule array to get only de dates from the doctor objects
+        let [arrayObject] = schedule
         if (arrayObject !== undefined) {
             let {schedule} = arrayObject;
             let scheduleArray = schedule.split(",");
             setDoctorSchedule(scheduleArray)
         }
+
+        //DayPicker
         if (selected !== undefined) {
             setFormData(prevState => {
                 return {
@@ -103,9 +117,11 @@ export default function Appointment(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData)
-        //setCitaAdded(false);
-        //addCitas(formData);
+        setCitaAdded(false);
+        addCitas(formData);
+        setTimeout(() => {
+            clearValues(e)
+        },2000)
     }
     const clearValues = (e) => {
         e.preventDefault();
@@ -174,15 +190,15 @@ export default function Appointment(props) {
                         <label htmlFor='service'>Tipo de consulta</label>
                         <select name='service'  value={formData.service}  onChange={handleChange} required>
                             <option>Seleccione servicio o especialidad</option>
-                            {doctors.map(el => 
-                            <option key={nanoid()}>{el.service}</option>
+                            {servicesList.map(el => 
+                            <option key={nanoid()}>{el}</option>
                             )}
                         </select>
                         <div className='select-anidado'>
                             <label htmlFor='doctor'>Doctor</label>
                             <select name='doctor' value={formData.doctor}  onChange={handleChange} required>
                                 <option>Escoja un doctor</option>
-                            {doctor.map(el =>
+                            {formDoctors.map(el =>
                                 <option key={nanoid()}>{`${el.gender === "Hombre" ? "Dr " : "Dra"} ${el.name} ${el.lastname}`}</option>
                             )}
                             </select>
@@ -198,12 +214,14 @@ export default function Appointment(props) {
                             )}
                             </select>
                         </div>
-                        {((formData.date !== "") && (formData.date !== "Selecciona fecha")) && <DayPicker
+                        {((formData.date !== "") && (formData.date !== "Selecciona fecha")) && 
+                        <DayPicker
                             mode="single"
                             locale={es}
                             selected={selected}
                             onSelect={setSelected}
                             footer={footer}
+                            disabled={{before: new Date()}}
                         />}
                         {<p className={citaAdded? 'success' : 'error'}>{citaAdded ? "Cita agendada exitosamente!" : ""}</p>}
                         <div className='button'>

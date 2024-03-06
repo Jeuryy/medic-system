@@ -7,7 +7,8 @@ import { MdDelete } from "react-icons/md";
 import './Citas.css'
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Login from '../Pages/Login';
+import { FaRegEye } from "react-icons/fa";
+
 export default function Citas(props) {
     const [citas, setCitas] = useState([])
     const {isLogged, setIsLogged} = props;
@@ -35,30 +36,32 @@ export default function Citas(props) {
                     <thead>
                     <tr>
                         <th>Fecha</th>
+                        <th>Paciente</th>
                         <th>Tipo de consulta</th>
                         <th>Doctor</th>
-                        <th>Paciente</th>
-                        <th>Seguro</th>
+                        <th>Documento</th>
                         <th>Dirección</th>
                         <th>Contacto</th>
                         <th>Opciones</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {citas ? 
-                        <tr><td colSpan="8">No hay citas para mostrar</td></tr>
+                    {!citas ? 
+                        (<tr><td colSpan="8">No hay citas para mostrar</td></tr>)
                         :
                         (
                             citas.map(cita => {
                             return <tr key={cita.id}>
-                                <td> {cita.date}</td>
+                                <td style={{whiteSpace: 'pre-line'}}> {(cita.dia.substring(4)) + "\n" + cita.date}</td>
+                                <td> {cita.name + " " + cita.lastname}</td>
                                 <td> {cita.service}</td>
                                 <td> {cita.doctor}</td>
-                                <td> {cita.name + " " + cita.lastname}</td>
-                                <td> {cita.assurance}</td>
+                                <td> {cita.documenttype + ": " + cita.document}</td>
                                 <td> {cita.address}</td>
-                                <td> {cita.phone + " " + cita.email}</td>
-                                <td className='options'><button><FaUserEdit/></button>
+                                <td style={{whiteSpace: 'pre-line'}}> {cita.phone + "\n" + cita.email}</td>
+                                <td className='options'>
+                                    <button><FaRegEye /></button>
+                                    <button><FaUserEdit/></button>
                                     <button><MdDelete/></button>
                                 </td>
                             </tr>})
