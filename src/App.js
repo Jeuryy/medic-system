@@ -20,6 +20,7 @@ import EditDoctor from './EditViews/EditDoctor';
 import { IdleTimerProvider as IdleTimer} from 'react-idle-timer';
 import useNavigatorOnline from "use-navigator-online";
 import { Alert } from '@mui/material';
+import Buscar from './Pages/Buscar';
 
 
 function App() {
@@ -36,12 +37,12 @@ function App() {
 
 
   useEffect(() => {
-    if (isOnline || backOnline) {
+    if (backOnline) {
       setConnection(<Alert variant="filled" severity="success">
       Conexión reestablecida!
       </Alert>)
     }
-    else {
+    else if (isOffline || backOffline) {
         setConnection(
           <Alert variant="filled" severity="error">
           Se ha perdido la conexión!
@@ -51,7 +52,7 @@ function App() {
       setConnection('');
     }, 5000)
 
-  }, [isOnline]);
+  }, [backOnline]);
 
 
   return (
@@ -89,6 +90,8 @@ function App() {
               path='edit-user'/>
               <Route element={<EditDoctor isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='edit-doctor'/>
+              <Route element={<Buscar isLogged={isLogged} setIsLogged={setIsLogged}/>}
+              path='buscar'/>
               <Route element={<NotFound isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='*'/>
         </Routes>

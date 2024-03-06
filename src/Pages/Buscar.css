@@ -1,43 +1,43 @@
-.appointment-container{
+.buscar-container{
     text-align: center;
-    background-image: url('../assets/img/about-background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: var(--third-green);
     padding-top: 50px;
+    height: 100vh;
 }
-.appointment-header{
+.buscar-header{
+    font-size: 22px;
     background: var(--green);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 70px;
+    padding-right: 50px;
 }
 .goback{
-    margin-left: 50px;
     font-size: 52px;
     display: flex;
     align-items: center;
     color: var(--orange);
 }
-
-.appointment .img-container {
-    align-items: center;
-    display: flex;
-    margin-right: 50px;
+.buscar-container h2{
+    color: var(--green);
+    font-weight: bold;
 }
-.appointment .login{
+.buscar .login{
     color: #fff;
     text-decoration: none;
 }
 .cmdm-logo{
     max-width: 300px;
 }
-.form-container{
-    margin-top: 40px;
-    justify-content: center;
-    /* width: 500px; */
+
+.buscar-form-container {
     display: flex;
+    justify-content: center;
+    margin-top: 50px;
 }
-.form-container form{
+
+.buscar-form-container form{
     display: flex;
     flex-direction: column;
     background-color: #fff;
@@ -45,26 +45,15 @@
     padding: 50px;
     text-align: center;
     margin-bottom: 50px;
+    min-width: 50%;
 }
-.form-container form h3{
-    color: var(--green);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 50px;
-}
-.fullname{
-    display: flex;
-}
-.fullname div {
-    display: flex;
-    flex-direction: column;
-}
-.form-container form label{
+
+.buscar-form-container form label{
     text-align: start;
     margin-left: 10px;
     color: #000;
 }
-.form-container form input,.form-container form select{
+.buscar-form-container form input,.buscar-form-container form select{
     margin: 0px 10px 30px 10px;
     padding: 0 10px 5px 0;
     border: none;
@@ -73,16 +62,16 @@
     outline: none;
     background-color: transparent
 }
-.form-container form ::placeholder{
+.buscar-form-container form ::placeholder{
     color: var(--green);
     opacity: .4;
 }
-.form-container form .button button{
+.buscar-form-container form .button button{
     padding: 8px 30px;
     margin: 20px;
     margin-top: 10px;
     border: none;
-    background-color: var(--orange);
+    background-color: var(--green);
     color: #FFF;
 }
 .select-anidado{
@@ -96,7 +85,7 @@
     .fullname{
         flex-direction: column;
     }
-    .form-container form{
+    .buscar-form-container form{
         width: 90%;
     }
 }
@@ -104,7 +93,7 @@
     .goback{
         margin-left: 10px;
     }
-    .appointment-container .img-container img{
+    .buscar-container .img-container img{
         margin-right: 10px;
     }
     .cmdm-logo{

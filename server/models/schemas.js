@@ -30,6 +30,8 @@ const citaSchema = new Schema ({
     address: {type: String},
     email: {type: String},
     phone: {type: String},
+    documenttype: {type: String},
+    document: {type: String},
     createdTime: {type: Date, default: Date.now}
 });
 

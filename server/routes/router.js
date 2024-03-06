@@ -99,12 +99,14 @@ router.post('/citas', async (req, res) => {
         assurance,
         address,
         email,
-        phone
+        phone,
+        documenttype,
+        document
         } = req.body;
 
         const citaData = {id, date, dia, service, doctor,
         name, lastname, gender, assurance,
-        address, email, phone}
+        address, email, phone, documenttype, document}
 
         const newCita = new schemas.Citas(citaData);
         const saveCita = await newCita.save();

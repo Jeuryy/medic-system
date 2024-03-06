@@ -115,6 +115,7 @@ export default function Services(){
                 </div>
                 <div className='button'>
                 <Link to="/agendar" className="button-48" role="button"><span className="text">Agendar cita</span></Link>
+                <Link to="/buscar" className="button-48" role="button"><span className="text">Mi historico</span></Link>
                 </div>
             </div>
         </section>

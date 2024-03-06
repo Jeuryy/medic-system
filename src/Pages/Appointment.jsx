@@ -1,6 +1,6 @@
 import './Appointment.css'
 import React, { useState, useEffect, useId } from 'react';
-import { MdAccountCircle } from "react-icons/md";
+import { MdAccountCircle, MdHome } from "react-icons/md";
 import cmdm from '../assets/img/cmdm.png'
 import { Link } from 'react-router-dom';
 import { IoMdArrowBack } from "react-icons/io";
@@ -27,6 +27,8 @@ export default function Appointment(props) {
         address: "",
         email: "",
         phone: "",
+        documenttype: "",
+        document: "",
         sex: "",
         service: "",
         doctor: "",
@@ -114,6 +116,8 @@ export default function Appointment(props) {
             address: "",
             email: "",
             phone: "",
+            documenttype: "",
+            document: "",
             sex: "",
             service: "",
             doctor: "",
@@ -127,7 +131,7 @@ export default function Appointment(props) {
     return (
         <div className='appointment'>
             <div className='appointment-header'>
-                <Link to="/" className='goback'><IoMdArrowBack /></Link>
+                <Link to="/" className='goback'><MdHome/></Link>
                 <div className='img-container'>
                     <Link to={`${isLogged ? "/Dashboard": "/Login"}`} className='login'><MdAccountCircle className='icon' />{isLogged ? JSON.parse(localStorage.getItem("currentUser")).name : "Entrar"}</Link>
                 </div>
@@ -136,7 +140,7 @@ export default function Appointment(props) {
                 <img className="cmdm-logo" src={cmdm} alt='Logo de Centro Medico Divina Misericordia' />
                 <div className='form-container'>
                     <form onSubmit={handleSubmit} autoComplete='off' onChange={handleChange} onMouseUp={handleChange}>
-                        <h3>Agendar cita</h3>
+                        <h3 className='appointment-h3'>Agendar cita</h3>
                         <div className='fullname'>
                             <div>
                                 <label htmlFor='name'>Nombre</label>
@@ -159,6 +163,14 @@ export default function Appointment(props) {
                         <input type='email' placeholder='Escriba su correo electrónico' name='email'  defaultValue={formData.email} onChange={handleChange}  required/>
                         <label htmlFor='phone'>Número celular</label>
                         <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'  defaultValue={formData.phone}  onChange={handleChange} required/>
+                        <label htmlFor='documenttype'>Tipo de documento</label>
+                            <select name='documenttype' value={formData.documenttype}  onChange={handleChange} required>
+                                <option defaultValue="...">...</option>
+                                <option >Cedula</option>
+                                <option >Pasaporte</option>
+                            </select>
+                            <label htmlFor='document'>Número de documento</label>
+                            <input autoComplete='off' name='document' placeholder='Ingrese su número de documento sin guiones (-)' defaultValue={formData.document}  onChange={handleChange} required/>
                         <label htmlFor='service'>Tipo de consulta</label>
                         <select name='service'  value={formData.service}  onChange={handleChange} required>
                             <option>Seleccione servicio o especialidad</option>
