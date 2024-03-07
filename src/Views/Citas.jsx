@@ -5,13 +5,16 @@ import UserHeader from '../components/UserHeader';
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import './Citas.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FaRegEye } from "react-icons/fa";
+import MyModal from '../components/MyModal';
 
 export default function Citas(props) {
     const [citas, setCitas] = useState([])
+    const [error, setError] = useState(false)
     const {isLogged, setIsLogged} = props;
+    const navigate = useNavigate();
 
     useEffect(()=> {
         fetch("http://localhost:5000/citas")
@@ -19,6 +22,31 @@ export default function Citas(props) {
         .then(data => setCitas(data))
         .catch(err => console.log(err))
     }, [])
+
+    const handleYes = async (cita) => {
+        const settings = {
+            method: "DELETE",
+            //mode: "no-cors",
+            headers: {
+                "Content-type": "application/json",
+                'Access-Control-Allow-Origin':'*'
+            },
+            body: JSON.stringify(cita) 
+        };
+        await fetch("http://localhost:5000/citas/", settings)
+        .then(res => res.json())
+        .then(resData => {
+            console.log(resData);
+            setError(false)
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000)
+        })
+        .catch(e => {
+            console.log(`Error catched: ${e}`);
+            setError(true)
+        })
+    }
     return (
     <div >
         {isLogged ? (
@@ -46,7 +74,7 @@ export default function Citas(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    {!citas ? 
+                    {citas.length <= 0 ? 
                         (<tr><td colSpan="8">No hay citas para mostrar</td></tr>)
                         :
                         (
@@ -61,8 +89,18 @@ export default function Citas(props) {
                                 <td style={{whiteSpace: 'pre-line'}}> {cita.phone + "\n" + cita.email}</td>
                                 <td className='options'>
                                     <button><FaRegEye /></button>
-                                    <button><FaUserEdit/></button>
-                                    <button><MdDelete/></button>
+                                    <button onClick={() => navigate("/edit-appointment", {state: cita})}>
+                                    <FaUserEdit/>
+                                </button>
+                                    <MyModal
+                                            variant="danger"
+                                            title={<MdDelete/>}
+                                            header="Eliminando usuario"
+                                            body={`Esta seguro de eliminar cita de paciente ${cita.name} ${cita.lastname}`}
+                                            yes="Si"
+                                            not="No"
+                                            handleYes={() => handleYes(cita)}
+                                        />
                                 </td>
                             </tr>})
                         )

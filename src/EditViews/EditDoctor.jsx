@@ -27,12 +27,16 @@ export default function EditDoctor (props) {
     })
     const navigate = useNavigate();
     const location = useLocation();
-    const {id, name, lastname, service, 
-        email, schedule, phone, 
-        gender, description
-    } = location.state;
+
 
     useEffect(()=>{
+        if (location.state === null) {
+            return navigate('/doctors');
+        }
+        const {id, name, lastname, service, 
+            email, schedule, phone, 
+            gender, description
+        } = location.state;
         setFormData(prevState => {
             return {
                 ...prevState,

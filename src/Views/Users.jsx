@@ -8,7 +8,6 @@ import './Users.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import MyModal from '../components/MyModal';
-import Login from '../Pages/Login';
 
 export default function Users(props) {
     const [users, setUsers] = useState([])
@@ -75,7 +74,7 @@ const handleYes = async (user) => {
                     </tr>
                     </thead>
                     <tbody>
-                        {!users ? 
+                        {users.length <= 0 ? 
                             <tr><td colSpan="8">No hay usuarios para mostrar</td></tr> 
                             : (
                             users.map(user => {

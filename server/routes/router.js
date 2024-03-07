@@ -95,7 +95,7 @@ router.post('/citas', async (req, res) => {
         doctor,
         name,
         lastname,
-        gender,
+        sex,
         assurance,
         address,
         email,
@@ -105,7 +105,7 @@ router.post('/citas', async (req, res) => {
         } = req.body;
 
         const citaData = {id, date, dia, service, doctor,
-        name, lastname, gender, assurance,
+        name, lastname, sex, assurance,
         address, email, phone, documenttype, document}
 
         const newCita = new schemas.Citas(citaData);
@@ -115,6 +115,45 @@ router.post('/citas', async (req, res) => {
             res.send({message: "Cita added, thank you"})
         }
         res.end();
+})
+router.put('/citas', async (req, res) => {
+    const {id, name, lastname, address, 
+        email, phone, sex, 
+        service, documenttype, document, doctor, 
+        assurance, date, dia
+    } = req.body;
+
+    try {
+        await schemas.Citas.updateOne({id}, {
+            $set: {
+                name, 
+                lastname, 
+                service, 
+                address, 
+                phone, 
+                email, 
+                sex, 
+                documenttype,
+                document, 
+                doctor, assurance,
+                date, 
+                dia
+            }
+        })
+        return res.json({status: "ok", data: "updated"})
+
+    } catch (err) {
+        return res.json({status: "error", data: err})
+    }
+})
+router.delete('/citas', async (req, res) => {
+    const {id} = req.body;
+    try {
+        await schemas.Citas.deleteOne({id});
+        res.send({status: "Ok", data: "Deleted"});
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 //DOCTORES

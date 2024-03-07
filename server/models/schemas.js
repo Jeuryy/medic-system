@@ -25,7 +25,7 @@ const citaSchema = new Schema ({
     doctor: {type: String},
     name: {type: String},
     lastname: {type: String},
-    gender: {type: String},
+    sex: {type: String},
     assurance: {type: String},
     address: {type: String},
     email: {type: String},

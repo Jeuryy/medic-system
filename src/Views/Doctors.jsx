@@ -76,7 +76,7 @@ export default function Doctors(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    {doctors ? (
+                    {doctors.length >= 1 ? (
                         doctors.map(doctor => {
                         return <tr key={doctor.id}>
                             <td>{`${doctor.gender === "Hombre" ? "Dr " : "Dra "} ${doctor.name} ${doctor.lastname}`}</td>

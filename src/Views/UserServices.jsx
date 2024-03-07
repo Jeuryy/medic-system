@@ -47,7 +47,7 @@ export default function UserServices(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    {doctors ?
+                    {doctors.length >= 1 ?
                         ( doctors.map(doctor => {
                         return <tr key={doctor.id}>
                             <td> {doctor.service}</td>

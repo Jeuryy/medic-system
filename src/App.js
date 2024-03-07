@@ -21,6 +21,7 @@ import { IdleTimerProvider as IdleTimer} from 'react-idle-timer';
 import useNavigatorOnline from "use-navigator-online";
 import { Alert } from '@mui/material';
 import Buscar from './Pages/Buscar';
+import EditAppointment from './EditViews/EditAppointment';
 
 
 function App() {
@@ -90,6 +91,8 @@ function App() {
               path='edit-user'/>
               <Route element={<EditDoctor isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='edit-doctor'/>
+              <Route element={<EditAppointment isLogged={isLogged} setIsLogged={setIsLogged}/>}
+              path='edit-appointment'/>
               <Route element={<Buscar isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='buscar'/>
               <Route element={<NotFound isLogged={isLogged} setIsLogged={setIsLogged}/>}

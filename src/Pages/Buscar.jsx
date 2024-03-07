@@ -17,7 +17,7 @@ export default function Buscar(props) {
     const navigate = useNavigate();
 
     useEffect(()=> {
-        fetch("http://localhost:5000/users")
+        fetch("http://localhost:5000/citas")
         .then(res => res.json())
         .then(data => {
             setCitas(data)
@@ -50,10 +50,15 @@ const handlePlaceholder = () => {
                 if (cita.documenttype === formData.documenttype) {
                     if (cita.document === formData.document) {
                         console.log(cita)
+                        setSearch(true)
+                    } else {
+                        console.log(`Cita doesn't exist yet`)
+                        setSearch(false)
                     }
+                } else {
+                    console.log(`Cita doesn't exist yet`)
+                    setSearch(false)
                 }
-            } else {
-                console.log(`Cita doesn't exist yet`)
             }
         })
         //navigate("/", {state: formData})

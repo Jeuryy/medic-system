@@ -33,12 +33,16 @@ export default function EditUser (props) {
     })
     const navigate = useNavigate();
     const location = useLocation();
-    const {id, name, lastname, address, 
-        email, password, phone, 
-        gender, documenttype, document, roll, username
-    } = location.state;
+
 
     useEffect(()=>{
+        if (location.state === null) {
+            return navigate('/users');
+        }
+        const {id, name, lastname, address, 
+            email, password, phone, 
+            gender, documenttype, document, roll, username
+        } = location.state;
         setFormData(prevState => {
             return {
                 ...prevState,
