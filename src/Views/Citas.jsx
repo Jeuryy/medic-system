@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FaRegEye } from "react-icons/fa";
 import MyModal from '../components/MyModal';
+import Popup from '../components/Popup';
 
 export default function Citas(props) {
     const [citas, setCitas] = useState([])
@@ -88,7 +89,12 @@ export default function Citas(props) {
                                 <td> {cita.address}</td>
                                 <td style={{whiteSpace: 'pre-line'}}> {cita.phone + "\n" + cita.email}</td>
                                 <td className='options'>
-                                    <button><FaRegEye /></button>
+                                    <Popup
+                                        title="Confirmación de cita"
+                                        name="Centro Médico Divina Misericordia"
+                                        address="AV. CORDILLERA ESQ EL SAMAN SN, Santo Domingo Oeste Santo Domingo Oeste, Republica Dominicana 10701"
+                                        openText={<FaRegEye state={cita}/>}>
+                                    </Popup>
                                     <button onClick={() => navigate("/edit-appointment", {state: cita})}>
                                     <FaUserEdit/>
                                 </button>
