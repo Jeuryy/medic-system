@@ -1,6 +1,8 @@
-
+.confirmation-container{
+    padding: 24px;
+}
 .popup-title{
-    font-size: 18px;
+    font-size: 14px;
     text-transform: uppercase;
     font-weight: 600;
     margin-bottom: 0;
@@ -14,7 +16,7 @@
 }
 .popup-name{
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 12px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
@@ -24,13 +26,22 @@
     text-transform: uppercase;
 } 
 .popup-ruc, 
-.popup-phone{
+.popup-phone,
+p{
     margin-bottom: 5px;
 }
 
 .popup-website{
-    padding-bottom: 30px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #000;
+}
+.popup-button button{
+    padding: 8px 20px;
+    margin: 20px;
+    margin-top: 10px;
+    border: none;
+    background-color: #1267fbd6;
+    color: #FFF;
 }
 
 .grid-details-container{
@@ -44,4 +55,14 @@
 }
 .grid-details-item{
     text-align: start;
+}
+.important{
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.popup-created-time{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    color: #7b7b7b;
 }

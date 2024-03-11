@@ -4,13 +4,30 @@ import clsx from 'clsx';
 import { styled, css } from '@mui/system';
 import { Modal as BaseModal } from '@mui/base/Modal';
 import './Popup.css'
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
 export default function Popup(props) {
     const [open, setOpen] = React.useState(false);
+    const [loader, setLoader] = React.useState(false)
     const handleClose = () => setOpen(false);
     const handleOpen = (e) => setOpen(true)
     const {state} = props.openText.props
+    let createdTime = new Date(state.createdTime)
 
-    
+    const handleDownload = () => {
+        setLoader(true)
+        const receipt = document.querySelector(".confirmation-container");
+        html2canvas(receipt).then((canvas) => {
+            const imgData = canvas.toDataURL('img/png');
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const componentWidth = doc.internal.pageSize.getWidth();
+            const componentHeight = doc.internal.pageSize.getHeight();
+            doc.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
+            doc.save('Confirmacion de cita.pdf');
+            setLoader(false)
+        })
+    }
 return (
     <div>
         <TriggerButton type="button" onClick={handleOpen}>
@@ -20,11 +37,12 @@ return (
             open={open}
             onClose={handleClose}
             slots={{ backdrop: StyledBackdrop }}>
-            <ModalContent sx={{ width: 600 }}>
+            <ModalContent sx={{ width: 500 }}>
+            <div className='confirmation-container'>
                 <h2 className="popup-title">
                     {props.title}
                 </h2>
-                <p className='popup-id'>{state.id.substring(0,5)}</p>
+                <p className='popup-id'>#{state.id.substring(0,5)}</p>
                 <p className="popup-name">
                     {props.name}
                 </p>
@@ -53,13 +71,27 @@ return (
                     <p className='grid-details-item'>:{state.service}</p>
                     <p className='grid-details-item'>Doctor</p>
                     <p className='grid-details-item'>:{state.doctor}</p>
-                    <p className='grid-details-item'>Fecha</p>
+                    <p className='grid-details-item'>Fecha(Mes Dia Año)</p>
                     <p className='grid-details-item'>:{(state.dia).substring(4)}</p>
                     <p className='grid-details-item'>Horario</p>
                     <p className='grid-details-item'>:{state.date}</p>
                     <p className='grid-details-item'>Aseguradora</p>
                     <p className='grid-details-item'>:{state.assurance}</p>
                 </div>
+                <p className='important'>Importante:</p>
+                <p className='important'>Estimado paciente, recuerde presentarse 30 min antes el dia de su cita.</p>
+                <div className='popup-created-time'>
+                    <p className='created-time-title'>Fecha de creacion:</p>
+                    <p className='created-time'>{createdTime.toLocaleString('es-ES')}</p>
+                </div>
+            </div>
+            <div className='popup-button'>
+                <button onClick={handleDownload}>{loader ? (
+                    <span>Descargando</span>): (
+                    <spaN>Descargar</spaN>
+                    )}
+                </button>
+            </div>
             </ModalContent>
         </Modal>
     </div>
@@ -111,6 +143,7 @@ const Modal = styled(BaseModal)`
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 12px
 `;
 
 const StyledBackdrop = styled(Backdrop)`
@@ -133,7 +166,7 @@ const ModalContent = styled('div')(
     border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
     box-shadow: 0 4px 12px
     ${theme.palette.mode === 'dark' ? 'rgb(0 0 0 / 0.5)' : 'rgb(0 0 0 / 0.2)'};
-    padding: 24px;
+    padding: 0;
 `,
 );
 
