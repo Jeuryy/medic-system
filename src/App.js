@@ -22,6 +22,7 @@ import useNavigatorOnline from "use-navigator-online";
 import { Alert } from '@mui/material';
 import Buscar from './Pages/Buscar';
 import EditAppointment from './EditViews/EditAppointment';
+import History from './Pages/History';
 
 
 function App() {
@@ -95,6 +96,8 @@ function App() {
               path='edit-appointment'/>
               <Route element={<Buscar isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='buscar'/>
+              <Route element={<History isLogged={isLogged} setIsLogged={setIsLogged}/>}
+              path='mi-informacion'/>
               <Route element={<NotFound isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='*'/>
         </Routes>

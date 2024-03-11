@@ -224,6 +224,73 @@ router.delete('/doctors', async (req, res) => {
     }
 })
 
+//DIAGNOSTICOS
+router.get('/diagnostics', (req, res) => {
+    schemas.Diagnostics.find()
+    .then(citas => res.json(citas))
+    .catch(err => console.log(err))
+});
+
+router.post('/diagnostics', async (req, res) => {
+    const {
+        id,
+        citaid,
+        doctor,
+        service,
+        resume,
+        medicine,
+        date,
+        createdTime
+        } = req.body;
+
+        const diagnosticData = {id, citaid, doctor,
+            service, resume, medicine, date,
+            createdTime
+        }
+
+        const newDiagnostic = new schemas.Diagnostics(diagnosticData);
+        const saveDiagnostic = await newDiagnostic.save();
+
+        if (saveDiagnostic) {
+            res.send({message: "Diagnostic added, thank you"})
+        }
+        res.end();
+})
+router.put('/diagnostics', async (req, res) => {
+    const {id, citaid, doctor, service,
+        resume, medicine, date, createdTime
+    } = req.body;
+
+    try {
+        await schemas.Diagnostics.updateOne({id}, {
+            $set: {
+                citaid,
+                doctor,
+                service,
+                resume,
+                medicine,
+                date,
+                createdTime
+            }
+        })
+        return res.json({status: "ok", data: "updated"})
+
+    } catch (err) {
+        return res.json({status: "error", data: err})
+    }
+})
+router.delete('/diagnostics', async (req, res) => {
+    const {id} = req.body;
+    try {
+        await schemas.Diagnostics.deleteOne({id});
+        res.send({status: "Ok", data: "Deleted"});
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+
 //SERVICIOS
 /*router.get('/services', (req, res) => {
     schemas.Services.find()

@@ -1,0 +1,27 @@
+.history-content{
+    margin-top: 80px;
+}
+.history-citas-title{
+    margin-bottom: 20px;
+    margin-left: 50px;
+    font-weight: 600;
+    color: var(--green);
+}
+.buscar-header .login{
+    color: #FFF;
+    text-decoration: none;
+}
+.history-citas-titles th{
+    color: var(--green);
+    padding-left: 10px;
+}
+.history-tr td{
+    padding: 10px;
+    color: #3c3c3c;
+}
+
+@media (max-width: 885px){
+    .table-responsive-sm {
+        overflow-x: auto;
+    }
+}

@@ -88,7 +88,7 @@ return (
             <div className='popup-button'>
                 <button onClick={handleDownload}>{loader ? (
                     <span>Descargando</span>): (
-                    <spaN>Descargar</spaN>
+                    <span>Descargar</span>
                     )}
                 </button>
             </div>

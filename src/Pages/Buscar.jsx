@@ -13,7 +13,7 @@ export default function Buscar(props) {
         email: "",
         document: "",
         documenttype: ""
-    })
+    });
     const navigate = useNavigate();
 
     useEffect(()=> {
@@ -44,26 +44,17 @@ const handlePlaceholder = () => {
 }
     const handleSubmit = (e) => {
         e.preventDefault();
-        //console.log(formData)
-        citas.map(cita => {
-            if (cita.email === formData.email) {
-                if (cita.documenttype === formData.documenttype) {
-                    if (cita.document === formData.document) {
-                        console.log(cita)
-                        setSearch(true)
+                citas.map(cita => {
+                    if (cita.email === formData.email 
+                        && cita.documenttype === formData.documenttype
+                        && cita.document === formData.document) {
+                                navigate('/mi-informacion', {state: formData})
+                                //console.log(cita)
+                                setSearch(true)
                     } else {
-                        console.log(`Cita doesn't exist yet`)
-                        setSearch(false)
+                                setSearch(false)
                     }
-                } else {
-                    console.log(`Cita doesn't exist yet`)
-                    setSearch(false)
-                }
-            }
-        })
-        //navigate("/", {state: formData})
-        //setCitaAdded(false);
-        //addCitas(formData);
+                })
     }
 
     return (
