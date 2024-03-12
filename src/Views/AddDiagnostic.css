@@ -1,0 +1,107 @@
+.profile-add-diagnostic-container{
+    display: flex;
+    justify-content: space-between;
+}
+.add-diagnostic-form{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--third-green)
+}
+.add-diagnostic-form-container{
+    text-align: center;
+}
+
+.add-diagnostic-form-form-container{
+    padding: 50px;
+}
+.add-diagnostic-form-form-container form{
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.cita-id{
+    display: flex;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #787878;
+    border-radius: 10px;
+    background-color: #FFF;
+}
+.cita-id[disabled]{
+    background-color: #e4e4e4;
+}
+.cita-id input{
+    border: none;
+    width: 90%;
+    outline: none;
+}
+.add-diagnostic-form-form-container h3{
+    color: var(--orange);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+.add-diagnostic-form-container form label{
+    text-align: start;
+    margin-left: 10px;
+    color: var(--green);
+}
+.add-diagnostic-form-content{
+    display: flex;
+    flex-direction: column;
+}
+.add-diagnostic-form-content input,
+.add-diagnostic-form-content select,
+.add-diagnostic-form-content textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 2px solid #787878;
+    border-radius: 10px;
+    color: #000;
+    outline: none;
+}
+.add-diagnostic-form-content input[disabled]{
+    background-color: #e4e4e4;
+    border: 1px solid #787878;
+}
+.add-diagnostic-form-container form input[name=email],
+.add-diagnostic-form-container form input[name=password2]{
+    margin-bottom: 0;
+}
+.add-diagnostic-form-container form ::placeholder{
+    color: #000;
+}
+.add-diagnostic-form-container form .button button{
+    padding: 8px 30px;
+    margin: 15px;
+    margin-top: 10px;
+    border: none;
+    background-color: var(--orange);
+    color: #FFF;
+}
+.success{
+    color: var(--green);
+}
+.error{
+    color: red;
+}
+.add-diagnostic-form-form-container input[name=email],
+.add-diagnostic-form-form-container select[name=documenttype],
+.add-diagnostic-form-form-container input[name=document]{
+    background-color: #e8e8e8;
+}
+@media screen and (max-width: 500px) {
+    .goback{
+        margin-left: 10px;
+    }
+    .add-diagnostic-form-container .img-container img{
+        margin-right: 10px;
+    }
+    .cmdm-logo{
+        max-width: 80%;
+    }
+}

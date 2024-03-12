@@ -88,7 +88,7 @@ export default function AddDoctor(props) {
                         <h3>AGREGAR DOCTOR</h3>
                         <form onSubmit={handleSubmit}>
                             <label htmlFor='name'>Nombre</label>
-                            <input placeholder='Escriba su nombre' name='name'value={formData.name}  onChange={handleChange} required/>
+                            <input placeholder='Escriba su nombre' name='name' value={formData.name}  onChange={handleChange} required/>
                             <label htmlFor='lastname'>Apellido</label>
                             <input placeholder='Escriba su apellido(s)' name='lastname' defaultValue={formData.lastname}  onChange={handleChange} required/>
                             <label htmlFor='service'>Especialidad</label>

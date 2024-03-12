@@ -19,7 +19,10 @@ export default function Diagnostics(props) {
                 </div>
                 <div className='users-content'>
                 <UserHeader/>
-                <p className='title'>Diagnosticos</p>
+                <div className='create-user'>
+                <p className='title'>DIAGNOSTICOS</p>
+                <Link to="/add-diagnostic">Agregar diagnostico</Link>
+            </div>
                 <Table striped bordered hover responsive="sm">
                     <thead>
                     <tr>

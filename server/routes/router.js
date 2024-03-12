@@ -234,7 +234,7 @@ router.get('/diagnostics', (req, res) => {
 router.post('/diagnostics', async (req, res) => {
     const {
         id,
-        citaid,
+        citaId,
         doctor,
         service,
         resume,
@@ -243,7 +243,7 @@ router.post('/diagnostics', async (req, res) => {
         createdTime
         } = req.body;
 
-        const diagnosticData = {id, citaid, doctor,
+        const diagnosticData = {id, citaId, doctor,
             service, resume, medicine, date,
             createdTime
         }
@@ -257,14 +257,14 @@ router.post('/diagnostics', async (req, res) => {
         res.end();
 })
 router.put('/diagnostics', async (req, res) => {
-    const {id, citaid, doctor, service,
+    const {id, citaId, doctor, service,
         resume, medicine, date, createdTime
     } = req.body;
 
     try {
         await schemas.Diagnostics.updateOne({id}, {
             $set: {
-                citaid,
+                citaId,
                 doctor,
                 service,
                 resume,

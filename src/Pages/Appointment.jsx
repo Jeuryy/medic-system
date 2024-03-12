@@ -162,15 +162,15 @@ export default function Appointment(props) {
                         <div className='fullname'>
                             <div>
                                 <label htmlFor='name'>Nombre</label>
-                                <input placeholder='Nombre de paciente' name='name' defaultValue={formData.name} onChange={handleChange} required/>
+                                <input placeholder='Nombre de paciente' name='name' value={formData.name} onChange={handleChange} required/>
                             </div>
                             <div>
                             <label htmlFor='lastname'>Apellido</label>
-                            <input placeholder='Apellido del paciente' name='lastname' defaultValue={formData.lastname} onChange={handleChange}  required/>
+                            <input placeholder='Apellido del paciente' name='lastname' value={formData.lastname} onChange={handleChange}  required/>
                             </div>
                         </div>
                         <label htmlFor='address'>Dirección</label>
-                        <input placeholder='Escriba dirección del paciente' name='address' defaultValue={formData.address} onChange={handleChange}  required/>
+                        <input placeholder='Escriba dirección del paciente' name='address' value={formData.address} onChange={handleChange}  required/>
                         <label htmlFor='sex'>Seleccione su sexo</label>
                         <select name='sex' value={formData.sex} onChange={handleChange} >
                             <option >Seleccione su sexo</option>
@@ -178,9 +178,9 @@ export default function Appointment(props) {
                             <option >Mujer</option>
                         </select>
                         <label htmlFor='email'>Correo electrónico</label>
-                        <input type='email' placeholder='Escriba su correo electrónico' name='email'  defaultValue={formData.email} onChange={handleChange}  required/>
+                        <input type='email' placeholder='Escriba su correo electrónico' name='email'  value={formData.email} onChange={handleChange}  required/>
                         <label htmlFor='phone'>Número celular</label>
-                        <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'  defaultValue={formData.phone}  onChange={handleChange} required/>
+                        <input type='tel' placeholder='XXX-XXX-XXXX' name='phone'  value={formData.phone}  onChange={handleChange} required/>
                         <label htmlFor='documenttype'>Tipo de documento</label>
                             <select name='documenttype' value={formData.documenttype}  onChange={handleChange} required>
                                 <option defaultValue="...">...</option>
@@ -188,7 +188,7 @@ export default function Appointment(props) {
                                 <option >Pasaporte</option>
                             </select>
                             <label htmlFor='document'>Número de documento</label>
-                            <input autoComplete='off' name='document' placeholder='Ingrese su número de documento sin guiones (-)' defaultValue={formData.document}  onChange={handleChange} required/>
+                            <input autoComplete='off' name='document' placeholder='Ingrese su número de documento sin guiones (-)' value={formData.document}  onChange={handleChange} required/>
                         <label htmlFor='service'>Tipo de consulta</label>
                         <select name='service'  value={formData.service}  onChange={handleChange} required>
                             <option>Seleccione servicio o especialidad</option>
@@ -206,7 +206,7 @@ export default function Appointment(props) {
                             </select>
                         </div>
                         <label htmlFor='assurance'>Seguro</label>
-                        <input placeholder='Seguro medico (escribir NA en caso de no poseer)' name='assurance'  defaultValue={formData.assurance}  onChange={handleChange} required/>
+                        <input placeholder='Seguro medico (escribir NA en caso de no poseer)' name='assurance'  value={formData.assurance}  onChange={handleChange} required/>
                         <div className='select-anidado'>
                             <label htmlFor='date'>Seleccione hora para la cita</label>
                             <select name='date' value={formData.date}  onChange={handleChange} required>

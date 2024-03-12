@@ -57,7 +57,7 @@ const serviceSchema = new Schema ({
 });
 const diagnosticSchema = new Schema ({
     id: {type: String},
-    citaid: {type: String},
+    citaId: {type: String},
     doctor: {type: String},
     service: {type: String},
     resume: {type: String},

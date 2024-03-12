@@ -23,6 +23,7 @@ import { Alert } from '@mui/material';
 import Buscar from './Pages/Buscar';
 import EditAppointment from './EditViews/EditAppointment';
 import History from './Pages/History';
+import AddDiagnostic from './Views/AddDiagnostic';
 
 
 function App() {
@@ -98,6 +99,8 @@ function App() {
               path='buscar'/>
               <Route element={<History isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='mi-informacion'/>
+              <Route element={<AddDiagnostic isLogged={isLogged} setIsLogged={setIsLogged}/>}
+              path='add-diagnostic'/>
               <Route element={<NotFound isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='*'/>
         </Routes>
