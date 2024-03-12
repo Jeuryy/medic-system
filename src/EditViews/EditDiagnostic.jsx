@@ -1,20 +1,17 @@
 import UserMenu from '../Pages/UserMenu';
 import NotFound from '../components/NotFound';
 import UserHeader from '../components/UserHeader';
-import './AddDiagnostic.css'
+import './EditDiagnostic.css'
 import { useState, useEffect } from 'react';
 import ScrollToTop from 'react-scroll-to-top';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import MyModal from '../components/MyModal';
-import { FaSearch } from 'react-icons/fa';
-import { IoCloseSharp } from "react-icons/io5";
 import { nanoid } from 'nanoid';
 
-export default function AddDiagnostic (props) {
+export default function EditDiagnostic (props) {
     const {isLogged, setIsLogged} = props;
-    const [citas, setCitas] = useState([])
     const [citaExist, setCitaExist] = useState(false)
-    const [diagnostics, setDiagnostics] = useState([])
+    const [diagnosticUpdated, setDiagnosticUpdated] = useState(false)
     const [diagnosticAlreadyExist, setDiagnosticAlreadyExist] = useState(false);
     const [error, setError] = useState(false)
     const [formData, setFormData] = useState({
@@ -27,27 +24,34 @@ export default function AddDiagnostic (props) {
         medicine: ""
     })
     const navigate = useNavigate();
+    const location = useLocation();
 
-//GET ALL CITAS DATA TO CONFIRM ID IS IN THIS LIST
-    useEffect(()=> {
-        fetch("http://localhost:5000/citas")
-        .then(res => res.json())
-        .then(data => setCitas(data))
-        .catch(err => console.log(err))
-    }, [])
-
-//GET ALL DIAGNOSTICS DATA TO CONFIRM ID IS IN THIS LIST
-useEffect(()=> {
-    fetch("http://localhost:5000/diagnostics")
-    .then(res => res.json())
-    .then(data => setDiagnostics(data))
-    .catch(err => console.log(err))
-}, [])
+//DESESTRUCTURE NAVIGATE STATE WITH THE DIAGNOSTIC INFO AND ASSIGN VALUES TO FORM
+    useEffect(()=>{
+        if (location.state === null) {
+            return navigate('/');
+        }
+        const {id, citaId, patient, doctor, service, 
+            resume, medicine
+        } = location.state;
+        setFormData(prevState => {
+            return {
+                ...prevState,
+                id, 
+                citaId,
+                patient, 
+                doctor, 
+                service, 
+                resume, 
+                medicine
+            }
+        })
+    }, []);
 
 //ADD DIAGNOSTIC
-    const addDiagnostic = async (data) => {
+    const updateDiagnostic = async (data) => {
         const settings = {
-            method: "POST",
+            method: "PUT",
             //mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
@@ -59,6 +63,7 @@ useEffect(()=> {
             .then(res => res.json())
             .then(resData => {
                 console.log(resData);
+                setDiagnosticUpdated(true)
                 setError(false)
                 setTimeout(() => {
                     navigate("/diagnostics")
@@ -66,6 +71,7 @@ useEffect(()=> {
             })
             .catch(e => {
                 console.log(`Error catched: ${e}`);
+                setDiagnosticUpdated(false)
                 setError(true)
             })
     }
@@ -79,57 +85,16 @@ useEffect(()=> {
         })
     }
 
-    const handleCita = (e) => {
-        if (e.key === "Enter") {
-            let citaMatch = citas.filter(cita => (cita.id).substring(0, 5) === formData.citaId)
-            let diagnosticExist = diagnostics.some(diagnostic => diagnostic.citaId === formData.citaId)
-            if ((citaMatch.length >= 1) && (!diagnosticExist)) {
-                setFormData(prevState => {
-                    return {
-                        ...prevState,
-                        patient: citaMatch[0].name + " " + citaMatch[0].lastname,
-                        doctor: citaMatch[0].doctor,
-                        service: citaMatch[0].service
-                    }
-                })
-                setDiagnosticAlreadyExist(false)
-                setError(false)
-                setCitaExist(true)
-            } else if ((citaMatch.length >= 1) && diagnosticExist) {
-                setDiagnosticAlreadyExist(true)
-                setError(false)
-            }else {
-                setError(true)
-                setCitaExist(false)
-            }
-        }
-    }
-
-    const handleClose = () =>{
-        setFormData(prevState => {
-            return {
-                ...prevState,
-                citaId: ""
-            }
-        })
-        setCitaExist(false)
-    }
     const handleSubmit = (e) => {
         e.preventDefault();
         setDiagnosticAlreadyExist(false)
         setError(false)
-        if (citaExist) {
-            addDiagnostic(formData);
-        }
+        updateDiagnostic(formData);
     }
 
     const handleCancel = (e) => {
         e.preventDefault();
         navigate("/diagnostics")
-    }
-
-    const showForm = {
-        visibility: citaExist ? "visible" : "hidden"
     }
 
     return (
@@ -143,24 +108,20 @@ useEffect(()=> {
                 <UserHeader/>
                 <div className='add-diagnostic-form-container'>
                 <div className='add-diagnostic-form-form-container'>
-                    <h3>AGREGAR DIAGNOSTICO</h3>
+                    <h3>ACTUALIZAR DIAGNOSTICO</h3>
                 <form onSubmit={handleSubmit} autoComplete='off'>
                     <label htmlFor='name'>Codigo de la cita</label>
-                    <div className='cita-id' disabled={citaExist}>
+                    <div className='cita-id' disabled>
                         <input 
-                            onKeyUp={handleCita}
                             autoComplete='off' 
                             placeholder='Escribe el codigo de confirmacion de la cita' 
                             name='citaId'
-                            disabled={citaExist}
-                            value={formData.citaId}
+                            disabled
+                            defaultValue={formData.citaId}
                             onChange={handleChange} 
                             required maxLength="5"/>
-                        { citaExist ? (<IoCloseSharp onClick={handleClose}/>) : (<FaSearch/>)}
                     </div>
-                    {<p className='success'>{diagnosticAlreadyExist && "Registro ya existente, si desea actualizarlo por favor dirigirse a diagnosticos"}</p>}
-                    {<p className='error'>{error && "No se encontraron citas con este codigo, por favor intente nuevamente"}</p>}
-                    {<div className='add-diagnostic-form-content' style={showForm}>
+                    {<div className='add-diagnostic-form-content'>
                         <label htmlFor='patient'>Paciente</label>
                         <input 
                             autoComplete='off' 
@@ -193,7 +154,7 @@ useEffect(()=> {
                             autoComplete='off' 
                             placeholder='Resumen de la consulta' 
                             name='resume' 
-                            value={formData.resume}  
+                            defaultValue={formData.resume}  
                             onChange={handleChange}
                             required={citaExist}/>
                         <label htmlFor='medicine'>Medicamentos</label>
@@ -201,9 +162,10 @@ useEffect(()=> {
                             autoComplete='off' 
                             placeholder='Medicamentos indicados al paciente' 
                             name='medicine' 
-                            value={formData.medicine}  
+                            defaultValue={formData.medicine}  
                             onChange={handleChange} 
                             required={citaExist}/>
+                            {<p className={diagnosticUpdated? 'success' : 'error'}>{diagnosticUpdated ? "Cita actualizada exitosamente!" : ""}</p>}
                         <div className='button'>
                             <button type='submit'>Agregar</button>
                             <MyModal     

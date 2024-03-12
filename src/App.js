@@ -24,6 +24,7 @@ import Buscar from './Pages/Buscar';
 import EditAppointment from './EditViews/EditAppointment';
 import History from './Pages/History';
 import AddDiagnostic from './Views/AddDiagnostic';
+import EditDiagnostic from './EditViews/EditDiagnostic';
 
 
 function App() {
@@ -101,6 +102,8 @@ function App() {
               path='mi-informacion'/>
               <Route element={<AddDiagnostic isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='add-diagnostic'/>
+              <Route element={<EditDiagnostic isLogged={isLogged} setIsLogged={setIsLogged}/>}
+              path='edit-diagnostic'/>
               <Route element={<NotFound isLogged={isLogged} setIsLogged={setIsLogged}/>}
               path='*'/>
         </Routes>

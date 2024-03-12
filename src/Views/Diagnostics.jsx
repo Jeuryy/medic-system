@@ -107,7 +107,7 @@ export default function Diagnostics(props) {
                                 <button>
                                     <FaRegEye/>
                                 </button>
-                                <button onClick={() => navigate("/edit-doctor", {state: diagnostic})}>
+                                <button onClick={() => navigate("/edit-diagnostic", {state: diagnostic})}>
                                     <FaUserEdit/>
                                 </button>
                                 <MyModal
