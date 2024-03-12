@@ -2,13 +2,14 @@ import Table from 'react-bootstrap/Table';
 import NotFound from '../components/NotFound';
 import UserMenu from '../Pages/UserMenu';
 import UserHeader from '../components/UserHeader';
-import { FaUserEdit } from "react-icons/fa";
+import { FaRegEye, FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import './Citas.css'
 import { Link, useNavigate } from 'react-router-dom';
 import Login from '../Pages/Login';
 import { useEffect, useState } from 'react';
 import MyModal from '../components/MyModal';
+import Popup from '../components/Popup';
 
 export default function Diagnostics(props) {
     const [diagnostics, setDiagnostics] = useState([])
@@ -103,6 +104,9 @@ export default function Diagnostics(props) {
                             </td>
                             <td> {(currentDate).toLocaleString()}</td>
                             <td className='options'>
+                                <button>
+                                    <FaRegEye/>
+                                </button>
                                 <button onClick={() => navigate("/edit-doctor", {state: diagnostic})}>
                                     <FaUserEdit/>
                                 </button>
