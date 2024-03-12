@@ -235,16 +235,16 @@ router.post('/diagnostics', async (req, res) => {
     const {
         id,
         citaId,
+        patient,
         doctor,
         service,
         resume,
         medicine,
-        date,
         createdTime
         } = req.body;
 
-        const diagnosticData = {id, citaId, doctor,
-            service, resume, medicine, date,
+        const diagnosticData = {id, patient, citaId, doctor,
+            service, resume, medicine,
             createdTime
         }
 
@@ -257,7 +257,7 @@ router.post('/diagnostics', async (req, res) => {
         res.end();
 })
 router.put('/diagnostics', async (req, res) => {
-    const {id, citaId, doctor, service,
+    const {id, patient, citaId, doctor, service,
         resume, medicine, date, createdTime
     } = req.body;
 
@@ -265,11 +265,11 @@ router.put('/diagnostics', async (req, res) => {
         await schemas.Diagnostics.updateOne({id}, {
             $set: {
                 citaId,
+                patient,
                 doctor,
                 service,
                 resume,
                 medicine,
-                date,
                 createdTime
             }
         })

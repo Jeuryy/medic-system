@@ -58,11 +58,11 @@ const serviceSchema = new Schema ({
 const diagnosticSchema = new Schema ({
     id: {type: String},
     citaId: {type: String},
+    patient: {type: String},
     doctor: {type: String},
     service: {type: String},
     resume: {type: String},
     medicine: {type: String},
-    date: {type: String},
     createdTime: {type: Date, default: Date.now}
 });
 const Users = mongoose.model('Users', userSchema, 'users');

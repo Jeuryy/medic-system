@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import MyModal from '../components/MyModal';
 import { FaSearch } from 'react-icons/fa';
 import { IoCloseSharp } from "react-icons/io5";
-
+import { nanoid } from 'nanoid';
 
 export default function AddDiagnostic (props) {
     const {isLogged, setIsLogged} = props;
@@ -16,16 +16,17 @@ export default function AddDiagnostic (props) {
     const [citas, setCitas] = useState([])
     const [currentCita, setCurrentCita] = useState([])
     const [citaExist, setCitaExist] = useState(false)
+    const [diagnostics, setDiagnostics] = useState([])
+    const [diagnosticAlreadyExist, setDiagnosticAlreadyExist] = useState(false);
     const [error, setError] = useState(false)
     const [formData, setFormData] = useState({
-        id: "",
+        id: nanoid(),
         citaId: "",
         patient: "",
         doctor: "",
         service: "",
         resume: "",
-        medicine: "",
-        date: ""
+        medicine: ""
     })
     const navigate = useNavigate();
 
@@ -36,6 +37,14 @@ export default function AddDiagnostic (props) {
         .then(data => setCitas(data))
         .catch(err => console.log(err))
     }, [])
+
+//GET ALL DIAGNOSTICS DATA TO CONFIRM ID IS IN THIS LIST
+useEffect(()=> {
+    fetch("http://localhost:5000/diagnostics")
+    .then(res => res.json())
+    .then(data => setDiagnostics(data))
+    .catch(err => console.log(err))
+}, [])
 
 //ADD DIAGNOSTIC
     const addDiagnostic = async (data) => {
@@ -75,11 +84,24 @@ export default function AddDiagnostic (props) {
     const handleCita = (e) => {
         if (e.key === "Enter") {
             let citaMatch = citas.filter(cita => (cita.id).substring(0, 5) === formData.citaId)
-            if (citaMatch.length >= 1) {
+            let diagnosticExist = diagnostics.some(diagnostic => diagnostic.citaId === formData.citaId)
+            if ((citaMatch.length >= 1) && (!diagnosticExist)) {
                 setCurrentCita(citaMatch)
+                setFormData(prevState => {
+                    return {
+                        ...prevState,
+                        patient: citaMatch[0].name + " " + citaMatch[0].lastname,
+                        doctor: citaMatch[0].doctor,
+                        service: citaMatch[0].service
+                    }
+                })
+                setDiagnosticAlreadyExist(false)
                 setError(false)
                 setCitaExist(true)
-            } else{
+            } else if ((citaMatch.length >= 1) && diagnosticExist) {
+                setDiagnosticAlreadyExist(true)
+                setError(false)
+            }else {
                 setError(true)
                 setCitaExist(false)
             }
@@ -97,8 +119,11 @@ export default function AddDiagnostic (props) {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
+        setDiagnosticAlreadyExist(false)
         setError(false)
-        /*updateUsers(formData);*/
+        if (citaExist) {
+            addDiagnostic(formData);
+        }
     }
 
     const handleCancel = (e) => {
@@ -108,6 +133,9 @@ export default function AddDiagnostic (props) {
 
     const myStyle = {
         backgroundColor: disableSend && "grey"
+    }
+    const showForm = {
+        visibility: citaExist ? "visible" : "hidden"
     }
 
     return (
@@ -136,23 +164,24 @@ export default function AddDiagnostic (props) {
                             required maxLength="5"/>
                         { citaExist ? (<IoCloseSharp onClick={handleClose}/>) : (<FaSearch/>)}
                     </div>
+                    {<p className='success'>{diagnosticAlreadyExist && "Registro ya existente, si desea actualizarlo por favor dirigirse a diagnosticos"}</p>}
                     {<p className='error'>{error && "No se encontraron citas con este codigo, por favor intente nuevamente"}</p>}
-                    {citaExist && <div className='add-diagnostic-form-content'>
+                    {<div className='add-diagnostic-form-content' style={showForm}>
                         <label htmlFor='patient'>Paciente</label>
                         <input 
                             autoComplete='off' 
                             placeholder='Nombre del paciente' 
                             name='patient' 
-                            value={currentCita[0].name + " " + currentCita[0].lastname}  
+                            defaultValue={formData.patient}
                             onChange={handleChange}
                             disabled 
-                            maxLength="50" required/>
+                            maxLength="100" required/>
                         <label htmlFor='doctor'>Doctor</label>
                         <input 
                             autoComplete='off' 
                             placeholder='Nombre del doctor' 
                             name='doctor' 
-                            value={currentCita[0].doctor}  
+                            defaultValue={formData.doctor}
                             onChange={handleChange} 
                             disabled
                             maxLength="50" required/>
@@ -161,7 +190,7 @@ export default function AddDiagnostic (props) {
                             autoComplete='off' 
                             placeholder='Especialidad o servicio realizado' 
                             name='service' 
-                            value={currentCita[0].service}  
+                            defaultValue={formData.service}
                             onChange={handleChange} 
                             disabled
                             maxLength="50" required/>
@@ -171,8 +200,8 @@ export default function AddDiagnostic (props) {
                             placeholder='Resumen de la consulta' 
                             name='resume' 
                             value={formData.resume}  
-                            onChange={handleChange} 
-                            maxLength="50" required/>
+                            onChange={handleChange}
+                            required={citaExist}/>
                         <label htmlFor='medicine'>Medicamentos</label>
                         <textarea 
                             autoComplete='off' 
@@ -180,9 +209,9 @@ export default function AddDiagnostic (props) {
                             name='medicine' 
                             value={formData.medicine}  
                             onChange={handleChange} 
-                            maxLength="50" required/>
+                            required={citaExist}/>
                         <div className='button'>
-                            <button type='submit' disabled={disableSend} style={myStyle}>Actualizar</button>
+                            <button type='submit' disabled={disableSend} style={myStyle}>Agregar</button>
                             <MyModal     
                                 title="Cancelar"
                                 body="No se guardaran los cambios. Desea cancelar?"
