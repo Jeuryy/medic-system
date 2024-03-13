@@ -6,13 +6,13 @@ import { FaRegEye, FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import './Citas.css'
 import { Link, useNavigate } from 'react-router-dom';
-import Login from '../Pages/Login';
 import { useEffect, useState } from 'react';
 import MyModal from '../components/MyModal';
-import Popup from '../components/Popup';
+import PopupDiagnostic from '../components/PopupDiagnostic';
 
 export default function Diagnostics(props) {
     const [diagnostics, setDiagnostics] = useState([])
+    const [citas, setCitas] = useState([]);
     const [error, setError] = useState(false)
     const [activeItemId, setActiveItemId] = useState(null);
     const {isLogged, setIsLogged} = props
@@ -26,7 +26,16 @@ export default function Diagnostics(props) {
         })
         .catch(err => console.log(err))
     }, [])
-    
+
+    useEffect(()=> {
+        fetch("http://localhost:5000/citas")
+        .then(res => res.json())
+        .then(data => {
+            setCitas(data)
+        })
+        .catch(err => console.log(err))
+    }, [])
+
     const handleShowMore = (id) => {
         if (activeItemId === id) {
             setActiveItemId(null)
@@ -89,6 +98,7 @@ export default function Diagnostics(props) {
                     {diagnostics.length >= 1 ? (
                         diagnostics.map(diagnostic => {
                             let currentDate = new Date(diagnostic.createdTime)
+                            let currentCita = citas.filter(cita => cita.id.substring(0,5) === diagnostic.citaId)
                         return <tr key={diagnostic.id}>
                             <td>{diagnostic.citaId}</td>
                             <td> {diagnostic.patient}</td>
@@ -104,9 +114,8 @@ export default function Diagnostics(props) {
                             </td>
                             <td> {(currentDate).toLocaleString()}</td>
                             <td className='options'>
-                                <button>
-                                    <FaRegEye/>
-                                </button>
+                                <PopupDiagnostic
+                                    openText={<FaRegEye diagnostic={diagnostic} cita={currentCita}/>}/>
                                 <button onClick={() => navigate("/edit-diagnostic", {state: diagnostic})}>
                                     <FaUserEdit/>
                                 </button>

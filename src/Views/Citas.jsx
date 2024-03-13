@@ -64,12 +64,12 @@ export default function Citas(props) {
                 <Table striped bordered hover responsive="sm">
                     <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Fecha</th>
                         <th>Paciente</th>
                         <th>Tipo de consulta</th>
                         <th>Doctor</th>
                         <th>Documento</th>
-                        <th>Dirección</th>
                         <th>Contacto</th>
                         <th>Opciones</th>
                     </tr>
@@ -81,12 +81,12 @@ export default function Citas(props) {
                         (
                             citas.map(cita => {
                             return <tr key={cita.id}>
+                                <td> {(cita.id).substring(0,5)}</td>
                                 <td style={{whiteSpace: 'pre-line'}}> {(cita.dia.substring(4)) + "\n" + cita.date}</td>
                                 <td> {cita.name + " " + cita.lastname}</td>
                                 <td> {cita.service}</td>
                                 <td> {cita.doctor}</td>
                                 <td> {cita.documenttype + ": " + cita.document}</td>
-                                <td> {cita.address}</td>
                                 <td style={{whiteSpace: 'pre-line'}}> {cita.phone + "\n" + cita.email}</td>
                                 <td className='options'>
                                     <Popup
