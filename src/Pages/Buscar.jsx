@@ -10,7 +10,7 @@ export default function Buscar(props) {
     const [placeholder, setPlaceholder] = useState("No. de documento sin guiones (-)")
     const {isLogged, setIsLogged} = props
     const [formData, setFormData] = useState({
-        email: "",
+        //email: "",
         document: "",
         documenttype: ""
     });
@@ -45,8 +45,7 @@ const handlePlaceholder = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
                 citas.map(cita => {
-                    if (cita.email === formData.email 
-                        && cita.documenttype === formData.documenttype
+                    if (cita.documenttype === formData.documenttype
                         && cita.document === formData.document) {
                                 navigate('/mi-informacion', {state: formData})
                                 //console.log(cita)
@@ -69,7 +68,7 @@ const handlePlaceholder = () => {
                 <h2>CONSULTAR HISTÓRICO</h2>
                 <div className='buscar-form-container'>
                     <form onSubmit={handleSubmit} autoComplete='true'>
-                        <label htmlFor='email'>Correo electrónico</label>
+                        {/*<label htmlFor='email'>Correo electrónico</label>
                         <input 
                             type='email' 
                             placeholder='Escriba su correo electrónico' 
@@ -78,7 +77,7 @@ const handlePlaceholder = () => {
                             onChange={handleChange}
                             autoComplete='true'
                             required
-                        />
+                        />*/}
                         <label htmlFor='documenttype'>Tipo de documento</label>
                         <select name='documenttype' 
                             value={formData.documenttype}  

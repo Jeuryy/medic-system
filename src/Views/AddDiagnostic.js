@@ -16,6 +16,7 @@ export default function AddDiagnostic (props) {
     const [citaExist, setCitaExist] = useState(false)
     const [diagnostics, setDiagnostics] = useState([])
     const [diagnosticAlreadyExist, setDiagnosticAlreadyExist] = useState(false);
+    const [diagnosticAdded, setDiagnosticAdded] = useState(false);
     const [error, setError] = useState(false)
     const [formData, setFormData] = useState({
         id: nanoid(),
@@ -24,7 +25,9 @@ export default function AddDiagnostic (props) {
         doctor: "",
         service: "",
         resume: "",
-        medicine: ""
+        medicine: "",
+        documenttype: "",
+        document: ""
     })
     const navigate = useNavigate();
 
@@ -60,6 +63,7 @@ useEffect(()=> {
             .then(resData => {
                 console.log(resData);
                 setError(false)
+                setDiagnosticAdded(true)
                 setTimeout(() => {
                     navigate("/diagnostics")
                 }, 1000)
@@ -67,6 +71,7 @@ useEffect(()=> {
             .catch(e => {
                 console.log(`Error catched: ${e}`);
                 setError(true)
+                setDiagnosticAdded(false)
             })
     }
 
@@ -89,7 +94,9 @@ useEffect(()=> {
                         ...prevState,
                         patient: citaMatch[0].name + " " + citaMatch[0].lastname,
                         doctor: citaMatch[0].doctor,
-                        service: citaMatch[0].service
+                        service: citaMatch[0].service,
+                        documenttype: citaMatch[0].documenttype,
+                        document: citaMatch[0].document
                     }
                 })
                 setDiagnosticAlreadyExist(false)
@@ -204,6 +211,7 @@ useEffect(()=> {
                             value={formData.medicine}  
                             onChange={handleChange} 
                             required={citaExist}/>
+                            {<p className={diagnosticAdded ? 'success' : 'error'}>{diagnosticAdded ? "Diagnostico agregado exitosamente!" : ""}</p>}
                         <div className='button'>
                             <button type='submit'>Agregar</button>
                             <MyModal     

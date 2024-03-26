@@ -8,11 +8,14 @@ import { useEffect, useState } from 'react';
 import { FaRegEye } from "react-icons/fa";
 import MyModal from '../components/MyModal';
 import Popup from '../components/Popup';
+import PopupDiagnostic from '../components/PopupDiagnostic';
 
 export default function History(props) {
     const location = useLocation();
     const [citas, setCitas] = useState([])
+    const [diagnostics, setDiagnostics] = useState([])
     const [error, setError] = useState(false)
+    const [activeItemId, setActiveItemId] = useState(null);
     const [formData, setFormData] = useState(location.state || "Nothing")
     const {isLogged, setIsLogged} = props;
     const navigate = useNavigate();
@@ -21,10 +24,27 @@ export default function History(props) {
         fetch("http://localhost:5000/citas")
         .then(res => res.json())
         .then(data => {
-            setCitas(data.filter(cita => ((cita.email === formData.email) && (cita.documenttype === formData.documenttype && cita.document === formData.document))))
+            setCitas(data.filter(cita => ((cita.documenttype === formData.documenttype && cita.document === formData.document))))
         })    
         .catch(err => console.log(err))
     }, [])
+
+    useEffect(()=> {
+        fetch("http://localhost:5000/diagnostics")
+        .then(res => res.json())
+        .then(data => {
+            setDiagnostics(data.filter(diagnostic => ((diagnostic.documenttype === formData.documenttype && diagnostic.document === formData.document))))
+        })    
+        .catch(err => console.log(err))
+    }, [])
+
+    const handleShowMore = (id) => {
+        if (activeItemId === id) {
+            setActiveItemId(null)
+        }else{
+            setActiveItemId(id)
+        }
+    }
 
 
 
@@ -120,25 +140,51 @@ export default function History(props) {
             </div>
             {/*D I A G N O S T I C O S*/}
             <div className='users-content history-content'>
-            <h2 className='history-citas-title'>MIS DIAGNOSTICOS</h2>
-            <Table striped bordered hover responsive="sm">
+                <h2 className='history-citas-title'>MIS DIAGNOSTICOS</h2>
+                <Table striped bordered hover responsive="sm">
                     <thead>
-                    <tr>
-                        <th>Codigo cita</th>
-                        <th>Paciente</th>
-                        <th>Doctor</th>
-                        <th>Servicio</th>
-                        <th>Resumen</th>
-                        <th>Medicamentos</th>
-                        <th>Fecha</th>
-                        <th>Opciones</th>
-                    </tr>
+                        <tr>
+                            <th>Codigo cita</th>
+                            <th>Paciente</th>
+                            <th>Doctor</th>
+                            <th>Servicio</th>
+                            <th>Resumen</th>
+                            <th>Medicamentos</th>
+                            <th>Fecha</th>
+                            <th>Opciones</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr><td colSpan="8">No hay diagnosticos para mostrar</td></tr>
+                    {diagnostics.length <= 0 ? 
+                        (<tr><td colSpan="8">No hay diagnosticos para mostrar</td></tr>)
+                        :
+                        (
+                            diagnostics.map(diagnostic => {
+                                let currentCita = citas.filter(cita => cita.id.substring(0,5) === diagnostic.citaId)
+                            return <tr key={diagnostic.id} className='history-tr'>
+                                <td> {diagnostic.citaId}</td>
+                                <td> {diagnostic.patient}</td>
+                                <td> {diagnostic.doctor}</td>
+                                <td> {diagnostic.service}</td>
+                                <td className='diagnostic-resume' id={diagnostic.id}> 
+                                    {(activeItemId === diagnostic.id) ? diagnostic.resume : `${(diagnostic.resume).substring(0, 75)}`}
+                                    <button onClick={() => {handleShowMore(diagnostic.id)}} id={diagnostic.id}>{(activeItemId === diagnostic.id) ? "Show less" : "Show more"}</button>
+                                </td>
+                                <td className='diagnostic-medicine' id={diagnostic.id}> 
+                                    {(activeItemId === diagnostic.id) ? diagnostic.medicine : `${(diagnostic.medicine).substring(0, 75)}`}
+                                    <button onClick={() => {handleShowMore(diagnostic.id)}} id={diagnostic.id}>{(activeItemId === diagnostic.id) ? "Show less" : "Show more"}</button>
+                                </td>
+                                <td> {new Date(diagnostic.createdTime).toLocaleString()}</td>
+                                <td className='options'>
+                                <PopupDiagnostic
+                                openText={<FaRegEye diagnostic={diagnostic} cita={currentCita}/>}/>
+                                </td>
+                            </tr>})
+                        )
+                    }
                     </tbody>
                 </Table>
-        </div>
+            </div>
         </div>
     );
 }

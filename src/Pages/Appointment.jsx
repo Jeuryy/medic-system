@@ -9,6 +9,7 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
+import ReactTimePicker from '../components/ReactTimePicker';
 
 export default function Appointment(props) {
     const [citaAdded, setCitaAdded] = useState(false)
@@ -37,6 +38,26 @@ export default function Appointment(props) {
         date: "",
         dia: "",
     })
+
+    const assurances = [
+        "APS ARS",
+        "ARS ASEMAP",
+        "ARS GMA",
+        "ARS METASALUD",
+        "ARS MONUMENTAL",
+        "ARS RENACER",
+        "ARS RESERVAS",
+        "ARS SIMAG",
+        "ARS YUNEN",
+        "CMD",
+        "FUTURO",
+        "HOSPITAL DOCENTE SEMMA",
+        "HUMANO",
+        "MAPFRE",
+        "SENASA",
+        "SERVICIOS MÉDICOS UASD",
+        "Otro"
+    ]
 
     //Get Doctors DATA from Database
     useEffect(()=> {
@@ -206,9 +227,14 @@ export default function Appointment(props) {
                             </select>
                         </div>
                         <label htmlFor='assurance'>Seguro</label>
-                        <input placeholder='Seguro medico (escribir NA en caso de no poseer)' name='assurance'  value={formData.assurance}  onChange={handleChange} required/>
+                        <select name='assurance' value={formData.assurance}  onChange={handleChange} required>
+                            <option>Seleccione su seguro</option>
+                            {assurances.map(el =>
+                                <option key={nanoid()}>{el}</option>
+                            )}
+                        </select>
                         <div className='select-anidado'>
-                            <label htmlFor='date'>Seleccione hora para la cita</label>
+                            <label htmlFor='date'>Seleccione dentro de la disponibilidad del doctor</label>
                             <select name='date' value={formData.date}  onChange={handleChange} required>
                                 <option>Selecciona fecha</option>
                             {doctorSchedule.map(el => 
@@ -216,6 +242,8 @@ export default function Appointment(props) {
                             )}
                             </select>
                         </div>
+                        {/*((formData.date !== "") && (formData.date !== "Selecciona fecha")) && 
+                            <ReactTimePicker hora={formData.date.substring(5,9)}/>*/}
                         {((formData.date !== "") && (formData.date !== "Selecciona fecha")) && 
                         <DayPicker
                             mode="single"

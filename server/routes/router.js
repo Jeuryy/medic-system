@@ -240,11 +240,13 @@ router.post('/diagnostics', async (req, res) => {
         service,
         resume,
         medicine,
+        documenttype,
+        document,
         createdTime
         } = req.body;
 
         const diagnosticData = {id, patient, citaId, doctor,
-            service, resume, medicine,
+            service, resume, medicine, documenttype, document,
             createdTime
         }
 
@@ -258,7 +260,7 @@ router.post('/diagnostics', async (req, res) => {
 })
 router.put('/diagnostics', async (req, res) => {
     const {id, patient, citaId, doctor, service,
-        resume, medicine, date, createdTime
+        resume, medicine, documenttype, document, createdTime
     } = req.body;
 
     try {
@@ -270,6 +272,8 @@ router.put('/diagnostics', async (req, res) => {
                 service,
                 resume,
                 medicine,
+                documenttype,
+                document,
                 createdTime
             }
         })

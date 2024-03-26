@@ -21,7 +21,9 @@ export default function EditDiagnostic (props) {
         doctor: "",
         service: "",
         resume: "",
-        medicine: ""
+        medicine: "",
+        documenttype: "",
+        document: ""
     })
     const navigate = useNavigate();
     const location = useLocation();
@@ -32,7 +34,7 @@ export default function EditDiagnostic (props) {
             return navigate('/');
         }
         const {id, citaId, patient, doctor, service, 
-            resume, medicine
+            resume, medicine, documenttype, document
         } = location.state;
         setFormData(prevState => {
             return {
@@ -43,7 +45,9 @@ export default function EditDiagnostic (props) {
                 doctor, 
                 service, 
                 resume, 
-                medicine
+                medicine,
+                documenttype,
+                document
             }
         })
     }, []);
@@ -165,7 +169,7 @@ export default function EditDiagnostic (props) {
                             defaultValue={formData.medicine}  
                             onChange={handleChange} 
                             required={citaExist}/>
-                            {<p className={diagnosticUpdated? 'success' : 'error'}>{diagnosticUpdated ? "Cita actualizada exitosamente!" : ""}</p>}
+                            {<p className={diagnosticUpdated? 'success' : 'error'}>{diagnosticUpdated ? "Diagnostico actualizada exitosamente!" : ""}</p>}
                         <div className='button'>
                             <button type='submit'>Agregar</button>
                             <MyModal     

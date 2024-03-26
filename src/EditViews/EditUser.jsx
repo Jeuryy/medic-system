@@ -217,10 +217,10 @@ export default function EditUser (props) {
                         </select>
                         <label htmlFor='document'>Número de documento</label>
                         <input  
-                            disabled autoComplete='off' 
+                            disabled 
                             name='document' 
                             placeholder='Ingrese su número de documento' 
-                            defaultValue={document}  
+                            defaultValue={formData.document}  
                             onChange={handleChange} required/>
                         <label htmlFor='roll'>Roll</label>
                         <select name='roll' defaultValue={formData.roll} onChange={handleChange} required>

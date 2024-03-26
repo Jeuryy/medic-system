@@ -63,6 +63,8 @@ const diagnosticSchema = new Schema ({
     service: {type: String},
     resume: {type: String},
     medicine: {type: String},
+    documenttype: {type: String},
+    document: {type: String},
     createdTime: {type: Date, default: Date.now}
 });
 const Users = mongoose.model('Users', userSchema, 'users');
