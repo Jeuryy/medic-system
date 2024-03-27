@@ -1,5 +1,4 @@
 import './About.css'
-import dr from '../assets/img/dr1.png'
 import years from '../assets/img/16years.png'
 
 export default function About(){

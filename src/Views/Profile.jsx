@@ -1,11 +1,10 @@
 import './Profile.css'
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import ScrollToTop from "react-scroll-to-top";
 import UserMenu from '../Pages/UserMenu';
 import UserHeader from '../components/UserHeader';
 import NotFound from '../components/NotFound';
-import Login from '../Pages/Login';
 
 export default function Profile(props) {
     const [users, setUsers] = useState([]);

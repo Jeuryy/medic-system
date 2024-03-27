@@ -3,11 +3,9 @@ import NotFound from '../components/NotFound';
 import UserHeader from '../components/UserHeader';
 import './EditDoctor.css'
 import { useState, useEffect } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import ScrollToTop from 'react-scroll-to-top';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MyModal from '../components/MyModal';
-import Login from '../Pages/Login';
 
 export default function EditDoctor (props) {
     const {isLogged, setIsLogged} = props;

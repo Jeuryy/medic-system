@@ -5,7 +5,6 @@ import MyCard from '../components/MyCard';
 import { Chart } from "react-google-charts";
 import './Dashboard.css'
 import { useState, useEffect } from 'react';
-import Login from '../Pages/Login';
 
 export default function Dashboard(props) {
     const {isLogged, setIsLogged} = props;

@@ -1,16 +1,10 @@
 import './AddDoctor.css'
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa6";
-import { Await, Link } from 'react-router-dom';
-import { FaHome } from "react-icons/fa";
 import React, { useState, useEffect } from 'react';
 import ScrollToTop from "react-scroll-to-top";
 import { nanoid } from 'nanoid';
-import { Input } from '@mui/material';
 import NotFound from '../components/NotFound';
 import UserMenu from '../Pages/UserMenu';
 import UserHeader from '../components/UserHeader';
-import Login from '../Pages/Login';
 
 export default function AddServices(props) {
     const [dbData, setdbData] = useState([])

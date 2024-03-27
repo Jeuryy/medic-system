@@ -1,5 +1,5 @@
 import './Appointment.css'
-import React, { useState, useEffect, useId } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdAccountCircle, MdHome } from "react-icons/md";
 import cmdm from '../assets/img/cmdm.png'
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,7 +9,6 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import ReactTimePicker from '../components/ReactTimePicker';
 
 export default function Appointment(props) {
     const [citaAdded, setCitaAdded] = useState(false)

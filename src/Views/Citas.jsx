@@ -80,9 +80,14 @@ export default function Citas(props) {
                         :
                         (
                             citas.map(cita => {
+                                console.log(new Date() > new Date(cita.dia))
                             return <tr key={cita.id}>
                                 <td> {(cita.id).substring(0,5)}</td>
-                                <td style={{whiteSpace: 'pre-line'}}> {(cita.dia.substring(4)) + "\n" + cita.date}</td>
+                                <td style={{
+                                    whiteSpace: 'pre-line', 
+                                    color: new Date() > new Date(cita.dia)? "#FF0003" : "#07CF23"}}> 
+                                    {(cita.dia.substring(4)) + "\n" + cita.date}
+                                </td>
                                 <td> {cita.name + " " + cita.lastname}</td>
                                 <td> {cita.service}</td>
                                 <td> {cita.doctor}</td>

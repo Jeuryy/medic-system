@@ -4,8 +4,6 @@ import UserMenu from '../Pages/UserMenu';
 import UserHeader from '../components/UserHeader';
 import './UserServices.css'
 import { useState, useEffect } from 'react';
-import Login from '../Pages/Login';
-
 
 export default function UserServices(props) {
     const [doctors, setDoctors] = useState([]);

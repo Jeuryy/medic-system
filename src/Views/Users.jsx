@@ -3,7 +3,7 @@ import NotFound from '../components/NotFound';
 import UserMenu from '../Pages/UserMenu';
 import UserHeader from '../components/UserHeader';
 import { FaUserEdit } from "react-icons/fa";
-import { MdDelete, MdMoneyOff } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import './Users.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';

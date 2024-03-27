@@ -2,12 +2,12 @@ import Login from '../Pages/Login';
 import UserMenu from '../Pages/UserMenu';
 import Header from './Header';
 import './NotFound.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link /*useNavigate*/ } from 'react-router-dom'
 import UserHeader from './UserHeader';
 
 export default function NotFound(props){
     const {isLogged, setIsLogged} = props
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     return (
         <div id='notfound'> 

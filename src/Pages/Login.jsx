@@ -5,14 +5,13 @@ import cmdm from '../assets/img/cmdm.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { FaHome } from "react-icons/fa";import React, { useState, useEffect } from 'react';
 import ScrollToTop from "react-scroll-to-top";
-import NotFound from '../components/NotFound';
 
 export default function Login(props) {
     const [users, setUsers] = useState([]);
     const [errorLogging, setErrorLoging] = useState("");
     const {isLogged, setIsLogged} = props;
-    const currentUser = props.currentUser;
-    const setCurrentUser = props.setCurrentUser;
+    /*const currentUser = props.currentUser;
+    const setCurrentUser = props.setCurrentUser;*/
     const [showPassword, setShowPassword] = useState(false); 
     const [formData, setFormData] = useState({
         email: "",

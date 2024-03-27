@@ -1,14 +1,13 @@
 import './Register.css'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import ScrollToTop from "react-scroll-to-top";
 import { nanoid } from 'nanoid';
 import NotFound from '../components/NotFound';
 import UserMenu from './UserMenu';
 import UserHeader from '../components/UserHeader';
-import Login from './Login';
 
 export default function Register(props) {
     const {isLogged, setIsLogged} = props;

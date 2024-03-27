@@ -1,7 +1,7 @@
 import './UserHeader.css'
 import { Link } from 'react-router-dom'
 import { MdAccountCircle } from 'react-icons/md'
-import { FaHome } from 'react-icons/fa'
+
 export default function UserHeader(){
     return (
         <div className='user-header'>

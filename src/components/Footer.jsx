@@ -1,8 +1,6 @@
 import './Footer.css'
-import logo from '../assets/img/cmdm.png'
-import { FaPhoneAlt, FaWhatsapp, FaFacebook, FaTwitter, FaInstagram, FaWaze } from "react-icons/fa";
+import { FaWhatsapp, FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
-import { IoLocationSharp } from "react-icons/io5";
 
 
 export default function Footer(){
