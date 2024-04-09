@@ -38,7 +38,7 @@ export default function Dashboard(props) {
                 <div className='profile-content'>
                     <UserHeader/>
                     <div></div>
-                    <p className='welcome'>Overview</p>
+                    <p className='welcome'>Vista general</p>
                     <div className='cards'>
                         <MyCard title="Mi perfil" text="Ir a configuracion del perfil" link="/Profile"/>
                         <MyCard title="Usuarios" text="Administrar usuarios" link="/Users"/>

@@ -6,7 +6,7 @@ export default function UserHeader(){
     return (
         <div className='user-header'>
                 <div className='user-header-first'>
-                    <p className='first'>Dashboard</p>
+                    <p className='first'>Principal</p>
                 </div>
                 <div className='user-header-last'>
                 <Link to="/Profile" className='profile-icon'><MdAccountCircle className='icon' /></Link>
