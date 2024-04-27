@@ -44,7 +44,7 @@ export default function Dashboard(props) {
                         <MyCard title="Usuarios" text="Administrar usuarios" link="/Users"/>
                         <MyCard title="Citas" text="Administrar citas" link="/Citas"/>
                         <MyCard title="Doctores" text="Administrar doctores" link="/Doctors"/>
-                        <MyCard title="Services" text="Especialidades y servicios" link="/Services"/>
+                        <MyCard title="Servicios" text="Especialidades y servicios" link="/Services"/>
                         <MyCard title="Diagnosticos" text="Ver diagnosticos" link="/Diagnostics"/>
                     </div>
                     <Chart

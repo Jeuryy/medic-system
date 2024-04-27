@@ -19,7 +19,7 @@ export default function Footer(){
                     </div>
                 </div>
                 <hr/>
-                <a href='https://github.com/Jeuryy/medic-system' target='_blank' className='developer'>Desarrollado por @</a>
+                <a href='https://github.com/Jeuryy/medic-system' target='_blank' className='developer'>Desarrollador</a>
             </div>
         </section>
     )
